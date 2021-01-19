@@ -1,5 +1,6 @@
 <template>
     <b-modal id="loginModal"
+        centered
         hide-footer
         :header-border-variant="headerBorderVariant"
         >
@@ -36,11 +37,9 @@ export default {
 </script>
 
 <style scoped>
-    #loginModal {
-        text-align: center;
-    }
     #loginModal div {
-        height: 450px;
+        height: 350px;
+        text-align: center;
     }
     .loginButtons {
         position: relative;
