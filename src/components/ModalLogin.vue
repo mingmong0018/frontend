@@ -19,6 +19,8 @@
             <b-button class="loginButtons" id="loginGoogle">
                 Google 로그인
             </b-button><br>
+
+            <img src="@/static/images/shareroom_logo2.png" width="50" style="margin-top:40px;">
         </div>
     </b-modal>
 </template>

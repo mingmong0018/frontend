@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
+import ListRoom from '../views/ListRoom.vue'
 
 Vue.use(VueRouter)
 
