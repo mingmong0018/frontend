@@ -1,32 +1,45 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <div>
+        <b-navbar type="light" variant="light">
+          <router-link to="/"><b-navbar-brand ><img src="@/static/images/shareroom_logo2.png" style="width:60px;"></b-navbar-brand></router-link>
+          <b-navbar-nav class="ml-auto">
+            <b-nav-item href="#">방 찾기</b-nav-item>
+            <b-nav-item href="#">찜 목록</b-nav-item>
+            <b-nav-item href="#">커뮤니티</b-nav-item>
+            <b-nav-item href="#">알림<b-badge pill>+99</b-badge></b-nav-item>
+
+            <!-- Navbar dropdowns -->
+            <template v-if="id===null">
+              <b-nav-item href="#">로그인</b-nav-item>
+            </template>
+            <template v-else>
+              <b-nav-item-dropdown text="누구누구님" right>
+              <b-dropdown-item href="#">내 정보수정</b-dropdown-item>
+              <b-dropdown-item href="#">로그아웃</b-dropdown-item>
+            </b-nav-item-dropdown>
+            </template>
+            
+            
+            
+          </b-navbar-nav>
+        </b-navbar>
+      </div>
     </div>
     <router-view/>
   </div>
 </template>
+<script lang="ts">
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default {
+  data(){
+    return{
+      id:null
     }
   }
 }
+</script>
+<style scoped>
+
 </style>
