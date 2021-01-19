@@ -1,0 +1,41 @@
+<template>
+  <div>
+    <b-button v-b-modal.loginModal>
+      로그인
+    </b-button>
+    
+    <loginModal/>
+   
+  </div>
+</template>
+
+<script>
+import loginModal from '@/components/ModalLogin.vue'
+export default {
+  components: {
+    loginModal
+  }
+}
+</script>
+
+<style>
+  .modal.modal-center {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal.modal-center:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog.modal-center {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle; 
+}
+
+</style>

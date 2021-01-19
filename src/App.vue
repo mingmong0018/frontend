@@ -10,7 +10,7 @@
 
             <!-- Navbar dropdowns -->
             <template v-if="id===null">
-              <b-nav-item href="#">로그인</b-nav-item>
+              <b-nav-item v-b-modal.loginModal>로그인</b-nav-item>
             </template>
             <template v-else>
               <b-nav-item-dropdown text="누구누구님" right>
@@ -26,22 +26,34 @@
       </div>
     </div>
     <router-view/>
+    <loginModal/>
   </div>
 </template>
 <script lang="ts">
-
-export default {
-  data(){
-    return{
-      id:null
+  import loginModal from '@/components/ModalLogin.vue'
+  export default {
+    components: {
+    loginModal
+    },
+    data(){
+      return{
+        id:null
+      }
     }
   }
-}
 </script>
 <style scoped>
+<<<<<<< HEAD
 #nav{
   top:0px;
   width:100vw;
   position:fixed;
 }
+=======
+  #nav{
+    top:0px;
+    width:100vw;
+    position:fixed;
+  }
+>>>>>>> 1c3356a1ab87c0877ab182d7b94cbff89589b791
 </style>
