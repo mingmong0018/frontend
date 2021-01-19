@@ -1,0 +1,15 @@
+.search_div{
+	margin-top: 5px;
+    width: auto;
+    height: 30vh;
+    background: white;
+    box-shadow: 0px 0px 10px grey;
+}
+.search_div_title{
+	margin: 10px;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    border-bottom: 2px solid grey;
+    color: grey;
+}

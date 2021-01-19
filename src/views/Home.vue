@@ -15,16 +15,18 @@
             <b-button size="sm" text="Button" variant="white" class="bg-white border-orange"><img src="@/static/images/location_icon.png" class="main_icon_size"></b-button>
           </b-input-group-append>
         </b-input-group>
-        <div class="search_div">
-          <div class="search_div_title">최근 검색 기록</div>
-        </div>
+        <searchBox/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import searchBox from "@/components/searchBox"
 export default{
+  components:{
+    searchBox
+  }
  
 }
 </script>

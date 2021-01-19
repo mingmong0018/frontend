@@ -5,9 +5,7 @@
         <b-navbar type="light" variant="light">
           <router-link to="/"><b-navbar-brand ><img src="@/static/images/shareroom_logo2.png" style="width:60px;"></b-navbar-brand></router-link>
           <b-navbar-nav class="ml-auto">
-            <b-nav-item href="#">방 찾기</b-nav-item>
             <b-nav-item href="#">찜 목록</b-nav-item>
-            <b-nav-item href="#">커뮤니티</b-nav-item>
             <b-nav-item href="#">알림<b-badge pill>+99</b-badge></b-nav-item>
 
             <!-- Navbar dropdowns -->
@@ -41,5 +39,9 @@ export default {
 }
 </script>
 <style scoped>
-
+#nav{
+  top:0px;
+  width:100vw;
+  position:fixed;
+}
 </style>
