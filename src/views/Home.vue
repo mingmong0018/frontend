@@ -1,6 +1,6 @@
 <template>
   
-  <div class="home">
+  <div class="home container">
     <div class="main_img"></div>
     <div class="main_section mx-auto">
       <div class="main_title mb-3">당신의<br>룸메이트는<br>어디에?</div>

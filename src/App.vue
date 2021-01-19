@@ -43,17 +43,9 @@
   }
 </script>
 <style scoped>
-<<<<<<< HEAD
 #nav{
   top:0px;
   width:100vw;
   position:fixed;
 }
-=======
-  #nav{
-    top:0px;
-    width:100vw;
-    position:fixed;
-  }
->>>>>>> 1c3356a1ab87c0877ab182d7b94cbff89589b791
 </style>

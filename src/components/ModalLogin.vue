@@ -36,38 +36,5 @@ export default {
 }
 </script>
 
-<style scoped>
-    #loginModal div {
-        height: 350px;
-        text-align: center;
-    }
-    .loginButtons {
-        position: relative;
-        width: 60%;
-        height: 45px;
-        margin-bottom: 20px;
-        border: none;
-    }
-    #loginKakao {
-        background: #fee100;
-        color: black;
-    }
-    #loginNaver {
-        background: #19ce60;
-    }
-    #loginGoogle {
-        background: #e3e3e3;
-        color: black;
-    }
-    .loginButtons img {
-        float:left;
-        width: 40px;
-        margin-right: 40px;
-        padding-bottom: 10px;
-    }
-    .loginText {
-        float:left;
-        text-align:center;
-        line-height:32px;
-    }
+<style scoped src="@/static/css/loginModal.css">
 </style>
