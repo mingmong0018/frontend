@@ -13,3 +13,13 @@
     border-bottom: 2px solid grey;
     color: grey;
 }
+.main_icon_size{
+	width: 25px;
+    margin-bottom: 1.5px;
+}
+.bg-orange{
+	background-color:#FF6600;
+}
+.border-orange{
+	border:3px solid #FF6600;
+}

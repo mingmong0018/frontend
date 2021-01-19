@@ -1,30 +1,21 @@
 <template>
+
     <div class="container">
-        
+        <searchBox />
     </div>
 </template>
 
 <script>
-export default {
 
+import searchBox from "@/components/searchBox"
+export default{
+  components:{
+    searchBox
+  }
+ 
 }
 </script>
 
-<style>
-    @import './assets/media_set.css';
-    /* @media (min-width: 768px) {
-        .container {
-            width: 750px;
-        }
-    }
+<style scoped src="@/static/css/searchBox.css">
 
-    @media (min-width: 992px) {
-        .container {
-            width: 940px;
-        }
-    } */
-
-.container {
-    border: 1px solid red;
-}
 </style>

@@ -4,8 +4,12 @@
       <div>
         <b-navbar type="light" variant="light">
           <router-link to="/"><b-navbar-brand ><img src="@/static/images/shareroom_logo2.png" style="width:60px;"></b-navbar-brand></router-link>
+          <b-navbar-nav class="m-auto">
+            
+          </b-navbar-nav>
+          
           <b-navbar-nav class="ml-auto">
-            <b-nav-item href="#">찜 목록</b-nav-item>
+            <b-nav-item><router-link to="/ListRoom">찜 목록</router-link></b-nav-item>
             <b-nav-item href="#">알림<b-badge pill>+99</b-badge></b-nav-item>
 
             <!-- Navbar dropdowns -->
@@ -29,7 +33,7 @@
     <loginModal/>
   </div>
 </template>
-<script lang="ts">
+<script>
   import loginModal from '@/components/ModalLogin.vue'
   export default {
     components: {
@@ -43,17 +47,14 @@
   }
 </script>
 <style scoped>
-<<<<<<< HEAD
+
 #nav{
   top:0px;
   width:100vw;
   position:fixed;
 }
-=======
-  #nav{
-    top:0px;
-    width:100vw;
-    position:fixed;
-  }
->>>>>>> 1c3356a1ab87c0877ab182d7b94cbff89589b791
+ a:link { color: #7C7C7D; text-decoration: none;}
+ a:visited { color: #7C7C7D; text-decoration: none;}
+ a:hover { color: #7C7C7D; text-decoration: none;}
+
 </style>
