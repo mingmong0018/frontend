@@ -1,5 +1,4 @@
 <template>
-  
   <div class="home container">
     <div class="main_img"></div>
     <div class="main_section mx-auto">
