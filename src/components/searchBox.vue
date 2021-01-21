@@ -14,7 +14,7 @@
             <img src="@/static/images/search_icon.png" class="main_icon_size">
           </div>
           <div class="main_search_text left-float">
-            <input v-model="searchText" class="main_search_form" placeholder="지역, 지하철, 대학교 검색">
+            <input v-model="searchText" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" @click="toggleDiv">
           </div>
           <div class="main_location_icon right-float">
             <b-button size="sm" variant="white">
@@ -22,7 +22,7 @@
             </b-button>
           </div>
         </div>
-        <div class="search_div">
+        <div class="search_div" v-show="divStatus">
           <div class="search_div_title">최근 검색 기록</div>
         </div>
     </div>
@@ -30,10 +30,20 @@
 
 <script>
 export default {
+  data() {
+    return {
+      divStatus:false,
+      searchText:''
+    }
+  },
+  methods: {
+    toggleDiv() {
+      this.divStatus=!this.divStatus;
+    },
+  }
 
 }
 </script>
 
 <style scoped src="@/static/css/searchBox.css">
-
 </style>

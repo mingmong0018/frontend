@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
         <b-navbar type="light" variant="light">
-          <router-link to="/"><b-navbar-brand ><img src="@/static/images/shareroom_logo2.png" style="width:60px;"></b-navbar-brand></router-link>
+          <router-link to="/"><b-navbar-brand ><img src="@/static/images/shareroom_logo2.png" style="width:80px;"></b-navbar-brand></router-link>
           <b-navbar-nav class="m-auto">
             
           </b-navbar-nav>
@@ -39,7 +39,7 @@
     },
     data(){
       return{
-        id:null
+        id:null,
       }
     }
   }
