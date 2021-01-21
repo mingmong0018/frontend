@@ -47,12 +47,17 @@
 <style scoped>
 
 #nav{
+  z-index: 1 !important;
   top:0px;
   width:100vw;
   position:fixed;
+  display: block;
 }
  a:link { color: #7C7C7D; text-decoration: none;}
  a:visited { color: #7C7C7D; text-decoration: none;}
  a:hover { color: #7C7C7D; text-decoration: none;}
 
+.container {
+  padding-top:60px;
+}
 </style>
