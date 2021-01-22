@@ -18,7 +18,6 @@ export default{
 
 
 <style scoped src="@/static/css/searchBox.css">
-
 </style>
 
 <style scoped src="@/static/css/listRoom.css">
