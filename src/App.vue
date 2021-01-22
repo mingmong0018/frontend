@@ -1,9 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <div>
         <b-navbar type="light" variant="light">
-          <router-link to="/"><b-navbar-brand ><img src="@/static/images/shareroom_logo2.png" style="width:60px;"></b-navbar-brand></router-link>
+          <router-link to="/"><b-navbar-brand ><img src="@/static/images/shareroom_logo2.png" style="width:80px;"></b-navbar-brand></router-link>
           <b-navbar-nav class="m-auto">
             
           </b-navbar-nav>
@@ -27,7 +26,6 @@
             
           </b-navbar-nav>
         </b-navbar>
-      </div>
     </div>
     <router-view/>
     <loginModal/>
@@ -41,7 +39,7 @@
     },
     data(){
       return{
-        id:null
+        id:null,
       }
     }
   }
@@ -49,12 +47,17 @@
 <style scoped>
 
 #nav{
+  z-index: 1 !important;
   top:0px;
   width:100vw;
   position:fixed;
+  display: block;
 }
  a:link { color: #7C7C7D; text-decoration: none;}
  a:visited { color: #7C7C7D; text-decoration: none;}
  a:hover { color: #7C7C7D; text-decoration: none;}
 
+.container {
+  padding-top:60px;
+}
 </style>

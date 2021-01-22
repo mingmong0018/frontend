@@ -1,31 +1,31 @@
 <template>
-
-    <div class="container">
-        <searchBox />
+    <div class="listRoomWrap">
+        <!-- <searchInListRoom/>
+        <roomList/> -->
+        <roomMap/>
     </div>
+    
 </template>
 
 <script>
-
-import searchBox from "@/components/searchBox"
-export default{
+// import searchInListRoom from "@/components/searchInListRoom.vue"
+// import roomList from "@/components/roomList.vue"
+import roomMap from "@/components/roomMap.vue"
+export default {
   components:{
-    searchBox
-  }
+    // searchInListRoom, roomList, 
+    roomMap
+  },
  
 }
 </script>
 
 
-<style scoped src="@/static/css/searchBox.css">
-</style>
-
 <style scoped src="@/static/css/listRoom.css">
 </style>
 <style scoped>
-.main_search_group{
-    margin:5px;
-    width:500px;
-    margin-left: 300px;
+  .listRoomWrap {
+  padding-top:60px;
+  height:100vh;
 }
 </style>
