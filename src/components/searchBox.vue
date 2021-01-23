@@ -29,8 +29,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-=======
+
 export default {
   data() {
     return {
@@ -43,8 +42,7 @@ export default {
       this.divStatus=!this.divStatus;
     },
   }
->>>>>>> 5b259ed5fa56bf198f8e774b31ea7aa427c78fd6
-
+}
 </script>
 
 <style scoped src="@/static/css/searchBox.css">
