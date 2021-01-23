@@ -1,19 +1,17 @@
 <template>
     <div class="list-room-wrap">
-        <!-- <searchInListRoom/> -->
-        <!-- <roomList/> -->
+        <roomList/>
         <roomMap/>
     </div>
     
 </template>
 
 <script>
-// import searchInListRoom from "@/components/searchInListRoom.vue"
-// import roomList from "@/components/roomList.vue"
+import roomList from "@/components/roomList.vue"
 import roomMap from "@/components/roomMap.vue"
 export default {
   components:{
-    // searchInListRoom, roomList, 
+    roomList, 
     roomMap
   },
  
