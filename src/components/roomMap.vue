@@ -1,12 +1,31 @@
 <template>
-  <div id="map" class="map">
-  </div>
+    <div class="room-map-wrap">
+        <div id="map" class="map">
+            
+        </div>
+        <div id="search-bar" class="bg-white center-block">
+            <div class="search_icon left-float bg-orange">
+                <img src="@/static/images/search_icon.png" class="icon_size">
+            </div>
+            <div class="main_search_text left-float">
+                <input v-model="searchText" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" @click="toggleDiv">
+            </div>
+        </div>
+        <!-- <div class="search_div" v-show="divStatus">
+          <div class="search_div_title">최근 검색 기록</div>
+        </div> -->
+    </div>
 </template>
 
 
 
 <script>
 export default {
+    data() {
+        return {
+            searchText:'',
+        }
+    },
     mounted() {
         window.kakao && window.kakao.maps
         ? this.initMap()
@@ -36,8 +55,6 @@ export default {
 </script>
 
 <style scoped src="@/static/css/roomMap.css">
-    #map {
-        width:840px;
-        height:100%;
-    }
+</style>
+<style scoped src="@/static/css/searchBox.css">
 </style>

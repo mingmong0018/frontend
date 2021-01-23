@@ -1,19 +1,17 @@
 <template>
-    <div class="listRoomWrap">
-        <!-- <searchInListRoom/>
-        <roomList/> -->
+    <div class="list-room-wrap">
+        <roomList/>
         <roomMap/>
     </div>
     
 </template>
 
 <script>
-// import searchInListRoom from "@/components/searchInListRoom.vue"
-// import roomList from "@/components/roomList.vue"
+import roomList from "@/components/roomList.vue"
 import roomMap from "@/components/roomMap.vue"
 export default {
   components:{
-    // searchInListRoom, roomList, 
+    roomList, 
     roomMap
   },
  
@@ -24,7 +22,7 @@ export default {
 <style scoped src="@/static/css/listRoom.css">
 </style>
 <style scoped>
-  .listRoomWrap {
+  .list-room-wrap {
   padding-top:60px;
   height:100vh;
 }
