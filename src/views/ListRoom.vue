@@ -1,7 +1,7 @@
 <template>
-    <div class="listRoomWrap">
-        <!-- <searchInListRoom/>
-        <roomList/> -->
+    <div class="list-room-wrap">
+        <!-- <searchInListRoom/> -->
+        <!-- <roomList/> -->
         <roomMap/>
     </div>
     
@@ -23,7 +23,7 @@ export default {
 <style scoped src="@/static/css/listRoom.css">
 </style>
 <style scoped>
-  .listRoomWrap {
+  .list-room-wrap {
   padding-top:60px;
   height:100vh;
 }
