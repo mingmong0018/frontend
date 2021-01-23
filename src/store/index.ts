@@ -10,13 +10,19 @@ export default new Vuex.Store({
   mutations: {
     LOGIN(state,{accessToken}){
       state.accessToken=accessToken
+      localStorage.accessToken=accessToken
     },
     LOGOUT(state){
       state.accessToken=null
     }
   },
   actions: {
-    
+    LOGIN({commit},{accessToken}){
+      commit('LOGIN',accessToken)
+    },
+    LOGOUT({commit}){
+      commit('LOGOUT')
+    }
   },
   modules: {
   }

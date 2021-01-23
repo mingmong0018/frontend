@@ -31,9 +31,8 @@ export default {
         return {
             googleClientId:'166602658975-pu0k2i9jimdpkqn99fstlj2vnk2ct6ud.apps.googleusercontent.com',
             googleRedirectURI:'http%3A%2F%2Flocalhost%3A8070%2Flogin',
-            googleScope:'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email&https://www.googleapis.com/auth/userinfo.profile',
+            googleScope:'https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuser.birthday.read%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuser.gender.read',
             googleLoginURL:'https://accounts.google.com/o/oauth2/auth?response_type=code',
-            
             headerBorderVariant: '0'
         }
     },
@@ -44,6 +43,8 @@ export default {
         this.googleLoginURL += '&client_id=' + this.googleClientId
         this.googleLoginURL += '&redirect_uri=' + this.googleRedirectURI
         this.googleLoginURL += '&scope=' + this.googleScope
+
+
         
 
 
