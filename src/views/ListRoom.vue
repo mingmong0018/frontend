@@ -1,20 +1,41 @@
 <template>
     <div class="list-room-wrap">
-        <roomList/>
+        <div v-for="room in rooms" :key="room.room_id">
+          <div id="list-room-images">
+          </div>
+          <div id="list-room-content">
+            {{room.room_title}}<br>
+            {{room.room_deposit}} / {{room.room_rent}}
+          
+          </div>
+        </div>
         <roomMap/>
     </div>
     
 </template>
 
 <script>
-import roomList from "@/components/roomList.vue"
+import axios from'axios'
 import roomMap from "@/components/roomMap.vue"
 export default {
   components:{
-    roomList, 
     roomMap
   },
- 
+  data() {
+    return {
+      rooms:[],
+    }
+  },
+  created(){
+        axios({
+            method:'GET',
+            url:'/api/listRoom'
+
+        }).then((response)=>{
+            this.rooms=response.data;
+            console.log(this.rooms);
+        })
+    }
 }
 </script>
 

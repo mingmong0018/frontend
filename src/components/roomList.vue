@@ -12,8 +12,7 @@
       <!-- 테스트 후 방데이터에서 이미지 빼서 테이블 새로 만들어야함 -->
       <b-carousel-slide
         caption="slide"
-        :img-src="require(imageUrl+image.name)"
-      ></b-carousel-slide>
+      ><img :src="imageUrl+image.name"></b-carousel-slide>
     </div>
   </b-carousel>
   </div>
