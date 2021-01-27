@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     accessToken:null,
+    clickLogin:false
   },
   mutations: {
     LOGIN(state,{accessToken}){
