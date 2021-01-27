@@ -13,11 +13,11 @@
             <b-button class="loginButtons" id="loginKakao" icon-left="delete">
                 KAKAO 로그인
             </b-button><br>
-            <b-button class="loginButtons" id="loginNaver">
+            <b-button class="loginButtons" id="loginNaver" @click="currentPath">
                 NAVER 로그인
             </b-button><br>
-            <b-button class="loginButtons" id="loginGoogle" :href="googleLoginURL">
-            <!-- <b-button class="loginButtons" id="loginGoogle" @click="login"> -->
+            <!-- <b-button class="loginButtons" id="loginGoogle" :href=googleLoginURL> -->
+            <b-button class="loginButtons" id="loginGoogle" @click="login">
                 Google 로그인
             </b-button><br>
 
@@ -35,33 +35,53 @@ export default {
             googleRedirectURI:'http%3A%2F%2Flocalhost%3A8070%2Flogin',
             googleScope:'https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fplus.login%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuser.birthday.read%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuser.gender.read',
             googleLoginURL:'https://accounts.google.com/o/oauth2/auth?response_type=code',
-            googleState : 'google',
+            googleState : 'g',
+
             headerBorderVariant: '0'
             
         }
     },
-    created(){
-        this.googleLoginURL += '&client_id=' + this.googleClientId
-        this.googleLoginURL += '&redirect_uri=' + this.googleRedirectURI
-        this.googleLoginURL += '&scope=' + this.googleScope
-        this.googleLoginURL += '&state=' + this.googleState
+    methods:{
+        login(){
+            this.googleLoginURL += '&client_id=' + this.googleClientId
+            this.googleLoginURL += '&redirect_uri=' + this.googleRedirectURI
+            this.googleLoginURL += '&scope=' + this.googleScope
+            this.googleLoginURL += '&state=' + this.googleState+"_"+document.location.href
+
+            location.href=this.googleLoginURL;
+        },
+
+        currentPath(){
+            alert("현재경로 : "+ document.location.href);
+        }
+
+        // login(){
+        //     // const form=new FormData()
+        //     // form.append('id',this.id);
+        //     // form.append('pwd',this.pwd);
+        //     const params=new URLSearchParams({
+        //         apiURL:this.googleLoginURL,
+               
+        //     });
+        //     // params.append('id',this.id);
+        //     // params.append('pwd',this.pwd);
+        //     axios.post('/api/hello',params).then(res=>{
+                
+        //         alert('token : '+res.data);
+        //     })
+        // }
 
 
         
+        // login(){
+        //     axios({
+        //         method:'GET',
+        //         url:'api/?apiURL='+this.googleLoginURL,
 
-
-
-    },
-    methods:{
-        login(){
-            axios({
-                method:'GET',
-                url:this.googleLoginURL,
-
-            }).then((response)=>{
-                alert('token : '+response.data);
-            })
-        }
+        //     }).then((response)=>{
+        //         alert('token : '+response.data);
+        //     })
+        // }
     },
     
 }

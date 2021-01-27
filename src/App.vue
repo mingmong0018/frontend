@@ -9,11 +9,11 @@
           
           <b-navbar-nav class="ml-auto">
             <b-nav-item><router-link to="/ListRoom">찜 목록</router-link></b-nav-item>
-            <b-nav-item href="#">알림<b-badge pill>+99</b-badge></b-nav-item>
+            <b-nav-item><router-link to="/Notice">알림<b-badge pill>+99</b-badge></router-link></b-nav-item>
 
             <!-- Navbar dropdowns -->
             <template v-if="id===null">
-              <b-nav-item v-b-modal.loginModal>로그인</b-nav-item>
+              <b-nav-item v-b-modal.loginModal @click=true>로그인</b-nav-item>
             </template>
             <template v-else>
               <b-nav-item-dropdown text="누구누구님" right>
@@ -41,6 +41,9 @@
       return{
         id:null,
       }
+    },
+    methods:{
+      
     }
   }
 </script>

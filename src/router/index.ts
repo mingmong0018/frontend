@@ -1,10 +1,16 @@
+import store from '@/store'
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
+import { nextTick } from 'vue/types/umd'
 import Home from '../views/Home.vue'
 import ListRoom from '../views/ListRoom.vue'
+import Notice from '../views/Notice.vue'
 Vue.use(VueRouter)
 
+
+
 const routes: Array<RouteConfig> = [
+  
   {
     path: '/',
     name: 'Home',
@@ -14,6 +20,18 @@ const routes: Array<RouteConfig> = [
     path: '/ListRoom',
     name: 'ListRoom',
     component: ListRoom
+  },
+  {
+    path: '/Notice',
+    name: 'Notice',
+    component: Notice,
+    beforeEnter: (to, from, next) => {
+      if (store.state.accessToken !== '') {
+        return next();
+      }
+      // }
+      // next(window.open('df'));
+    }
   },
   
   // {
