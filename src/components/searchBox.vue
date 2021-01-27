@@ -18,7 +18,7 @@
           </div>
           <div class="main_location_icon right-float">
             <b-button size="sm" variant="white">
-              <img src="@/static/images/location_icon.png" class="main_icon_size">
+              <router-link to="/ListRoom"><img src="@/static/images/location_icon.png" class="main_icon_size"></router-link>
             </b-button>
           </div>
         </div>

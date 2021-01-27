@@ -1,9 +1,9 @@
 
 
 .room-map-wrap {
-    position:relative;
-    float:right;
-    height:100%;
+    position: fixed;
+    right:0;
+    height:calc(100% - 60px);
     width:100%;
 }
 

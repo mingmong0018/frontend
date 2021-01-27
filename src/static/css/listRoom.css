@@ -1,0 +1,24 @@
+#roomList {
+    position: relative;
+    float:left;
+    width:calc(100% - 960px);
+    height:100%;
+}
+
+#list-room-div {
+    width:calc(100% - 40px);
+    height:270px;
+    padding:20px 0;
+    margin:0 20px;
+    border-bottom:1px solid #e6e6e6;
+}
+
+#carouselDiv {
+    position: relative;
+    float:left;
+    width: 340px;
+    height: 230px;
+    overflow: hidden;
+    border-radius: 15px;
+    margin-right:20px;
+}

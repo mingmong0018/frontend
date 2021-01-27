@@ -8,7 +8,7 @@
           </b-navbar-nav>
           
           <b-navbar-nav class="ml-auto">
-            <b-nav-item><router-link to="/ListRoom">찜 목록</router-link></b-nav-item>
+            <b-nav-item>찜 목록</b-nav-item>
             <b-nav-item href="#">알림<b-badge pill>+99</b-badge></b-nav-item>
 
             <!-- Navbar dropdowns -->
