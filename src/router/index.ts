@@ -1,13 +1,23 @@
 import store from '@/store'
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
+import { nextTick } from 'vue/types/umd'
 // import { nextTick } from 'vue/types/umd'
 import Home from '../views/Home.vue'
 import ListRoom from '../views/ListRoom.vue'
+import WishList from '../views/WishList.vue'
 import Notice from '../views/Notice.vue'
+import UpdateMember from '../views/UpdateMember.vue'
 Vue.use(VueRouter)
-
-
+// const requireAuth=()=>(to,from,next)=>{
+//   if (localStorage.accessToken!=='null') {
+//     // alert("in:"+localStorage.accessToken)
+//     return next();
+//   }else{
+//     // alert("not:"+localStorage.accessToken)
+//     return document.getElementById("loginSection")?.click()
+//   }
+// }
 
 const routes: Array<RouteConfig> = [
   
@@ -19,20 +29,45 @@ const routes: Array<RouteConfig> = [
   {
     path: '/ListRoom',
     name: 'ListRoom',
-    component: ListRoom
+    component: ListRoom,
+  },
+  {
+    path: '/WishList',
+    name: 'WishList',
+    component: WishList,
+    // beforeEnter: requireAuth(),
   },
   {
     path: '/Notice',
     name: 'Notice',
     component: Notice,
     beforeEnter: (to, from, next) => {
-      if (store.state.accessToken !== '') {
+      if ((localStorage.accessToken!=='null')||(localStorage.accessToken!=='undefined')) {
+        // alert("in:"+localStorage.accessToken)
         return next();
+      }else{
+        // alert("not:"+localStorage.accessToken)
+        return document.getElementById("loginSection")?.click()
       }
-      // }
-      // next(window.open('df'));
     }
   },
+  {
+    path: '/UpdateMember',
+    name: 'UpdateMember',
+    component: UpdateMember,
+    beforeEnter: (to, from, next) => {
+      if (localStorage.accessToken!=='null') {
+        // alert("in:"+localStorage.accessToken)
+        return next();
+      }else{
+        // alert("not:"+localStorage.accessToken)
+        return document.getElementById("loginSection")?.click()
+      }
+      
+      
+      
+    }
+  }
   
   // {
   //   path: '/about',
@@ -51,3 +86,4 @@ const router = new VueRouter({
 })
 
 export default router
+

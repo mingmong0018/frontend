@@ -35,6 +35,7 @@
 </template>
 
 <script>
+import store from "../store"
 import axios from'axios'
 import roomMap from "@/components/roomMap.vue"
 export default {
@@ -49,6 +50,7 @@ export default {
     }
   },
   created(){
+  
     axios({
       method:'GET',
       url:'/api/listRoom'

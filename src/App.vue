@@ -10,16 +10,14 @@
           <b-navbar-nav class="ml-auto">
             <b-nav-item><router-link to="/WishList">찜 목록</router-link></b-nav-item>
             <b-nav-item><router-link to="/Notice">알림<b-badge pill>+99</b-badge></router-link></b-nav-item>
->>>>>>> d9974bd5992da89b3b451771e5849fe5100583d6
-
             <!-- Navbar dropdowns -->
-            <template v-if="id===null">
-              <b-nav-item v-b-modal.loginModal @click=true>로그인</b-nav-item>
+            <template v-if="userName==='null'">
+              <button id="loginSection" @click="showModal">로그인</button>
             </template>
             <template v-else>
-              <b-nav-item-dropdown text="누구누구님" right>
-              <b-dropdown-item href="#">내 정보수정</b-dropdown-item>
-              <b-dropdown-item href="#">로그아웃</b-dropdown-item>
+              <b-nav-item-dropdown :text="userName+'님'" right>
+              <b-dropdown-item><router-link to="/UpdateMember">내 정보수정</router-link></b-dropdown-item>
+              <b-dropdown-item id="logout" @click="logout">로그아웃</b-dropdown-item>
             </b-nav-item-dropdown>
             </template>
             
@@ -33,6 +31,7 @@
   </div>
 </template>
 <script>
+
   import loginModal from '@/components/ModalLogin.vue'
   export default {
     components: {
@@ -40,16 +39,39 @@
     },
     data(){
       return{
-        id:null,
+        userName:localStorage.userName,
+        loginBoolean:false
       }
     },
     methods:{
+      showModal(){
+        this.$bvModal.show('loginModal')
+
+      },
+      logout(){
+        this.$gAuth.signOut()
+        .then(() => {
+          this.$store.dispatch("Login/LOGOUT")
+          this.$router.go();
+        })
+        .catch(error  => {
+          // things to do when sign-out fails
+        })
+      
+        this.$router.push('/')
+        
+      }
       
     }
   }
 </script>
 <style scoped>
-
+#loginSection{
+  border:0; 
+  background:#F8F9FA; 
+  outline:0;
+  color:#7C7C7D;
+}
 #nav{
   z-index: 1 !important;
   top:0px;

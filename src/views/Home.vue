@@ -11,15 +11,12 @@
 </template>
 
 <script>
-import store from "../store"
 import searchBox from "@/components/searchBox"
 export default{
   components:{
     searchBox
   },
-   created () {
-    store.state.accessToken= this.$route.query.token
-  }
+
   
  
 }

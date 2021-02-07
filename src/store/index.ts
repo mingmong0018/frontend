@@ -1,30 +1,19 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Vuex,{StoreOptions} from 'vuex'
+import Login from './modules/Login';
+import User from './modules/User';
 
 Vue.use(Vuex)
+export interface RootState{
+  accessToken: null;
+  userName: null;
+  userId: null;
+}
 
-export default new Vuex.Store({
-  state: {
-    accessToken:null,
-    clickLogin:false
-  },
-  mutations: {
-    LOGIN(state,{accessToken}){
-      state.accessToken=accessToken
-      localStorage.accessToken=accessToken
-    },
-    LOGOUT(state){
-      state.accessToken=null
-    }
-  },
-  actions: {
-    LOGIN({commit},{accessToken}){
-      commit('LOGIN',accessToken)
-    },
-    LOGOUT({commit}){
-      commit('LOGOUT')
-    }
-  },
-  modules: {
+const store: StoreOptions<RootState>={
+  modules:{
+    Login,
+    User,
   }
-})
+}
+export default new Vuex.Store(store)
