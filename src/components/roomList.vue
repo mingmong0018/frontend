@@ -1,41 +1,48 @@
 <template>
-  <div class="room-list-content">
-    <b-carousel
-    id="carousel-no-animation"
-    style="text-shadow: 0px 0px 2px #000"
-    no-animation
-    indicators
-    img-width="340"
-    img-height="230"
-  >
-    <div v-for="image in testImages" :key="image.key"> 
-      <!-- 테스트 후 방데이터에서 이미지 빼서 테이블 새로 만들어야함 -->
-      <b-carousel-slide
-        caption="slide"
-      ><img :src="imageUrl+image.name"></b-carousel-slide>
-    </div>
-  </b-carousel>
-  </div>
+    <div id="roomList">
+    <div id="roomList-title"><span v-if="roomList.length>0">{{roomList.length}} 개의 방이 룸메이트를 기다리고 있어요!</span></div>
+    <div v-for="(room, index) in roomList" :key="index">
+        <!-- 리스트 하나만 감싸는 div -->
+        <div id="list-room-div">
+            <div id="list-room-images">
+                <div id="carouselDiv">
+                    <b-carousel
+                    id="carousel-no-animation"
+                    style="text-shadow: 0px 0px 2px #000"
+                    controls
+                    >
+                    <div v-for="image in room.room_images.split(', ')" :key="image.index">
+                        <b-carousel-slide
+                        :img-src="imageUrl+image">
+                        </b-carousel-slide>
+                    </div>
+                    </b-carousel>
+                </div>
+            </div>
+            <div id="list-room-content">
+                <span class="room-region">
+                    {{room.room_address.split(' ')[0]+' '+room.room_address.split(' ')[1]+' '+room.room_address.split(' ')[2]}}
+                </span><br>
+                <span class="room-title">{{room.room_title}}</span><br>
+                {{room.room_deposit}} / {{room.room_rent}}
+            </div>
+          </div>
+        </div>
+      </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      imageUrl: "@/static/images/room/",
-      testImages: [
-        {key:'51-1', name:'51_1.jpg'}, 
-        {key:'51-2', name:'51_2.jpg'}, 
-        {key:'51-3', name:'51_3.jpg'}, 
-        {key:'51-4', name:'51_4.jpg'}, 
-        {key:'51-5', name:'51_5.jpg'}
-      ],
+    props: {
+        roomList: Array,
+    },
+    data() {
+        return {
+            imageUrl: "room/",
+        }
     }
-  }
-
 }
 </script>
 
-<style>
-
+<style scoped src="@/static/css/listRoom.css">
 </style>

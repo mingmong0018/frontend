@@ -3,11 +3,9 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 // import { nextTick } from 'vue/types/umd'
 import Home from '../views/Home.vue'
-import ListRoom from '../views/ListRoom.vue'
+import SearchRoom from '../views/SearchRoom.vue'
 import Notice from '../views/Notice.vue'
 Vue.use(VueRouter)
-
-
 
 const routes: Array<RouteConfig> = [
   
@@ -17,9 +15,10 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
-    path: '/ListRoom',
-    name: 'ListRoom',
-    component: ListRoom
+    path: '/SearchRoom',
+    name: 'SearchRoom',
+    props: true,
+    component: SearchRoom
   },
   {
     path: '/Notice',

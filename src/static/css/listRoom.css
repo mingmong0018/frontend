@@ -1,11 +1,12 @@
 #roomList {
     position: relative;
     float:left;
-    width:calc(100% - 960px);
     height:100%;
+    display: none;
 }
 
 #list-room-div {
+    position:relative;
     width:calc(100% - 40px);
     height:270px;
     padding:20px 0;
@@ -13,12 +14,57 @@
     border-bottom:1px solid #e6e6e6;
 }
 
+#list-room-images {
+    float:left;
+    width:330px;
+    height:220px;
+}
+
 #carouselDiv {
     position: relative;
     float:left;
-    width: 340px;
-    height: 230px;
+    width: 330px;
+    height: 220px;
     overflow: hidden;
     border-radius: 15px;
     margin-right:20px;
+}
+
+#carousel-no-animation {
+    width:100%;
+    height:100%;
+}
+
+#roomList-title {
+    margin:20px;
+    font-size:1.2em;
+    font-weight:500;
+    width:calc(100% - 40px);
+    border-bottom: 1px solid #e6e6e6;
+    height:40px;
+}
+
+#list-room-content {
+    float:left;
+    padding:0 20px;
+    height:220px;
+    width:calc(100% - 330px);
+    line-height: 1.8em;
+}
+
+.room-title {
+    font-weight:700;
+    font-size:1.2em;
+}
+
+.room-region {
+    font-size:0.8em;
+    color:#6e6e6e;
+}
+
+@media (min-width: 1300px) {
+    #roomList {
+        display: block;
+        width:calc(100% - 960px);
+    } 
 }
