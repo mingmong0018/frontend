@@ -9,6 +9,7 @@
                     <b-carousel
                     id="carousel-no-animation"
                     style="text-shadow: 0px 0px 2px #000"
+                    indicators
                     controls
                     >
                     <div v-for="image in room.room_images.split(', ')" :key="image.index">
@@ -45,4 +46,13 @@ export default {
 </script>
 
 <style scoped src="@/static/css/listRoom.css">
+</style>
+<style>
+    .carousel-indicators li {
+        width:7px !important;
+        height:7px !important;
+        border-radius: 3px !important;
+        border-top: none !important;
+        border-bottom: none !important;
+    }
 </style>

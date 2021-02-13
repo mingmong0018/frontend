@@ -1,7 +1,7 @@
 <template>
   <div class="list-room-wrap">
     <div class="room-map-wrap">
-          <div id="map" class="map">
+          <div id="map" class="map" :click="getCoods">
               <!-- 지도 들어갈 곳 -->
           </div>
           <div id="search-bar" class="bg-white center-block">
@@ -51,12 +51,16 @@ export default {
     : this.addKakaoMapScript();
   },
   methods: {
+    getCoods(event) {
+      const clickedCoordX=event.clientX;
+      const clickedCoordY=event.clienty;
+      console.log("클릭:", clickedCoordX, clickedCoordY);
+    },
     initMap() {
-      axios({
-        method:'GET',
-        url:'/api/listRoom'
-      }).then((response)=>{
+      axios.get('/api/listRoom'
+      ).then((response)=>{
         this.rooms=response.data;
+        console.log("axios 성공:",response);
         for(let i=0; i<this.rooms.length; i++) {
           this.roomAddr.push(this.rooms[i].room_address);
         }
