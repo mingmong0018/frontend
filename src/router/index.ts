@@ -8,6 +8,7 @@ import ListRoom from '../views/ListRoom.vue'
 import WishList from '../views/WishList.vue'
 import Notice from '../views/Notice.vue'
 import UpdateMember from '../views/UpdateMember.vue'
+import NaverCallback from '@/components/Login/NaverCallback.vue'
 Vue.use(VueRouter)
 // const requireAuth=()=>(to,from,next)=>{
 //   if (localStorage.accessToken!=='null') {
@@ -27,6 +28,11 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
+    path: '/callback',
+    name: 'NaverCallback',
+    component: NaverCallback
+  },
+  {
     path: '/ListRoom',
     name: 'ListRoom',
     component: ListRoom,
@@ -42,7 +48,7 @@ const routes: Array<RouteConfig> = [
     name: 'Notice',
     component: Notice,
     beforeEnter: (to, from, next) => {
-      if ((localStorage.accessToken!=='null')||(localStorage.accessToken!=='undefined')) {
+      if ((localStorage.accessToken!=='null')&&(localStorage.accessToken!=='undefined')) {
         // alert("in:"+localStorage.accessToken)
         return next();
       }else{
