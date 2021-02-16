@@ -14,11 +14,11 @@
             <img src="@/static/images/search_icon.png" class="main_icon_size">
           </div>
           <div class="main_search_text left-float">
-            <input v-model="searchText" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" @click="toggleDiv">
+            <input v-model="searchText" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" @click="toggleDiv" @keyup.enter="goSearch">
           </div>
           <div class="main_location_icon right-float">
             <b-button size="sm" variant="white">
-              <router-link to="/ListRoom"><img src="@/static/images/location_icon.png" class="main_icon_size"></router-link>
+              <router-link to="/SearchRoom"><img src="@/static/images/location_icon.png" class="main_icon_size"></router-link>
             </b-button>
           </div>
         </div>
@@ -41,6 +41,9 @@ export default {
     toggleDiv() {
       this.divStatus=!this.divStatus;
     },
+    goSearch() {
+      this.$router.push({name: 'SearchRoom', params: {mainSearchText: this.searchText}})
+    }
   }
 }
 </script>
