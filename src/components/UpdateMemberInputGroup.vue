@@ -1,7 +1,8 @@
 <template>
   <div v-if="user!=null">
       
-      <b-form  @submit="onSubmit" @reset="onReset">
+      <b-form  @submit="onSubmit">
+        <div>
         
         <b-form-group
         id="input-group-1"
@@ -18,23 +19,8 @@
         ></b-form-input>
       </b-form-group>
       <b-form-group
-        id="input-group-2"
-        label="이메일"
-        label-for="input-2"
-        class="inputTitle"
-      >
-        <b-form-input
-          id="email"
-          name="email"
-          v-model="user.mem_email"
-          type="email"
-          placeholder="이메일을 입력해주세요"
-          required
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group
         id="input-group-3"
-        label="닉네임"
+        label="닉네임*"
         label-for="input-3"
         class="inputTitle"
       >
@@ -56,15 +42,17 @@
 
         <b-form-group
         id="input-group-4"
-        label="나이"
+        label="나이*"
         label-for="input-4"
         class="inputTitle"
         >
         <b-form-input
           id="age"
           name="age"
+          type=number
           v-model="user.mem_age"
-          disabled
+          min=10
+          max=100
         ></b-form-input>
       </b-form-group>
 
@@ -111,9 +99,8 @@
         >인증안됨</b-form-checkbox>
       </b-form-group>
 
-        <b-button type="submit" variant="primary">Submit</b-button>
-        <b-button type="reset" variant="danger">Reset</b-button>
-      
+      <b-button type="submit" variant="primary" id="sumitBtn">수정</b-button>
+      </div>
      </b-form>
   </div>
 </template>
@@ -139,13 +126,25 @@ export default {
     },
     methods:{
         onSubmit(){
-            alert("ad")
-        },
-        onReset(){
-            alert("ad")
+           const params=new URLSearchParams({
+             id:this.user.mem_id,
+             nickname:this.user.mem_nickname,
+             age:this.user.mem_age
+           }); 
+           axios.post('api/updateMember',params,{
+             headers:{
+               Authorization : "Bearer "+localStorage.accessToken
+             }
+           }).then(res=>{
+             if(res.data!="1"){
+               this.$router.go();
+             }else{
+               this.$store.dispatch("Login/LOGOUTCLICK")
+             }
+           })
         },
         getMember(){
-        const params=new URLSearchParams({
+            const params=new URLSearchParams({
                 id:localStorage.userId
             });
             // params.append('id',this.id);
@@ -201,5 +200,9 @@ export default {
 .lineSpacing{
   float:left;
   margin-right:5vw;
+}
+#sumitBtn{
+  width:100%;
+
 }
 </style>

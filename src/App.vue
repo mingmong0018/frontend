@@ -11,7 +11,7 @@
             <b-nav-item><router-link to="/WishList">찜 목록</router-link></b-nav-item>
             <b-nav-item><router-link to="/Notice">알림<b-badge pill>+99</b-badge></router-link></b-nav-item>
             <!-- Navbar dropdowns -->
-            <template v-if="userName==='null'">
+            <template v-if="userName==='null'||userName===undefined">
               <button id="loginSection" @click="showModal">로그인</button>
             </template>
             <template v-else>
@@ -43,6 +43,12 @@
         loginBoolean:false
       }
     },
+    // computed:{
+    //   getUserName(){
+    //     return this.$store.getters("Login/getUserName")
+    //   }
+      
+    // },
     methods:{
       showModal(){
         this.$bvModal.show('loginModal')

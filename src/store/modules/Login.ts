@@ -32,7 +32,7 @@ const module: Module<Login,RootState>={
             
           },
           LOGOUTCLICK(state){
-            alert("토큰이 잘못됐습니다.\n로그인을 다시 시도해 주세요.")
+            alert("토큰이 정상적이지 않습니다. 만료된 토큰이거나 이미 사용된 토큰입니다.")
             document.getElementById("logout")?.click()
           }
     },
@@ -46,6 +46,7 @@ const module: Module<Login,RootState>={
         LOGOUTCLICK({commit}){
           commit('LOGOUTCLICK')
         }
-    }
+    },
+   
 }
 export default module;

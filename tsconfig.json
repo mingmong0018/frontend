@@ -33,7 +33,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-, "src/store/index.ts"  ],
+, "src/store/index.ts", "src/services/login/googleLogin.ts"  ],
   "exclude": [
     "node_modules"
   ]

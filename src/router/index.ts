@@ -8,6 +8,7 @@ import SearchRoom from '../views/SearchRoom.vue'
 import WishList from '../views/WishList.vue'
 import Notice from '../views/Notice.vue'
 import UpdateMember from '../views/UpdateMember.vue'
+import NaverCallback from '@/components/Login/NaverCallback.vue'
 Vue.use(VueRouter)
 // const requireAuth=()=>(to,from,next)=>{
 //   if (localStorage.accessToken!=='null') {
@@ -27,10 +28,17 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
+
+    path: '/callback',
+    name: 'NaverCallback',
+    component: NaverCallback
+  },
+  {
     path: '/SearchRoom',
     name: 'SearchRoom',
     props: true,
     component: SearchRoom
+
   },
   {
     path: '/WishList',
