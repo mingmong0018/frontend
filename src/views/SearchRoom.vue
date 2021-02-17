@@ -1,7 +1,7 @@
 <template>
   <div class="list-room-wrap">
     <div class="room-map-wrap">
-          <div id="map" class="map" :click="getCoods">
+          <div id="map" class="map">
               <!-- 지도 들어갈 곳 -->
           </div>
           <div id="search-bar" class="bg-white center-block">
@@ -42,7 +42,7 @@ export default {
       roomList:[],  // roomList에 보내줄 리스트
       roomAddr:[],
       defaultLatLng:new kakao.maps.LatLng(37.5666805, 126.9784147),
-      defaultLevel:5,
+      defaultLevel:7,
     }
   },
   mounted() {
@@ -51,19 +51,15 @@ export default {
     : this.addKakaoMapScript();
   },
   methods: {
-    getCoods(event) {
-      const clickedCoordX=event.clientX;
-      const clickedCoordY=event.clienty;
-      console.log("클릭:", clickedCoordX, clickedCoordY);
-    },
     initMap() {
       axios.get('/api/listRoom'
       ).then((response)=>{
         this.rooms=response.data;
-        console.log("axios 성공:",response);
         for(let i=0; i<this.rooms.length; i++) {
           this.roomAddr.push(this.rooms[i].room_address);
         }
+
+        const listData=this.rooms;
 
         const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
         const options = {
@@ -100,10 +96,15 @@ export default {
         }
 
         const geocoder = new kakao.maps.services.Geocoder; // 주소 -> 좌표 변환 라이브러리 생성
+        
+        const overlay = new kakao.maps.CustomOverlay();   // 오버레이 생성
+        let clickedOverlay=null;  // 클릭된 오버레이를 저장할 변수
+        let clickedRoom=[];   // 클릭된 오버레이의 방 정보를 저장할 변수
 
         const getMarkers = () => {
           return new Promise((resolve) => {
             const addrList=[];
+            
             // for loop
             for(let i=0;i<this.rooms.length;i++) {
               geocoder.addressSearch(this.roomAddr[i], function(result, status) { 
@@ -111,19 +112,40 @@ export default {
                   // roomAddr(주소) 배열을 돌면서 하나씩 꺼내서 좌표로 변환
                   const coord=new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                  const imageSrc = 'marker.png', // 마커이미지의 주소입니다    
-                  imageSize = new kakao.maps.Size(50, 50), // 마커이미지의 크기입니다
-                  imageOption = {offset: new kakao.maps.Point(30, 50)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                  const imageSrc = 'marker.png', // 마커이미지 주소  
+                  imageSize = new kakao.maps.Size(50, 50), // 마커이미지 크기
+                  imageOption = {offset: new kakao.maps.Point(30, 50)}; // 마커이미지 위치
                     
-                  // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+                  // 마커 생성
                   const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-                  const marker=new kakao.maps.Marker({ map: map, position: coord, clickable: true, image: markerImage});
+                  const marker= new kakao.maps.Marker({
+                    map: map, 
+                    position: coord, 
+                    clickable: true, 
+                    image: markerImage
+                  });
                   marker.setMap(map);
+
+                  kakao.maps.event.addListener(marker, 'click', function() {
+                    const markerPosition=marker.getPosition();
+                    overlay.setPosition(markerPosition);
+                    overlay.setContent('<div style="background:white">{{ clickedRoom.room_address }}</div>');
+                    overlay.setMap(map);
+                    clickedOverlay=overlay;
+                    geocoder.coord2Address(markerPosition.getLng(), markerPosition.getLat(), function(result, status) {
+                      if (status === kakao.maps.services.Status.OK) {
+                        if(result[0].address.address_name==listData[i].room_address){
+                          clickedRoom=listData[i];
+                        }
+                      }
+                    });
+                  });
+
                   // 지도의 범위 추출
                   const bounds=map.getBounds();
                   // 해당 좌표가 현재 지도 범위 안에 있는지 확인(true or false)
                   const visible=bounds.contain(coord);
-                  if(visible) {
+                  if(visible) { // 범위 안에 있는 좌표만 주소로 변환해서 리스트에 저장
                     geocoder.coord2Address(coord.getLng(), coord.getLat(), function(result, status) {
                       if (status === kakao.maps.services.Status.OK) {
                         addrList.push(result[0].address.address_name);
@@ -138,7 +160,7 @@ export default {
             }, 1500);
           });
         }
-        
+
         const getRoomList = markers => {
           const roomList=[];
           for(let i=0; i<this.rooms.length; i++) {
@@ -184,6 +206,9 @@ export default {
         }
         
         kakao.maps.event.addListener(map, 'dragend', function() {
+          if(clickedOverlay!=null) {
+            overlay.setMap(null);
+          }
           this.defaultLatLng=map.getCenter();
           this.defaultLevel=map.getLevel();
           (async () => {
@@ -197,6 +222,9 @@ export default {
         });
 
         kakao.maps.event.addListener(map, 'zoom_changed', function() {
+          if(clickedOverlay!=null) {
+            overlay.setMap(null);
+          }
           this.defaultLatLng=map.getCenter();
           this.defaultLevel=map.getLevel();
           (async () => {
@@ -208,8 +236,6 @@ export default {
             }
           })();
         });
-
-        
 
         (async () => {
           try {
