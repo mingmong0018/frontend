@@ -30,7 +30,8 @@ export default {
             mainSearch:this.searchTxt,
             defaultLatLng:new kakao.maps.LatLng(37.5666805, 126.9784147),
             defaultLevel:7,
-            RoomList:[]
+            RoomList:[],
+            searchText:'',
         }
     },
     mounted() {
@@ -40,7 +41,6 @@ export default {
     },
     methods: {
         initMap() {
-            console.log("rooms:",this.rooms);
             const listData=this.rooms;
 
             const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
@@ -80,7 +80,8 @@ export default {
             const geocoder = new kakao.maps.services.Geocoder; // 주소 -> 좌표 변환 라이브러리 생성
         
             const overlay = new kakao.maps.CustomOverlay({
-            xAnchor:-0.1
+                clickable: true,
+                xAnchor:-0.1
             });   // 오버레이 생성
             let clickedOverlay=null;  // 클릭된 오버레이를 저장할 변수
             let clickedRoom=[];   // 클릭된 오버레이의 방 정보를 저장할 변수
@@ -91,7 +92,7 @@ export default {
             
                 // for loop
                 for(let i=0;i<this.rooms.length;i++) {
-                    geocoder.addressSearch(listData[i].room_address, function(result, status) { 
+                    geocoder.addressSearch(listData[i].room_address, (result, status) => { 
                         if (status === kakao.maps.services.Status.OK) {
                             // room_address(주소) 배열을 돌면서 하나씩 꺼내서 좌표로 변환
                             const coord=new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -109,23 +110,33 @@ export default {
                                 image: markerImage
                             });
                             marker.setMap(map);
-
-                            kakao.maps.event.addListener(marker, 'click', function() {
-                                const markerPosition=marker.getPosition();
-                                const customOverlay='<div id="customOverlay">'
-                                +'<div id="overlay-image">'
-                                +'  <img src="room/'+listData[i].room_images.split(', ')[0]+'">'
-                                +'</div>'
-                                +'<div id="overlay-content">'
-                                +'  <span class="room-region">'
+                            kakao.maps.event.addListener(marker, 'click', () => {
+                                console.log("roomId",listData[i].room_id);
+                                
+                                const customOverlay=document.createElement('div');
+                                customOverlay.className='customOverlay';
+                                customOverlay.id=listData[i].room_id;
+                                const overlayImg=document.createElement('div');
+                                overlayImg.id='overlay-image';
+                                const imageTag='<img src="room/'+listData[i].room_images.split(', ')[0]+'">'
+                                overlayImg.innerHTML=imageTag;
+                                const overlayCnt=document.createElement('div');
+                                overlayCnt.id='overlay-content';
+                                const content='<span class="room-region">'
                                 +     listData[i].room_address.split(' ')[0]+' '
                                 +listData[i].room_address.split(' ')[1]+' '
                                 +listData[i].room_address.split(' ')[2]
                                 +'  </span><br>'
                                 +'  <span class="room-title">'+listData[i].room_title+'</span><br>'
                                 +     listData[i].room_deposit+' / '+listData[i].room_rent
-                                +'</div>'
-                                +'</div>';
+                                overlayCnt.innerHTML=content;
+                                customOverlay.appendChild(overlayImg);
+                                customOverlay.appendChild(overlayCnt);
+                                customOverlay.addEventListener('click', () => {
+                                    this.$router.push({name: 'RoomDetail', query: {roomId: listData[i].room_id}});
+                                });
+
+                                const markerPosition=marker.getPosition();
                                 geocoder.coord2Address(markerPosition.getLng(), markerPosition.getLat(), function(result, status) {
                                 if (status === kakao.maps.services.Status.OK) {
                                     if(result[0].address.address_name==listData[i].room_address){
@@ -268,16 +279,17 @@ export default {
 </style>
 <style>
   .list-room-wrap {
-  padding-top:60px;
-  height:100vh;
-}
-#customOverlay {
+    padding-top:60px;
+    height:100vh;
+    }
+.customOverlay {
   width:210px;
   height:250px;
   background:white;
   border-radius:15px;
   box-shadow:0 0 20px 1px #bdbdbd;
   overflow:hidden;
+  cursor:pointer;
 }
 #overlay-image {
   width:210px;

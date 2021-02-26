@@ -46,7 +46,7 @@ export default {
 <style scoped src="@/static/css/searchBox.css">
 </style>
 <style>
-  .list-room-wrap {
+.list-room-wrap {
   padding-top:60px;
   height:100vh;
 }

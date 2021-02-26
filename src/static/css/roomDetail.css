@@ -1,0 +1,87 @@
+.room-detail-wrap {
+    position:relative;
+    padding-top:60px;
+    height:auto;
+    overflow:hidden;
+    background:#e6e6e6;
+}
+
+#room-detail {
+    position:relative;
+    width:840px;
+    height:auto;
+    margin:auto;
+    overflow:hidden;
+    background:white;
+    text-align:center;
+}
+
+#carouselDiv {
+    position: relative;
+    width: 100%;
+    height: 530px;
+    overflow: hidden;
+    margin-right:20px;
+}
+
+#room-images {
+    width:100%;
+    height:530px;
+}
+
+.carousel-item {
+    width:940px;
+    height:530px;
+}
+
+#room-content {
+    width:100%;
+}
+
+#room-title {
+    height:70px;
+    font-size:1.4em;
+    font-weight:600;
+    line-height:70px;
+}
+
+#room-price {
+    height:70px;
+    line-height:25px;
+    font-weight:700;
+}
+
+#room-deposit {
+    font-size:0.9em;
+}
+#room-rent {
+    font-size:1.1em;
+}
+
+#room-region {
+    font-size:0.9em;
+    color:gray;
+}
+
+#room-tag {
+    position:relative;
+    height:40px;
+}
+
+#room-tag span {
+    line-height:40px;
+    margin-right:5px;
+    font-size:1em;
+    border-radius: 2px;
+    background: #ffbb8e;
+}
+
+@media (max-width: 839px) {
+    #room-detail {
+        width:100%;
+    } 
+
+    #carouselDiv, #room-images {
+        height:300px;
+    }
+}

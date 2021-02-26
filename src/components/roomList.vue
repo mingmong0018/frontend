@@ -58,4 +58,9 @@ export default {
         border-top: none !important;
         border-bottom: none !important;
     }
+
+    .carousel, .carousel-inner, .carousel-item {
+        height:100%;
+    }
+
 </style>
