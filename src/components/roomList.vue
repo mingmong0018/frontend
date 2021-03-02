@@ -1,6 +1,9 @@
 <template>
     <div id="roomList">
-    <div id="roomList-title"><span v-if="roomList.length>0">{{roomList.length}} 개의 방이 룸메이트를 기다리고 있어요!</span></div>
+    <div id="roomList-title">
+        <span v-if="roomList.length>0">{{roomList.length}} 개의 방이 룸메이트를 기다리고 있어요!</span>
+        <span style="font-size:0.8em;" v-else> 검색 결과가 없어요:) 지도를 축소하여 더 넓은 지역을 확인하거나, 다른 키워드로 검색해주세요!</span>
+    </div>
     <div v-for="(room, index) in roomList" :key="index">
         <!-- 리스트 하나만 감싸는 div -->
         <div id="list-room-div">
@@ -55,4 +58,9 @@ export default {
         border-top: none !important;
         border-bottom: none !important;
     }
+
+    .carousel, .carousel-inner, .carousel-item {
+        height:100%;
+    }
+
 </style>

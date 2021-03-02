@@ -7,6 +7,7 @@ import WishList from '../views/WishList.vue'
 import Notice from '../views/Notice.vue'
 import UpdateMember from '../views/UpdateMember.vue'
 import NaverCallback from '@/components/Login/NaverCallback.vue'
+import RoomDetail from '../views/RoomDetail.vue'
 Vue.use(VueRouter)
 
 const state: any|RootState = store.state
@@ -38,6 +39,12 @@ const routes: Array<RouteConfig> = [
     name: 'SearchRoom',
     props: true,
     component: SearchRoom
+
+  },
+  {
+    path: '/RoomDetail',
+    name: 'RoomDetail',
+    component: RoomDetail
 
   },
   {

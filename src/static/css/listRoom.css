@@ -8,31 +8,26 @@
 #list-room-div {
     position:relative;
     width:calc(100% - 40px);
-    height:270px;
+    height:240px;
     padding:20px 0;
     margin:0 20px;
     border-bottom:1px solid #e6e6e6;
 }
 
 #list-room-images {
+    width:300px;
+    height:200px;
     float:left;
-    width:330px;
-    height:220px;
 }
 
 #carouselDiv {
     position: relative;
     float:left;
-    width: 330px;
-    height: 220px;
+    width: 300px;
+    height: 200px;
     overflow: hidden;
     border-radius: 15px;
     margin-right:20px;
-}
-
-#carousel-no-animation {
-    width:100%;
-    height:100%;
 }
 
 #roomList-title {
@@ -47,9 +42,12 @@
 #list-room-content {
     float:left;
     padding:0 20px;
-    height:220px;
-    width:calc(100% - 330px);
+    height:200px;
+    width:300px;
     line-height: 1.8em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .room-title {
@@ -58,13 +56,48 @@
 }
 
 .room-region {
-    font-size:0.8em;
+    font-size:0.7em;
     color:#6e6e6e;
 }
 
-@media (min-width: 1300px) {
+.carousel-item {
+    width:300px;
+    height:200px;
+}
+
+@media (min-width: 1560px) {
     #roomList {
         display: block;
-        width:calc(100% - 960px);
+        width:calc(100% - 1040px);
     } 
+}
+
+@media (min-width: 1900px) {
+    #list-room-content {
+        width:450px;
+    }
+}
+
+@media (min-width: 1800px) and (max-width:1899px) {
+    #list-room-content {
+        width:400px;
+    }
+}
+
+@media (min-width: 1700px) and (max-width:1799px) {
+    #list-room-content {
+        width:300px;
+    }
+}
+
+@media (min-width: 1600px) and (max-width:1699px) {
+    #list-room-content {
+        width:200px;
+    }
+}
+
+@media (min-width: 1560px) and (max-width:1599px) {
+    #list-room-content{
+        width:160px;
+    }
 }
