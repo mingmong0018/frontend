@@ -37,7 +37,6 @@ export default {
                         
                         store.dispatch("Login/LOGIN", { accessToken, userName, userId })
                         router.push('/')
-                        router.go();
                         
                         
                         

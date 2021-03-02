@@ -11,7 +11,7 @@
             <b-nav-item><router-link to="/WishList">찜 목록</router-link></b-nav-item>
             <b-nav-item><router-link to="/Notice">알림<b-badge pill>+99</b-badge></router-link></b-nav-item>
             <!-- Navbar dropdowns -->
-            <template v-if="userName==='null'||userName===undefined">
+            <template v-if="userName===null||userName===undefined">
               <button id="loginSection" @click="showModal">로그인</button>
             </template>
             <template v-else>
@@ -39,16 +39,15 @@
     },
     data(){
       return{
-        userName:localStorage.userName,
         loginBoolean:false
       }
     },
-    // computed:{
-    //   getUserName(){
-    //     return this.$store.getters("Login/getUserName")
-    //   }
+    computed:{
+      userName(){
+        return this.$store.state.Login.userName
+      }
       
-    // },
+    },
     methods:{
       showModal(){
         this.$bvModal.show('loginModal')
@@ -58,7 +57,6 @@
         this.$gAuth.signOut()
         .then(() => {
           this.$store.dispatch("Login/LOGOUT")
-          this.$router.go();
         })
         .catch(error  => {
           // things to do when sign-out fails

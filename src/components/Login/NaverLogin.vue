@@ -12,7 +12,7 @@ export default {
         loginButton: {
             color: 'green',
             type: 3,
-            height: 60
+            height: 49
         }
         })
         naverLogin.init();

@@ -1,8 +1,5 @@
 <template>
   <div>
-    <b-button v-b-modal.loginModal>
-      로그인
-    </b-button>
     
     <loginModal/>
    

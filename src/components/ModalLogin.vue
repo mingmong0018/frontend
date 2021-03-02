@@ -10,6 +10,7 @@
             </p>
             <br>
             <br>
+           
             <KakaoLogin />
             <GoogleLogin />
             <NaverLogin />
