@@ -118,17 +118,24 @@ export default {
                                 customOverlay.id=listData[i].room_id;
                                 const overlayImg=document.createElement('div');
                                 overlayImg.id='overlay-image';
-                                const imageTag='<img src="room/'+listData[i].room_images.split(', ')[0]+'">'
+                                const imageTag='<img src="room/'+listData[i].room_images.split(',')[0]+'">'
                                 overlayImg.innerHTML=imageTag;
                                 const overlayCnt=document.createElement('div');
                                 overlayCnt.id='overlay-content';
-                                const content='<span class="room-region">'
+                                let content='<span class="room-region">'
                                 +     listData[i].room_address.split(' ')[0]+' '
                                 +listData[i].room_address.split(' ')[1]+' '
                                 +listData[i].room_address.split(' ')[2]
                                 +'  </span><br>'
                                 +'  <span class="room-title">'+listData[i].room_title+'</span><br>'
-                                +     listData[i].room_deposit+' / '+listData[i].room_rent
+                                +     listData[i].room_deposit+' / '+listData[i].room_rent+'<br>';
+                                if(listData[i].mem_gender=='f') {
+                                    content=content+
+                                    '<span class="overlay-mem-gender f">여성 호스트</span>'
+                                }else {
+                                    content=content+
+                                    '<span class="overlay-mem-gender m">남성 호스트</span>'
+                                }
                                 overlayCnt.innerHTML=content;
                                 customOverlay.appendChild(overlayImg);
                                 customOverlay.appendChild(overlayCnt);
@@ -284,7 +291,7 @@ export default {
     }
 .customOverlay {
   width:210px;
-  height:250px;
+  height:260px;
   background:white;
   border-radius:15px;
   box-shadow:0 0 20px 1px #bdbdbd;
@@ -314,5 +321,22 @@ export default {
     font-size:0.7em;
     color:#6e6e6e;
     margin-bottom:10px;
+}
+
+.overlay-mem-gender {
+    font-size:0.7em;
+    border-radius:2px;
+    float:left;
+    margin-top:5px;
+}
+
+.m {
+    background:rgb(213, 240, 255);
+    color:black;
+}
+
+.f {
+    background:rgb(255, 232, 236);
+    color:black;
 }
 </style>

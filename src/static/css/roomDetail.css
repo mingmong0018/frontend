@@ -25,6 +25,7 @@
 }
 
 #room-images {
+    margin-top:80px;
     width:100%;
     height:530px;
 }
@@ -38,14 +39,35 @@
     width:100%;
 }
 
+#room-detail-head {
+    position:fixed;
+    width:840px;
+    background: white;
+    z-index:1;
+    border-bottom: 1px solid #e6e6e6;
+}
+
 #room-title {
-    height:70px;
+    margin-top:5px;
+    height:40px;
     font-size:1.4em;
     font-weight:600;
-    line-height:70px;
+    line-height:40px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#wish-button {
+    width:35px;
+    height:35px;
+    float:right;
+    margin-right:5px;
+    cursor:pointer;
 }
 
 #room-price {
+    margin-top:20px;
     height:70px;
     line-height:25px;
     font-weight:700;
@@ -61,21 +83,64 @@
 #room-region {
     font-size:0.9em;
     color:gray;
+    margin-bottom: 25px;
+}
+
+.inner-wrap {
+    position:relative;
+    width:100%;
+    height:auto;
+    overflow:hidden;
+    padding:0 20px;
+    border-top:5px solid #e6e6e6;
+}
+
+.inner-title {
+    height:70px;
+    line-height:70px;
+    font-weight:600;
+    border-bottom:1px solid #e6e6e6;
+    text-align: left !important;
+}
+
+.inner-content {
+    text-align: left !important;
+    font-size:0.9em;
+    padding:40px 10px;
+    margin-bottom:20px;
+}
+#option {
+    width:100%;
+}
+#option td{
+    border:1px solid #d6d6d6;
+    padding:0 20px;
+    margin-bottom:20px;
+}
+
+#option td:first-child {
+    text-align:center !important;
+    background: #f2f2f2;
+    width:150px;
+    height:70px;
+}
+
+.tags {
+    position:relative;
+    display:inline-block;
+    width:auto !important;
+    overflow: hidden;
+    margin:0 auto;
 }
 
 #room-tag {
-    position:relative;
-    height:40px;
+    width:auto !important;
+    overflow:hidden;
 }
 
-#room-tag span {
-    line-height:40px;
-    margin-right:5px;
-    font-size:1em;
-    border-radius: 2px;
-    background: #ffbb8e;
+.option-name {
+    float:left;
 }
-
 @media (max-width: 839px) {
     #room-detail {
         width:100%;

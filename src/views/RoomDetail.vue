@@ -1,6 +1,19 @@
 <template>
     <div class="room-detail-wrap">
         <div id="room-detail">
+            <div id="room-detail-head">
+                <div id="room-title">
+                    {{ room.room_title }}
+                </div>
+                <div id="wish-button" @click="changWishStatus">
+                    <div id="wish-icon" v-if="this.wish==true" title="찜 해제">
+                        <img src="wish_on.png" width="22">
+                    </div>
+                    <div id="wish-icon" v-else title="찜하기">
+                        <img src="wish_off.png" width="22">
+                    </div>
+                </div>
+            </div>
             <div id="room-images">
                 <div id="carouselDiv">
                     <b-carousel
@@ -19,9 +32,6 @@
                 </div>
             </div>
             <div id="room-content">
-                <div id="room-title">
-                    {{ room.room_title }}
-                </div>
                 <div v-if="room.room_deposit>0" id="room-price">
                     <span id="room-deposit">보증금 {{ room.room_deposit }} 만원</span><br>
                     <span id="room-rent">월세 {{ room.room_rent }} 만원</span>
@@ -30,13 +40,55 @@
                     <span id="room-deposit">보증금 없음</span><br>
                     <span id="room-rent">월세 {{ room.room_rent }} 만원</span>
                 </div>
-                <div id="room-tag">
-                    <span v-for="tag in tags" :key="tag.tag_id">
-                        #{{ tag.tag_content }}
-                    </span>
-                </div>
+                <hashTag :roomId="room.room_id" style="margin:0 auto;"/><br>
                 <div id="room-region">
                     {{ roomRegion }}
+                </div>
+                <div class="inner-wrap">
+                    <div class="inner-title">
+                        방 소개
+                    </div>
+                    <div class="inner-content" v-html="roomReport">
+                    </div>
+                </div>
+                <div class="inner-wrap">
+                    <div class="inner-title">
+                        옵션
+                    </div>
+                    <div class="inner-content">
+                        <table id="option">
+                            <tr>
+                                <td>방옵션</td>
+                                <td>
+                                    <div class="option-group" v-for="option in options" :key="option.index">
+                                        <div class="option-name" v-if="option.option_group=='room'">
+                                            {{ option.option_name }}
+                                            <span v-html="space"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>기타옵션</td>
+                                <td>
+                                    <div class="option-group" v-for="option in options" :key="option.index">
+                                        <div class="option-name" v-if="option.option_group=='etc'">
+                                            {{ option.option_name }}
+                                            <span v-html="space"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="inner-wrap">
+                    <div class="inner-title">
+                        등록자 정보
+                    </div>
+                    <div class="inner-content">
+                        <img src="">
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,32 +97,70 @@
 
 <script>
 import axios from 'axios'
+import hashTag from "@/components/hashTag"
 export default {
+    components: {
+        hashTag
+    },
     name: 'RoomDetail',
     data() {
         return {
             roomNumber:this.$route.query.roomId,
             room:[],
-            tags:[],
+            roomReport:'',
             options:[],
             imageUrl: "room/",
             roomImg:[],
             interval:0,
             roomRegion:'',
+            wish:false,
+            writer:[],
+            space:'&nbsp;&nbsp;',
+        }
+    },
+    methods: {
+        changWishStatus() {
+            const params=new URLSearchParams({
+                id:localStorage.userId,
+                roomId:this.room.room_id
+            });
+            if(this.wish==false) {
+                axios.post('/api/wish',params,
+                {
+                    headers:{
+                    Authorization : "Bearer "+localStorage.accessToken
+                }
+                }).then(function() {
+                    this.wish=!this.wish;
+                });
+            }else {
+                axios.delete('/api/wish',params,
+                {
+                    headers:{
+                    Authorization : "Bearer "+localStorage.accessToken
+                }
+                }).then(function() {
+                    this.wish=!this.wish;
+                });
+            }
+            
         }
     },
     mounted() {
         const roomNumber=this.roomNumber;
+        const params=new URLSearchParams({
+                id:localStorage.userId,
+                roomId:roomNumber
+            });1
+        axios.get('/api/wish',params,{
+                headers:{
+                    Authorization : "Bearer "+localStorage.accessToken
+                }
+            }).then((res) => {
+                this.wish=res.data;
+            });
         function getRoomDetail() {
             return axios.get('/api/roomDetail', {
-                params: {
-                    roomId: roomNumber
-                }
-            });
-        }
-
-        function getRoomTag() {
-            return axios.get('/api/roomTag', {
                 params: {
                     roomId: roomNumber
                 }
@@ -85,15 +175,26 @@ export default {
             });
         }
 
-        axios.all([getRoomDetail(), getRoomTag(), getRoomOption()])
-            .then(axios.spread( (room, tag, option) => {
+        axios.all([getRoomDetail(), getRoomOption()])
+            .then(axios.spread( (room, option) => {
                 this.room=room.data;
-                this.tags=tag.data;
                 this.options=option.data;
-                this.roomImg=this.room.room_images.split(', ');
+                this.roomImg=this.room.room_images.split(',');
                 this.roomRegion=this.room.room_address.split(' ')[0]+' '+this.room.room_address.split(' ')[1]+' '+this.room.room_address.split(' ')[2];
+                this.roomReport=this.room.room_report.replace(/(\n|\r\n)/g, '<br>');
             })
         );
+    },
+    watch: {
+        room: function (roomData) {
+            axios.get('/api/writer', {
+                params: {
+                    id: roomData.mem_id
+                }
+            }).then(res=>{
+                this.writer=res.data;
+            });
+        }
     }
 }
 </script>

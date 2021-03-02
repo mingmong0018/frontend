@@ -12,6 +12,7 @@
     padding:20px 0;
     margin:0 20px;
     border-bottom:1px solid #e6e6e6;
+    cursor:pointer;
 }
 
 #list-room-images {
@@ -54,10 +55,39 @@
     font-weight:700;
     font-size:1.2em;
 }
+.room-title:hover {
+    text-decoration: underline;
+}
 
 .room-region {
     font-size:0.7em;
     color:#6e6e6e;
+}
+
+.mem-age, .mem-gender, .mem-confirm {
+    font-size:0.8em;
+    border-radius:2px;
+}
+
+.mem-age {
+    background:rgb(230, 230, 230);
+    color:rgb(95, 95, 95);
+}
+
+.m {
+    background:rgb(213, 240, 255);
+    color:black;
+}
+
+.f {
+    background:rgb(255, 232, 236);
+    color:black;
+}
+
+.mem-confirm {
+    margin-left:10px;
+    background: rgb(230, 255, 251);
+    color:rgb(20, 123, 131);
 }
 
 .carousel-item {
