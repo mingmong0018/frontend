@@ -1,7 +1,7 @@
 <template>
   <KakaoLogin
     api-key="c2c3fe847dbf2477aafe8862f750dc05"
-    image="kakao_account_login_btn_medium_narrow"
+    image="kakao_account_login_btn_medium_narrow_ov"
     style="margin-bottom:20px;"
     :on-success=onSuccess
     :on-failure=onFailure

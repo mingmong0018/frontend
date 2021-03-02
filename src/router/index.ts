@@ -1,8 +1,6 @@
-import store from '@/store'
+import store, { RootState } from '@/store/index.ts'
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import { nextTick } from 'vue/types/umd'
-// import { nextTick } from 'vue/types/umd'
 import Home from '../views/Home.vue'
 import SearchRoom from '../views/SearchRoom.vue'
 import WishList from '../views/WishList.vue'
@@ -11,15 +9,17 @@ import UpdateMember from '../views/UpdateMember.vue'
 import NaverCallback from '@/components/Login/NaverCallback.vue'
 import RoomDetail from '../views/RoomDetail.vue'
 Vue.use(VueRouter)
-// const requireAuth=()=>(to,from,next)=>{
-//   if (localStorage.accessToken!=='null') {
-//     // alert("in:"+localStorage.accessToken)
-//     return next();
-//   }else{
-//     // alert("not:"+localStorage.accessToken)
-//     return document.getElementById("loginSection")?.click()
-//   }
-// }
+
+const state: any|RootState = store.state
+const requireAuth=()=>(to: any,from: any,next: any)=>{
+  if ((state.Login.accessToken!==null)&&(state.Login.accessToken!==undefined)) {
+    // alert("in:"+state.Login.accessToken)
+    return next();
+  }else{
+    // alert("not:"+state.Login.accessToken)
+    return document.getElementById("loginSection")?.click()
+  }
+}
 
 const routes: Array<RouteConfig> = [
   
@@ -52,38 +52,19 @@ const routes: Array<RouteConfig> = [
     path: '/WishList',
     name: 'WishList',
     component: WishList,
-    // beforeEnter: requireAuth(),
+    beforeEnter: requireAuth(),
   },
   {
     path: '/Notice',
     name: 'Notice',
     component: Notice,
-    beforeEnter: (to, from, next) => {
-      if ((localStorage.accessToken!=='null')&&(localStorage.accessToken!=='undefined')) {
-        // alert("in:"+localStorage.accessToken)
-        return next();
-      }else{
-        // alert("not:"+localStorage.accessToken)
-        return document.getElementById("loginSection")?.click()
-      }
-    }
+    beforeEnter:requireAuth(),
   },
   {
     path: '/UpdateMember',
     name: 'UpdateMember',
     component: UpdateMember,
-    beforeEnter: (to, from, next) => {
-      if (localStorage.accessToken!=='null') {
-        // alert("in:"+localStorage.accessToken)
-        return next();
-      }else{
-        // alert("not:"+localStorage.accessToken)
-        return document.getElementById("loginSection")?.click()
-      }
-      
-      
-      
-    }
+    beforeEnter:requireAuth(),
   }
   
   // {

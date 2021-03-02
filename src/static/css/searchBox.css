@@ -64,3 +64,24 @@
 .border-orange{
 	border:3px solid #FF6600;
 }
+.wordList{
+    list-style:none;
+    margin: 5px;
+    width: auto;
+    height: auto;
+    padding: 8px;
+    border-bottom: 1px solid #d2d2d2;
+    color: black;
+}
+.wordListNone{
+    margin-top:5px;
+    list-style:none;
+    margin: 5px;
+    width: auto;
+    height: auto;
+    padding: 15px;
+}
+.wordListTop{
+    padding-left: 0px;
+    list-style: none;
+}

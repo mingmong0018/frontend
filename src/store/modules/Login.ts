@@ -15,25 +15,23 @@ const module: Module<Login,RootState>={
     mutations:{
         LOGIN(state,{accessToken,userName,userId}){
             state.accessToken=accessToken
-            localStorage.accessToken=accessToken 
             state.userName=userName
-            localStorage.userName=userName
             state.userId=userId
-            localStorage.userId=userId
-      
+            
           },
           LOGOUT(state){
             state.accessToken=null
-            localStorage.accessToken=null
             state.userName=null
-            localStorage.userName=null
             state.userId=null
-            localStorage.userId=null
+            
             
           },
           LOGOUTCLICK(state){
-            alert("토큰이 정상적이지 않습니다. 만료된 토큰이거나 이미 사용된 토큰입니다.")
-            document.getElementById("logout")?.click()
+            if(confirm("토큰이 정상적이지 않습니다. 만료된 토큰이거나 이미 사용된 토큰입니다.")){
+              document.getElementById("logout")?.click()
+            }
+            
+            
           }
     },
     actions:{
@@ -47,6 +45,5 @@ const module: Module<Login,RootState>={
           commit('LOGOUTCLICK')
         }
     },
-   
 }
 export default module;
