@@ -87,7 +87,46 @@
                         등록자 정보
                     </div>
                     <div class="inner-content">
-                        <img src="">
+                        <div class="profile">
+                            <div class="image">
+                                <img :src="writer.mem_image">
+                            </div>
+                            <div class="inform">
+                                <div class="nickname">    
+                                    <span>{{ writer.mem_nickname }}</span>
+                                </div>
+                                <div class="confirm" v-if="writer.mem_confirm=='y'">
+                                    <span>
+                                        <span v-html="check"></span>
+                                        <span> 인증</span>
+                                    </span>
+                                </div>
+                                <div class="no-confirm" v-else>
+                                    <span>미인증</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inner-wrap">
+                    <div class="inner-title">댓글</div>
+                    <div class="inner-content">
+                        <div class="rep">
+                            <div class="no-rep">
+                                등록된 댓글이 없습니다.<br>
+                                첫번째 댓글을 작성해 보세요!
+                            </div>
+                            <div class="rep-register" style="font-size:0.7em;">
+                                <b-form-textarea
+                                    id="room-rep"
+                                    v-model="text"
+                                    placeholder="댓글을 입력하세요"
+                                    rows="3"
+                                    max-rows="6"
+                                    style="font-size:12px;"
+                                ></b-form-textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -116,6 +155,7 @@ export default {
             wish:false,
             writer:[],
             space:'&nbsp;&nbsp;',
+            check:'&#10003;',
         }
     },
     methods: {

@@ -162,7 +162,9 @@ export default {
              }
            }).then(res=>{
              if(res.data!="1"){
-               this.$router.go();
+              //  this.$router.go();
+              this.getMember();
+              alert("수정이 완료되었습니다!");
              }else{
                this.$store.dispatch("Login/LOGOUTCLICK")
              }
