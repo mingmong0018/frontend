@@ -101,7 +101,7 @@
                                         <span> 인증</span>
                                     </span>
                                 </div>
-                                <div class="no-confirm" v-else>
+                                <div class="no-confirm" v-else-if="writer.mem_confirm=='n'">
                                     <span>미인증</span>
                                 </div>
                             </div>

@@ -171,7 +171,6 @@ export default {
            })
         },
         getMember(){
-          
             const params=new URLSearchParams({
                 id:this.$store.state.Login.userId
             });
@@ -180,7 +179,6 @@ export default {
                 Authorization : "Bearer "+this.$store.state.Login.accessToken
                 }
             }).then(res=>{
-                
             
                 if(res.data!=''){
                   console.log(res.data);
@@ -198,9 +196,6 @@ export default {
                 }else{
                   this.$store.dispatch("Login/LOGOUTCLICK")
                 } 
-
-                
-
 
             }).catch(( err ) => {
                 console.log( err );
