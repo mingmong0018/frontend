@@ -118,7 +118,7 @@ export default {
                                 customOverlay.id=listData[i].room_id;
                                 const overlayImg=document.createElement('div');
                                 overlayImg.id='overlay-image';
-                                const imageTag='<img src="room/'+listData[i].room_images.split(', ')[0]+'">'
+                                const imageTag='<img src="room/'+listData[i].room_images.split(',')[0]+'">'
                                 overlayImg.innerHTML=imageTag;
                                 const overlayCnt=document.createElement('div');
                                 overlayCnt.id='overlay-content';

@@ -80,6 +80,7 @@ export default {
                     Authorization : "Bearer "+this.$store.state.Login.accessToken,
                 }
             }).then(res=>{
+                
                 this.$store.state.EmailAuth.email=res.data[0];
                 this.$store.state.EmailAuth.emailCode=res.data[1];
                 

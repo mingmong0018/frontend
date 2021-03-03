@@ -5,7 +5,7 @@
             <img src="@/static/images/search_icon.png" class="main_icon_size">
           </div>
           <div class="main_search_text left-float">
-            <input @input="typing" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" @click="toggleDiv" @key.enter="goSearch" @keydown="trueDiv">
+            <input @input="typing" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" @click="toggleDiv" @keyup.enter="goSearch" @keydown="trueDiv">
           </div>
           <div class="main_location_icon right-float">
             <b-button size="sm" variant="white">

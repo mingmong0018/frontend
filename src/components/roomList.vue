@@ -15,7 +15,7 @@
                     indicators
                     controls
                     >
-                    <div v-for="image in room.room_images.split(', ')" :key="image.index">
+                    <div v-for="image in room.room_images.split(',')" :key="image.index">
                         <b-carousel-slide
                         :img-src="imageUrl+image">
                         </b-carousel-slide>
