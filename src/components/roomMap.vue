@@ -184,35 +184,13 @@ export default {
                                     resolve(addrList);
                                 }
                             }
-                        }});
+                        }
+                    });
                 }// for loop 끝
-<<<<<<< HEAD
-                window.setTimeout(function() {
-                    resolve(addrList);
-                }, 2000);
-            });
-        }
-
-        const getRoomList = markers => {
-            console.log("marker",markers.length)
-            const roomList=[];
-            for(let i=0; i<this.rooms.length; i++) {
-                for(let j=0; j<markers.length; j++) {
-                    if(this.rooms[i].room_address==markers[j]) {
-                        roomList.push(this.rooms[i]);
-                    }
-                }
-            }
-          this.roomList=roomList;
-          this.$emit('changeList', this.roomList);
-        };
-
-=======
                 
             });
         }
 
->>>>>>> 76f9f85c3c146ab5359c832da4e757108b8a0637
         // 리스너 동작 후 리스트만 가져올 함수
         const getAddr = () => {
             this.forLoops=0;
@@ -247,7 +225,7 @@ export default {
                                 }
                             }
                         }
-                    });             
+                    });
                 }
             });
         }
