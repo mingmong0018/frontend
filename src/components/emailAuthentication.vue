@@ -12,11 +12,9 @@
                     <b-form-group
                         label="이메일"
                         description="우리는 다른 누구와도 귀하의 이메일을 공유하지 않습니다."
-                        
                     >
                     <table style="width:100%">
                         <tr>
-                            
                             <td width="70%"><b-form-input
                             v-model="email"
                             id="input-1"
@@ -79,8 +77,9 @@ export default {
                 headers:{
                     Authorization : "Bearer "+this.$store.state.Login.accessToken,
                 }
-            }).then(res=>{
-                
+            }).then(
+                alert("인증번호가 전송되었습니다."),
+                res=>{
                 this.$store.state.EmailAuth.email=res.data[0];
                 this.$store.state.EmailAuth.emailCode=res.data[1];
                 

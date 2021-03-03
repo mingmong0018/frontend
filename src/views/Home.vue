@@ -15,10 +15,7 @@ import searchBox from "@/components/searchBox"
 export default{
   components:{
     searchBox
-  },
-
-  
- 
+  }
 }
 </script>
 <style scoped src="@/static/css/home.css">
