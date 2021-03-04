@@ -156,6 +156,7 @@ export default {
             writer:[],
             space:'&nbsp;&nbsp;',
             check:'&#10003;',
+            text:''
         }
     },
     methods: {

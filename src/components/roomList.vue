@@ -75,6 +75,11 @@ export default {
             this.$router.push({name: 'RoomDetail', query: {roomId: roomId}});
         },
     },
+    watch: {
+        roomList: (newRoom) => {
+            console.log("rooms", newRoom)
+        }
+    }
 }
 </script>
 
