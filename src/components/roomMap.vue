@@ -42,7 +42,9 @@ export default {
     },
     methods: {
         initMap() {
+            this.forLoops=0;
             const listData=this.rooms;
+            console.log("initMap")
 
             const container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
             const options = {
@@ -52,33 +54,31 @@ export default {
             };
             const map = new kakao.maps.Map(container, options); // 맵 표시
         
+            const geocoder = new kakao.maps.services.Geocoder; // 주소 -> 좌표 변환 라이브러리 생성
+
             // 키워드 검색 함수
             const searchKeyword = () => {
-            const ps = new kakao.maps.services.Places();
-            const placesSearchCB = (data, status) => {
-                if (status === kakao.maps.services.Status.OK) {
-                    const bounds = new kakao.maps.LatLngBounds();
-                    for (let i=0; i<data.length; i++) {
-                        bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-                    }       
-                    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
-                    map.setBounds(bounds);
+                const ps = new kakao.maps.services.Places();
+                const placesSearchCB = (data, status) => {
+                    if (status === kakao.maps.services.Status.OK) {
+                        const bounds = new kakao.maps.LatLngBounds();
+                        for (let i=0; i<data.length; i++) {
+                            bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                        }       
+                        // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+                        map.setBounds(bounds);
+                    }
                 }
-            }
-            ps.keywordSearch(this.searchText, placesSearchCB);
+                ps.keywordSearch(this.searchText, placesSearchCB);
             }
 
             if(this.searchText!='') {
-            this.mainSearch='';
-            searchKeyword();
+                this.mainSearch='';
+                searchKeyword();
+            } else if(this.mainSearch!='') {
+                this.searchText=this.mainSearch;
+                searchKeyword();
             }
-
-            if(this.mainSearch!='') {
-            this.searchText=this.mainSearch;
-            searchKeyword();
-            }
-
-            const geocoder = new kakao.maps.services.Geocoder; // 주소 -> 좌표 변환 라이브러리 생성
         
             const overlay = new kakao.maps.CustomOverlay({
                 clickable: true,
@@ -87,120 +87,94 @@ export default {
             let clickedOverlay=null;  // 클릭된 오버레이를 저장할 변수
             let clickedRoom=[];   // 클릭된 오버레이의 방 정보를 저장할 변수
 
-        const getMarkers = () => {
-            this.forLoops=0;
-            return new Promise((resolve) => {
-                const addrList=[];
-            
-                // for loop
-                for(let i=0;i<this.rooms.length;i++) {
-                    geocoder.addressSearch(listData[i].room_address, (result, status) => { 
-                        if (status === kakao.maps.services.Status.OK) {
-                            
-                            // room_address(주소) 배열을 돌면서 하나씩 꺼내서 좌표로 변환
-                            const coord=new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                            const imageSrc = 'marker.png', // 마커이미지 주소  
-                            imageSize = new kakao.maps.Size(50, 50), // 마커이미지 크기
-                            imageOption = {offset: new kakao.maps.Point(30, 50)}; // 마커이미지 위치
-                        
-                            // 마커 생성
-                            const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-                            const marker= new kakao.maps.Marker({
-                                map: map, 
-                                position: coord, 
-                                clickable: true, 
-                                image: markerImage
-                            });
-                            marker.setMap(map);
-                            kakao.maps.event.addListener(marker, 'click', () => {
-                                console.log("roomId",listData[i].room_id);
+            const addrList=[];
+                if(this.forLoops==0){
+                    // for loop
+                    listData.forEach( (item,index) => {
+                        geocoder.addressSearch(item.room_address, (result, status) => { 
+                            if (status === kakao.maps.services.Status.OK) {
                                 
-                                const customOverlay=document.createElement('div');
-                                customOverlay.className='customOverlay';
-                                customOverlay.id=listData[i].room_id;
-                                const overlayImg=document.createElement('div');
-                                overlayImg.id='overlay-image';
-                                const imageTag='<img src="room/'+listData[i].room_images.split(',')[0]+'">'
-                                overlayImg.innerHTML=imageTag;
-                                const overlayCnt=document.createElement('div');
-                                overlayCnt.id='overlay-content';
-                                let content='<span class="room-region">'
-                                +     listData[i].room_address.split(' ')[0]+' '
-                                +listData[i].room_address.split(' ')[1]+' '
-                                +listData[i].room_address.split(' ')[2]
-                                +'  </span><br>'
-                                +'  <span class="room-title">'+listData[i].room_title+'</span><br>'
-                                +     listData[i].room_deposit+' / '+listData[i].room_rent+'<br>';
-                                if(listData[i].mem_gender=='f') {
-                                    content=content+
-                                    '<span class="overlay-mem-gender f">여성 호스트</span>'
-                                }else {
-                                    content=content+
-                                    '<span class="overlay-mem-gender m">남성 호스트</span>'
-                                }
-                                overlayCnt.innerHTML=content;
-                                customOverlay.appendChild(overlayImg);
-                                customOverlay.appendChild(overlayCnt);
-                                customOverlay.addEventListener('click', () => {
-                                    this.$router.push({name: 'RoomDetail', query: {roomId: listData[i].room_id}});
-                                });
+                                // room_address(주소) 배열을 돌면서 하나씩 꺼내서 좌표로 변환
+                                const coord=new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                                const markerPosition=marker.getPosition();
-                                geocoder.coord2Address(markerPosition.getLng(), markerPosition.getLat(), function(result, status) {
-                                if (status === kakao.maps.services.Status.OK) {
-                                    if(result[0].address.address_name==listData[i].room_address){
-                                    clickedRoom=listData[i];
-                                    overlay.setPosition(markerPosition);
-                                    overlay.setContent(customOverlay);
-                                    map.panTo(markerPosition);
-                                    overlay.setMap(map);
+                                const imageSrc = 'marker.png', // 마커이미지 주소  
+                                imageSize = new kakao.maps.Size(50, 50), // 마커이미지 크기
+                                imageOption = {offset: new kakao.maps.Point(30, 50)}; // 마커이미지 위치
+                            
+                                // 마커 생성
+                                const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+                                const marker= new kakao.maps.Marker({
+                                    map: map, 
+                                    position: coord, 
+                                    clickable: true, 
+                                    image: markerImage
+                                });
+                                marker.setMap(map);
+                                kakao.maps.event.addListener(marker, 'click', () => {
+                                    console.log("roomId",item.room_id);
+                                    
+                                    const customOverlay=document.createElement('div');
+                                    customOverlay.className='customOverlay';
+                                    customOverlay.id=item.room_id;
+                                    const overlayImg=document.createElement('div');
+                                    overlayImg.id='overlay-image';
+                                    const imageTag='<img src="room/'+item.room_images.split(',')[0]+'">'
+                                    overlayImg.innerHTML=imageTag;
+                                    const overlayCnt=document.createElement('div');
+                                    overlayCnt.id='overlay-content';
+                                    let content='<span class="room-region">'
+                                    +     item.room_address.split(' ')[0]+' '
+                                    +item.room_address.split(' ')[1]+' '
+                                    +item.room_address.split(' ')[2]
+                                    +'  </span><br>'
+                                    +'  <span class="room-title">'+item.room_title+'</span><br>'
+                                    +     item.room_deposit+' / '+item.room_rent+'<br>';
+                                    if(item.mem_gender=='f') {
+                                        content=content+
+                                        '<span class="overlay-mem-gender f">여성 호스트</span>'
+                                    }else {
+                                        content=content+
+                                        '<span class="overlay-mem-gender m">남성 호스트</span>'
                                     }
-                                }
-                                });
-                                clickedOverlay=overlay;
-                            });
+                                    overlayCnt.innerHTML=content;
+                                    customOverlay.appendChild(overlayImg);
+                                    customOverlay.appendChild(overlayCnt);
+                                    customOverlay.addEventListener('click', () => {
+                                        this.$router.push({name: 'RoomDetail', query: {roomId: item.room_id}});
+                                    });
 
-                            kakao.maps.event.addListener(map, 'click', function() {
-                                overlay.setMap(null)
-                            })
-
-                            // 지도의 범위 추출
-                            const bounds=map.getBounds();
-                            // 해당 좌표가 현재 지도 범위 안에 있는지 확인(true or false)
-                            const visible=bounds.contain(coord);
-                            if(visible) {
-                                geocoder.coord2Address(coord.getLng(), coord.getLat(), (result, status) => {
+                                    const markerPosition=marker.getPosition();
+                                    geocoder.coord2Address(markerPosition.getLng(), markerPosition.getLat(), function(result, status) {
                                     if (status === kakao.maps.services.Status.OK) {
-                                        addrList.push(result[0].address.address_name);
-                                        this.forLoops++;
-                                        if(this.forLoops-1==this.rooms.length-1) {
-                                            resolve(addrList);
+                                        if(result[0].address.address_name==item.room_address){
+                                        clickedRoom=item;
+                                        overlay.setPosition(markerPosition);
+                                        overlay.setContent(customOverlay);
+                                        map.panTo(markerPosition);
+                                        overlay.setMap(map);
                                         }
                                     }
+                                    });
+                                    clickedOverlay=overlay;
                                 });
-                            } else {
-                                this.forLoops++;
-                                if(this.forLoops-1==this.rooms.length-1) {
-                                    resolve(addrList);
-                                }
+
+                                kakao.maps.event.addListener(map, 'click', function() {
+                                    overlay.setMap(null)
+                                })
                             }
-                        }
-                    });
-                }// for loop 끝
-                
-            });
-        }
+                        });
+                    }); //forLoops끝
+                }
 
         // 리스너 동작 후 리스트만 가져올 함수
         const getAddr = () => {
-            this.forLoops=0;
             return new Promise((resolve) => {
                 const addrList=[];
                 addrList.slice(0);
-                // for loop
-                for(let i=0;i<this.rooms.length;i++) {
-                    geocoder.addressSearch(listData[i].room_address, (result, status) => { 
+                if(this.forLoops==0){
+                // for loop 
+                listData.forEach( (item,index) => {
+                    geocoder.addressSearch(item.room_address, (result, status) => { 
                         if (status === kakao.maps.services.Status.OK) {
                             
                             // room_address(주소) 배열을 돌면서 하나씩 꺼내서 좌표로 변환
@@ -228,6 +202,7 @@ export default {
                             }
                         }
                     });
+                });
                 }
             });
         }
@@ -242,6 +217,7 @@ export default {
                 }
                 if(i==this.rooms.length-1) {
                     this.$emit('changeList', roomList);
+                    this.forLoops=0;
                 }
             }
         };
@@ -250,12 +226,11 @@ export default {
             if(clickedOverlay!=null) {
                 overlay.setMap(null);
             }
-            this.defaultLatLng=map.getCenter();
-            this.defaultLevel=map.getLevel();
             (async () => {
                 try {
                     const markers = await getAddr();
                     if(markers.length>0) {
+                        console.log("dragend 실행");
                         getRoomList(markers);
                     }
                 }catch (e) {
@@ -268,10 +243,9 @@ export default {
             if(clickedOverlay!=null) {
                 overlay.setMap(null);
             }
-            this.defaultLatLng=map.getCenter();
-            this.defaultLevel=map.getLevel();
             (async () => {
                 try {
+                    console.log("zoom_changed 실행");
                     const markers = await getAddr();
                     if(markers.length>0) {
                         getRoomList(markers);
@@ -281,17 +255,20 @@ export default {
                 }
             })();
         });
-
-        (async () => {
-            try {
-                const markers = await getMarkers();
-                if(markers.length>0) {
-                    getRoomList(markers);
+        
+        if(typeof this.searchText=="undefined") {
+            (async () => {
+                try {
+                    const markers = await getAddr();
+                    if(markers.length>0) {
+                        console.log("익명함수 async 실행");
+                        getRoomList(markers);
+                    }
+                }catch (e) {
+                    console.log(e);
                 }
-            }catch (e) {
-                console.log(e);
-            }
-        })();
+            })();
+        }
     },
     addKakaoMapScript() {
         const script = document.createElement("script");
@@ -316,54 +293,54 @@ export default {
     padding-top:60px;
     height:100vh;
     }
-.customOverlay {
-  width:210px;
-  height:260px;
-  background:white;
-  border-radius:15px;
-  box-shadow:0 0 20px 1px #bdbdbd;
-  overflow:hidden;
-  cursor:pointer;
-}
-#overlay-image {
-  width:210px;
-  height:150px;
-}
-#overlay-image img{
-  width:210px;
-  height:150px;
-}
-#overlay-content {
-  width:210px;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  padding:5px 10px;
-}
-.room-title {
-    font-weight:700;
-    font-size:1em;
-}
-.room-region {
-    font-size:0.7em;
-    color:#6e6e6e;
-    margin-bottom:10px;
-}
+    .customOverlay {
+    width:210px;
+    height:260px;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 0 20px 1px #bdbdbd;
+    overflow:hidden;
+    cursor:pointer;
+    }
+    #overlay-image {
+    width:210px;
+    height:150px;
+    }
+    #overlay-image img{
+    width:210px;
+    height:150px;
+    }
+    #overlay-content {
+    width:210px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding:5px 10px;
+    }
+    .room-title {
+        font-weight:700;
+        font-size:1em;
+    }
+    .room-region {
+        font-size:0.7em;
+        color:#6e6e6e;
+        margin-bottom:10px;
+    }
 
-.overlay-mem-gender {
-    font-size:0.7em;
-    border-radius:2px;
-    float:left;
-    margin-top:5px;
-}
+    .overlay-mem-gender {
+        font-size:0.7em;
+        border-radius:2px;
+        float:left;
+        margin-top:5px;
+    }
 
-.m {
-    background:rgb(213, 240, 255);
-    color:black;
-}
+    .m {
+        background:rgb(213, 240, 255);
+        color:black;
+    }
 
-.f {
-    background:rgb(255, 232, 236);
-    color:black;
-}
+    .f {
+        background:rgb(255, 232, 236);
+        color:black;
+    }
 </style>
