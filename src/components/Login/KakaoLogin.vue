@@ -28,7 +28,7 @@ const onSuccess = (data) => {
                         const userId=tmp[2];
                         
                         store.dispatch("Login/LOGIN", { accessToken, userName, userId })
-                        router.go(router.currentRoute);
+                        this.$router.go(this.$router.currentRoute);
                         
                     
                     })

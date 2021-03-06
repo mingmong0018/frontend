@@ -72,7 +72,7 @@ export default {
     },
     methods: {
         goRoomDetail(roomId) {
-            this.$router.push({name: 'RoomDetail', query: {roomId: roomId}});
+            this.$router.push({name: 'RoomDetail', query: {roomId: String(roomId)}});
         },
     }
 }
