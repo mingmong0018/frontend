@@ -15,6 +15,10 @@
     cursor:pointer;
 }
 
+#roomList :last-child #list-room-div{
+    border-bottom:none;
+}
+
 #list-room-images {
     width:300px;
     height:200px;

@@ -63,11 +63,18 @@ export default {
                         headers:{
                             Authorization : "Bearer "+this.$store.state.Login.accessToken
                         }
-                    }).then(() => {
-                        this.getWish();
-                        this.message='찜 목록에 추가되었습니다'
-                        this.toast('b-toaster-top-center');
-                        console.log("insert",this.wish);
+                    }).then(res=>{
+                        if(res.data!='') {
+                            this.getWish();
+                            this.message='찜 목록에 추가되었습니다'
+                            this.toast('b-toaster-top-center');
+                            console.log("insert",this.wish);
+                        }else{
+                            this.$store.dispatch("Login/LOGOUTCLICK")
+                        } 
+                    }).catch(( err ) => {
+                        console.log( err );
+                        throw err;
                     });
                 }else {
                     axios({
@@ -77,11 +84,18 @@ export default {
                         headers:{
                             Authorization : "Bearer "+this.$store.state.Login.accessToken
                         }
-                    }).then(() => {
-                        this.getWish();
-                        this.message='찜 목록에서 삭제되었습니다'
-                        this.toast('b-toaster-top-center');
-                        console.log("delete",this.wish);
+                    }).then(res => {
+                        if(res.data!='') {
+                            this.getWish();
+                            this.message='찜 목록에서 삭제되었습니다'
+                            this.toast('b-toaster-top-center');
+                            console.log("delete",this.wish);
+                        }else{
+                            this.$store.dispatch("Login/LOGOUTCLICK")
+                        } 
+                    }).catch(( err ) => {
+                        console.log( err );
+                        throw err;
                     });
                 }
             }  

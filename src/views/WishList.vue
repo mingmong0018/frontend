@@ -1,5 +1,10 @@
 <template>
-  <roomList :roomList="wishList"/>
+  <div id="wish-list-wrap">
+    <div id="title">
+      <img src="wish_on.png" width="20">찜한 방
+    </div>
+    <roomList :roomList="wishList"/>
+  </div>
 </template>
 
 <script>
@@ -39,8 +44,13 @@ export default {
   }
 }
 </script>
-
+<style scoped src="@/static/css/wishList.css">
+</style>
 <style scoped>
+ #wish-list-wrap {
+    overflow:hidden;
+  }
+
   #roomList {
     position: relative;
     height:100%;
@@ -49,16 +59,32 @@ export default {
     margin:0 auto;
     float:none !important
   }
+
+  #title {
+    position:absolute;
+    z-index: 1;
+    width:100%;
+    height:65px;
+    padding:0 20px;
+    font-size:1.5em;
+    font-weight:600;
+    line-height: 80px;
+    background:white;
+  }
+
+  #title img {
+     margin-bottom:7px; 
+     margin-right:10px;
+  }
   
   @media (min-width: 1040px) {
-      #roomList {
+      #wish-list-wrap, #roomList, #title {
           width:940px;
       }
       #list-room-content {
         width: 100% !important;
       }
   }
-
 </style>
 <style>
 
