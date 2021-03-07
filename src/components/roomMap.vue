@@ -18,6 +18,7 @@
 </template>
 
 <script>
+
 export default {
     props: {
         rooms: Array,
@@ -201,6 +202,7 @@ export default {
                 for(let i=0;i<this.rooms.length;i++) {
                     geocoder.addressSearch(listData[i].room_address, (result, status) => { 
                         if (status === kakao.maps.services.Status.OK) {
+                            
                             // room_address(주소) 배열을 돌면서 하나씩 꺼내서 좌표로 변환
                             const coord=new kakao.maps.LatLng(result[0].y, result[0].x);
 
@@ -298,7 +300,9 @@ export default {
         script.src =
             "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=d7a8d55394ad417e2d34f6d1c7b9d0f8";
         document.head.appendChild(script);
-    }
+    },
+   
+
   }
 }
 </script>
