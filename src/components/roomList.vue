@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import hashTag from "@/components/hashTag"
 export default {
     components: {
@@ -72,18 +71,13 @@ export default {
     },
     methods: {
         goRoomDetail(roomId) {
-            this.$router.push({name: 'RoomDetail', query: {roomId: roomId}});
+            this.$router.push({name: 'RoomDetail', query: {roomId: String(roomId)}});
         },
-    },
-    watch: {
-        roomList: (newRoom) => {
-            console.log("rooms", newRoom)
-        }
     }
 }
 </script>
 
-<style scoped src="@/static/css/listRoom.css">
+<style scoped src="@/static/css/roomList.css">
 </style>
 <style>
     .carousel-indicators li {
@@ -96,6 +90,10 @@ export default {
 
     .carousel, .carousel-inner, .carousel-item {
         height:100%;
+    }
+
+    #list-room-div :last-child {
+        border-bottom: none;
     }
 
 </style>

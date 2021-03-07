@@ -5,7 +5,7 @@
             <img src="@/static/images/search_icon.png" class="main_icon_size">
           </div>
           <div class="main_search_text left-float">
-            <input @input="typing" ref="search" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" :value="searchText" @click="toggleDiv" @keyup.enter="goSearch" @keydown="trueDiv">
+            <input @input="typing" ref="search" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" :value="searchText" @click="toggleDiv" @keyup.enter="goSearch(searchText)" @keydown="trueDiv">
           </div>
           <div class="main_location_icon right-float">
             <b-button size="sm" variant="white" @click="goSearch">
@@ -37,8 +37,8 @@ export default {
   },
   methods: {
     newSearchText(word) {
-      this.searchText=word;
       this.$refs.search.focus();
+      this.goSearch(word);
     },
     toggleDiv() {
       this.divStatus=!this.divStatus;
@@ -46,9 +46,12 @@ export default {
     trueDiv() {
       this.divStatus=true;
     },
-    goSearch() {
+
+    goSearch(text) {
+      this.searchText=text
       this.savingSearchText()
-      this.$router.push({name: 'SearchRoom', params: {mainSearchText: this.searchText}})
+      this.$router.push({name: 'SearchRoom', params: {mainSearchText: text}})
+
     },
     typing(e){
       this.searchText=e.target.value

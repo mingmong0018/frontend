@@ -5,14 +5,7 @@
                 <div id="room-title">
                     {{ room.room_title }}
                 </div>
-                <div id="wish-button" @click="changWishStatus">
-                    <div id="wish-icon" v-if="this.wish==true" title="찜 해제">
-                        <img src="wish_on.png" width="22">
-                    </div>
-                    <div id="wish-icon" v-else title="찜하기">
-                        <img src="wish_off.png" width="22">
-                    </div>
-                </div>
+                <wishbutton :roomId="roomNumber"/>
             </div>
             <div id="room-images">
                 <div id="carouselDiv">
@@ -137,9 +130,11 @@
 <script>
 import axios from 'axios'
 import hashTag from "@/components/hashTag"
+import wishbutton from '@/components/wishButton.vue'
 export default {
     components: {
-        hashTag
+        hashTag,
+        wishbutton
     },
     name: 'RoomDetail',
     data() {
@@ -156,50 +151,11 @@ export default {
             writer:[],
             space:'&nbsp;&nbsp;',
             check:'&#10003;',
-            text:''
-        }
-    },
-    methods: {
-        changWishStatus() {
-            const params=new URLSearchParams({
-                id:localStorage.userId,
-                roomId:this.room.room_id
-            });
-            if(this.wish==false) {
-                axios.post('/api/wish',params,
-                {
-                    headers:{
-                    Authorization : "Bearer "+localStorage.accessToken
-                }
-                }).then(function() {
-                    this.wish=!this.wish;
-                });
-            }else {
-                axios.delete('/api/wish',params,
-                {
-                    headers:{
-                    Authorization : "Bearer "+localStorage.accessToken
-                }
-                }).then(function() {
-                    this.wish=!this.wish;
-                });
-            }
-            
+            text:'',
         }
     },
     mounted() {
         const roomNumber=this.roomNumber;
-        const params=new URLSearchParams({
-                id:localStorage.userId,
-                roomId:roomNumber
-            });1
-        axios.get('/api/wish',params,{
-                headers:{
-                    Authorization : "Bearer "+localStorage.accessToken
-                }
-            }).then((res) => {
-                this.wish=res.data;
-            });
         function getRoomDetail() {
             return axios.get('/api/roomDetail', {
                 params: {

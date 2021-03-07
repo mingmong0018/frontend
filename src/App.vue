@@ -39,7 +39,8 @@
     },
     data(){
       return{
-        loginBoolean:false
+        loginBoolean:false,
+        token: this.$store.state.Login.accessToken
       }
     },
     computed:{
@@ -61,8 +62,11 @@
         .catch(error  => {
           // things to do when sign-out fails
         })
-      
-        this.$router.push('/')
+        if(this.$route.path=='/') {
+          this.$router.go(this.$router.currentRoute);
+        }else {
+          this.$router.push('/')
+        }
         
       }
       
