@@ -175,6 +175,7 @@ export default {
                 const bounds=map.getBounds();
                 const addrList=[];
                 addrList.slice(0);
+<<<<<<< HEAD
 
                 console.log("getAddr실행", this.forLoops);
                 if(this.forLoops==0){
@@ -195,6 +196,28 @@ export default {
                                             if(this.forLoops-1==this.rooms.length-1) {
                                                 resolve(addrList);
                                             }
+=======
+                console.log("getAddr실행", this.forLoops);
+                if(this.forLoops==0){
+                    // for loop 
+                    listData.forEach( item => {
+                        geocoder.addressSearch(item.room_address, (result, status) => { 
+                            if (status === kakao.maps.services.Status.OK) {
+                                // room_address(주소) 배열을 돌면서 하나씩 꺼내서 좌표로 변환
+                                const coord=new kakao.maps.LatLng(result[0].y, result[0].x);
+                                
+                                // 해당 좌표가 현재 지도 범위 안에 있는지 확인(true or false)
+                                const visible=bounds.contain(coord);
+                                if(visible) {
+                                    geocoder.coord2Address(coord.getLng(), coord.getLat(), (result, status) => {
+                                        if (status === kakao.maps.services.Status.OK) {
+                                            addrList.push(result[0].address.address_name);
+                                            this.forLoops++;
+                                            if(this.forLoops-1==this.rooms.length-1) {
+                                                resolve(addrList);
+                                            }
+
+>>>>>>> 56b1120a39dd92864dff37640a01276a13e8b690
                                         }
                                     });
                                 } else {
