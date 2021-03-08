@@ -13,6 +13,7 @@ scope: 'profile email https://www.googleapis.com/auth/user.birthday.read https:/
 prompt: 'consent'
 })
 Vue.use(BootstrapVueIcons)
+
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
