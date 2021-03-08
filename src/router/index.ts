@@ -4,10 +4,11 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import SearchRoom from '../views/SearchRoom.vue'
 import WishList from '../views/WishList.vue'
-import Notice from '../views/Notice.vue'
 import UpdateMember from '../views/UpdateMember.vue'
 import NaverCallback from '@/components/Login/NaverCallback.vue'
 import RoomDetail from '../views/RoomDetail.vue'
+import RegisterRoom from '../views/RegisterRoom.vue'
+import MyRoom from '../views/MyRoom.vue'
 Vue.use(VueRouter)
 
 const state: any|RootState = store.state
@@ -55,15 +56,21 @@ const routes: Array<RouteConfig> = [
     beforeEnter: requireAuth(),
   },
   {
-    path: '/Notice',
-    name: 'Notice',
-    component: Notice,
-    beforeEnter:requireAuth(),
-  },
-  {
     path: '/UpdateMember',
     name: 'UpdateMember',
     component: UpdateMember,
+    beforeEnter:requireAuth(),
+  },
+  {
+    path: '/MyRoom',
+    name: 'MyRoom',
+    component: MyRoom,
+    beforeEnter: requireAuth(),
+  },
+  {
+    path: '/RegisterRoom',
+    name: 'RegisterRoom',
+    component: RegisterRoom,
     beforeEnter:requireAuth(),
   }
   

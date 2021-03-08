@@ -9,7 +9,6 @@
           
           <b-navbar-nav class="ml-auto">
             <b-nav-item><router-link to="/WishList">찜 목록</router-link></b-nav-item>
-            <b-nav-item><router-link to="/Notice">알림<b-badge pill>+99</b-badge></router-link></b-nav-item>
             <!-- Navbar dropdowns -->
             <template v-if="userName===null||userName===undefined">
               <button id="loginSection" @click="showModal">로그인</button>
@@ -17,6 +16,7 @@
             <template v-else>
               <b-nav-item-dropdown :text="userName+'님'" right>
               <b-dropdown-item><router-link to="/UpdateMember">내 정보수정</router-link></b-dropdown-item>
+              <b-dropdown-item><router-link to="/MyRoom">내 방 목록</router-link></b-dropdown-item>
               <b-dropdown-item id="logout" @click="logout">로그아웃</b-dropdown-item>
             </b-nav-item-dropdown>
             </template>

@@ -2,7 +2,7 @@
   <div class="list-room-wrap">
     <roomMap v-if="this.rooms.length>0" :rooms="rooms" :searchTxt="searchTxt" @changeList="newRoom"/>
     <roomList :roomList="roomList"/>
-    <div id="changeList"></div>
+    <registerRoomBtn/>
   </div>
 </template>
 
@@ -10,6 +10,7 @@
 import axios from'axios'
 import roomList from "@/components/roomList.vue"
 import roomMap from "@/components/roomMap.vue"
+import registerRoomBtn from "@/components/registerRoomBtn.vue"
 export default {
   name: 'SearchRoom',
   props: {
@@ -20,6 +21,7 @@ export default {
   components:{
     roomList,
     roomMap,
+    registerRoomBtn
   },
   data() {
     return {

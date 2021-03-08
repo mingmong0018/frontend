@@ -46,7 +46,6 @@
                 <span class="mem-gender f" v-if="room.mem_gender=='f'"><span v-html="space"></span>여성 호스트<span v-html="space"></span></span>
                 <span class="mem-gender m" v-else-if="room.mem_gender=='m'"><span v-html="space"></span>남성 호스트<span v-html="space"></span></span>
             </div>
-            
           </div>
         </div>
       </div>
