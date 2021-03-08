@@ -20,9 +20,7 @@
               <b-dropdown-item id="logout" @click="logout">로그아웃</b-dropdown-item>
             </b-nav-item-dropdown>
             </template>
-            
-            
-            
+          
           </b-navbar-nav>
         </b-navbar>
     </div>
