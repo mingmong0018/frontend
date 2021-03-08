@@ -52,8 +52,8 @@ export default {
                 center: this.defaultLatLng, //지도의 중심좌표.
                 level: this.defaultLevel //지도의 레벨(확대, 축소 정도)
             };
+            
             const map = new kakao.maps.Map(container, options); // 맵 표시
-        
             const geocoder = new kakao.maps.services.Geocoder; // 주소 -> 좌표 변환 라이브러리 생성
 
             // 키워드 검색 함수
@@ -69,6 +69,7 @@ export default {
                         map.setBounds(bounds);
                     }
                 }
+                console.log("검색어", this.searchText);
                 ps.keywordSearch(this.searchText, placesSearchCB);
             }
 
@@ -90,7 +91,7 @@ export default {
             const addrList=[];
                 if(this.forLoops==0){
                     // for loop
-                    listData.forEach( (item,index) => {
+                    listData.forEach( item => {
                         geocoder.addressSearch(item.room_address, (result, status) => { 
                             if (status === kakao.maps.services.Status.OK) {
                                 
@@ -168,41 +169,43 @@ export default {
 
         // 리스너 동작 후 리스트만 가져올 함수
         const getAddr = () => {
+            this.forLoops=0;
             return new Promise((resolve) => {
+                // 지도의 범위 추출
+                const bounds=map.getBounds();
                 const addrList=[];
                 addrList.slice(0);
+                console.log("getAddr실행", this.forLoops);
                 if(this.forLoops==0){
-                // for loop 
-                listData.forEach( (item,index) => {
-                    geocoder.addressSearch(item.room_address, (result, status) => { 
-                        if (status === kakao.maps.services.Status.OK) {
-                            
-                            // room_address(주소) 배열을 돌면서 하나씩 꺼내서 좌표로 변환
-                            const coord=new kakao.maps.LatLng(result[0].y, result[0].x);
+                    // for loop 
+                    listData.forEach( item => {
+                        geocoder.addressSearch(item.room_address, (result, status) => { 
+                            if (status === kakao.maps.services.Status.OK) {
+                                // room_address(주소) 배열을 돌면서 하나씩 꺼내서 좌표로 변환
+                                const coord=new kakao.maps.LatLng(result[0].y, result[0].x);
+                                
+                                // 해당 좌표가 현재 지도 범위 안에 있는지 확인(true or false)
+                                const visible=bounds.contain(coord);
+                                if(visible) {
+                                    geocoder.coord2Address(coord.getLng(), coord.getLat(), (result, status) => {
+                                        if (status === kakao.maps.services.Status.OK) {
+                                            addrList.push(result[0].address.address_name);
+                                            this.forLoops++;
+                                            if(this.forLoops-1==this.rooms.length-1) {
+                                                resolve(addrList);
+                                            }
 
-                            // 지도의 범위 추출
-                            const bounds=map.getBounds();
-                            // 해당 좌표가 현재 지도 범위 안에 있는지 확인(true or false)
-                            const visible=bounds.contain(coord);
-                            if(visible) {
-                                geocoder.coord2Address(coord.getLng(), coord.getLat(), (result, status) => {
-                                    if (status === kakao.maps.services.Status.OK) {
-                                        addrList.push(result[0].address.address_name);
-                                        this.forLoops++;
-                                        if(this.forLoops-1==this.rooms.length-1) {
-                                            resolve(addrList);
                                         }
+                                    });
+                                } else {
+                                    this.forLoops++;
+                                    if(this.forLoops-1==this.rooms.length-1) {
+                                        resolve(addrList);
                                     }
-                                });
-                            } else {
-                                this.forLoops++;
-                                if(this.forLoops-1==this.rooms.length-1) {
-                                    resolve(addrList);
                                 }
                             }
-                        }
+                        });
                     });
-                });
                 }
             });
         }
@@ -228,9 +231,9 @@ export default {
             }
             (async () => {
                 try {
+                    console.log("dragend 실행");
                     const markers = await getAddr();
                     if(markers.length>0) {
-                        console.log("dragend 실행");
                         getRoomList(markers);
                     }
                 }catch (e) {
@@ -247,9 +250,7 @@ export default {
                 try {
                     console.log("zoom_changed 실행");
                     const markers = await getAddr();
-                    if(markers.length>0) {
-                        getRoomList(markers);
-                    }
+                    getRoomList(markers);
                 }catch (e) {
                     console.log(e);
                 }
