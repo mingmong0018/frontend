@@ -4,6 +4,10 @@ interface Login{
   accessToken: null;
   userName: null;
   userId: null;
+  index: 0;
+  recentKeyword: [{
+    
+  }];
 }
 const module: Module<Login,RootState>={
   namespaced : true,
@@ -11,13 +15,16 @@ const module: Module<Login,RootState>={
         accessToken : null,
         userName : null,
         userId : null,
+        index : 0,
+        recentKeyword : [{
+         
+        }],
     },
     mutations:{
         LOGIN(state,{accessToken,userName,userId}){
             state.accessToken=accessToken
             state.userName=userName
             state.userId=userId
-            
           },
           LOGOUT(state){
             state.accessToken=null
@@ -32,7 +39,20 @@ const module: Module<Login,RootState>={
             }
             
             
-          }
+          },
+          ADDKEYWORD(state,{keyword}){
+            state.recentKeyword.push({keywordId:++state.index,keywordContent:keyword})
+            console.log(state.recentKeyword)
+            
+          },
+          DELETEKEYWORD(state,{keywordIndex}){
+            state.recentKeyword.splice(state.recentKeyword.length-keywordIndex-1,1)
+            
+          },
+          DELETEALLKEYWORD(state){
+            state.recentKeyword.splice(0,state.recentKeyword.length)
+            
+          },
     },
     actions:{
         LOGIN({commit},{accessToken,userName,userId}){
@@ -43,7 +63,16 @@ const module: Module<Login,RootState>={
         },
         LOGOUTCLICK({commit}){
           commit('LOGOUTCLICK')
-        }
+        },
+        ADDKEYWORD({commit},{keyword}){
+          commit('ADDKEYWORD',{keyword})
+        },
+        DELETEKEYWORD({commit},{keywordIndex}){
+          commit('DELETEKEYWORD',{keywordIndex})
+        },
+        DELETEALLKEYWORD({commit}){
+          commit('DELETEALLKEYWORD')
+        },
     },
 }
 export default module;

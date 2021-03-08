@@ -23,6 +23,7 @@ export default {
         naverLogin.init();
         naverLogin.getLoginStatus(function(status) {
             if (status) {
+                console.log(naverLogin)
                 const params=new URLSearchParams({
                         accessToken : naverLogin.accessToken.accessToken,
                         state : 'naver'

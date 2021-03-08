@@ -5,11 +5,12 @@
             <img src="@/static/images/search_icon.png" class="main_icon_size">
           </div>
           <div class="main_search_text left-float">
-            <input @input="typing" ref="search" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" :value="searchText" @click="toggleDiv" @keyup.enter="goSearch(value)" @keydown="trueDiv">
+            <input @input="typing" ref="search" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" :value="searchText" @click="toggleDiv" @keyup.enter="goSearch(searchText)" @keydown="trueDiv">
           </div>
           <div class="main_location_icon right-float">
-            <b-button size="sm" variant="white">
-              <router-link to="/SearchRoom"><img src="@/static/images/location_icon.png" class="main_icon_size"></router-link>
+            <b-button size="sm" variant="white" @click="goSearch">
+              <img src="@/static/images/location_icon.png" class="main_icon_size">
+              <!-- <router-link to="/SearchRoom"><img src="@/static/images/location_icon.png" class="main_icon_size"></router-link> -->
             </b-button>
           </div>
         </div>
@@ -22,6 +23,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import searchHistory from '@/components/searchHistory.vue'
 export default {
   components:{
@@ -44,16 +46,37 @@ export default {
     trueDiv() {
       this.divStatus=true;
     },
+
     goSearch(text) {
+      this.searchText=text
+      this.savingSearchText()
       this.$router.push({name: 'SearchRoom', params: {mainSearchText: text}})
+
     },
     typing(e){
       this.searchText=e.target.value
     },
+     savingSearchText(){
+       if(this.$store.state.Login.userId!=null){
+         const param=new URLSearchParams({
+            id:this.$store.state.Login.userId,
+            searchText:this.searchText
+        })
+        axios.post('api/savingSearchText',param,{
+            headers:{
+                Authorization : "Bearer "+this.$store.state.Login.accessToken
+                }
+        }).then()
+       }else{
+         
+         const keyword=this.searchText;
+         this.$store.dispatch("Login/ADDKEYWORD",{keyword})
+       }
+        
+    }
   },
   computed:{
     fasterSearchText(){
-      console.log("typing : "+this.searchText)
       return this.searchText
     }
   }

@@ -174,8 +174,18 @@ export default {
             const params=new URLSearchParams({
                 id:this.$store.state.Login.userId
             });
-            axios.post('/api/getMember',params,{
-            headers:{
+            // axios.post('/api/getMember',params,{
+            // headers:{
+            //     Authorization : "Bearer "+this.$store.state.Login.accessToken
+            //     }
+            // })
+            axios({
+               url:'/api/getMember',
+               method:'GET',
+               params:{
+                 id:this.$store.state.Login.userId
+               },
+               headers:{
                 Authorization : "Bearer "+this.$store.state.Login.accessToken
                 }
             }).then(res=>{

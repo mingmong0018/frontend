@@ -18,6 +18,7 @@
 </template>
 
 <script>
+
 export default {
     props: {
         rooms: Array,
@@ -174,6 +175,7 @@ export default {
                 const bounds=map.getBounds();
                 const addrList=[];
                 addrList.slice(0);
+
                 console.log("getAddr실행", this.forLoops);
                 if(this.forLoops==0){
                     // for loop 
@@ -276,7 +278,9 @@ export default {
         script.src =
             "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=d7a8d55394ad417e2d34f6d1c7b9d0f8";
         document.head.appendChild(script);
-    }
+    },
+   
+
   }
 }
 </script>
