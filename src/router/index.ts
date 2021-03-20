@@ -8,7 +8,7 @@ import UpdateMember from '../views/UpdateMember.vue'
 import NaverCallback from '@/components/Login/NaverCallback.vue'
 import RoomDetail from '../views/RoomDetail.vue'
 import RegisterRoom from '../views/RegisterRoom.vue'
-import MyRoom from '../views/MyRoom.vue'
+import UpdateRoom from '../views/UpdateRoom.vue'
 Vue.use(VueRouter)
 
 const state: any|RootState = store.state
@@ -62,9 +62,9 @@ const routes: Array<RouteConfig> = [
     beforeEnter:requireAuth(),
   },
   {
-    path: '/MyRoom',
-    name: 'MyRoom',
-    component: MyRoom,
+    path: '/UpdateRoom',
+    name: 'UpdateRoom',
+    component: UpdateRoom,
     beforeEnter: requireAuth(),
   },
   {

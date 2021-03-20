@@ -43,7 +43,7 @@
     position:fixed;
     width:840px;
     background: white;
-    z-index:1;
+    z-index:99;
     border-bottom: 1px solid #e6e6e6;
 }
 
@@ -194,10 +194,6 @@
     font-size:0.8em;
     color:#bdbdbd;
     margin-bottom:30px;
-}
-
-.tags {
-    display:none;
 }
 
 @media (max-width: 839px) {

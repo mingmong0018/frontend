@@ -1,5 +1,5 @@
 <template>
-    <div id="wish-button" @click="changWishStatus">
+    <div id="wish-button" :class="roomId" @click="changWishStatus">
         <div id="wish-icon" v-if="this.wish==true" title="찜 해제">
             <img src="wish_on.png" width="22">
         </div>
@@ -17,14 +17,12 @@ export default {
     },
     data() {
         return {
-            roomNumber:this.roomId,
             userId:this.$store.state.Login.userId,
             wish:false,
             message:''
         }
     },
-    mounted() {
-        console.log("roomId",typeof this.roomId);
+    created() {
         if(this.userId!=null) {
             this.getWish();
         }
@@ -33,7 +31,7 @@ export default {
         getWish() {
             const params=new URLSearchParams({
                 id:this.userId,
-                roomId:this.roomNumber
+                roomId:this.roomId
             });
             axios({
                 url: '/api/wish', 
@@ -44,7 +42,6 @@ export default {
                 }
             }).then(res=>{
                 this.wish=res.data;
-                console.log("getWish",res.data);
             });
         },
         changWishStatus() {
@@ -53,7 +50,7 @@ export default {
             }else {
                 const params=new URLSearchParams({
                     id:this.userId,
-                    roomId:this.roomNumber
+                    roomId:this.roomId
                 });
                 if(this.wish==false) {
                     axios({
@@ -86,10 +83,10 @@ export default {
                         }
                     }).then(res => {
                         if(res.data!='') {
-                            this.getWish();
-                            this.message='찜 목록에서 삭제되었습니다'
+                            this.message='찜 목록에서 삭제되었습니다';
                             this.toast('b-toaster-top-center');
-                            console.log("delete",this.wish);
+                            this.getWish();
+                            this.$emit('deleteWish');
                         }else{
                             this.$store.dispatch("Login/LOGOUTCLICK")
                         } 
@@ -105,7 +102,7 @@ export default {
             this.$bvToast.toast(this.message, {
                 toaster: toaster,
                 appendToast: append,
-                autoHideDelay: 1000,
+                autoHideDelay: 1500,
                 noCloseButton: true
             })
         }
@@ -114,5 +111,7 @@ export default {
 </script>
 
 <style>
-
+    .b-toaster-slot {
+        top: 5rem !important;
+    }
 </style>

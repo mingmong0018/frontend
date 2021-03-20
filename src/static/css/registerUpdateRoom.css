@@ -1,0 +1,142 @@
+#update-room-wrap, #register-room-wrap {
+    position:relative;
+    padding-top:60px;
+    width:100%;
+    background:#e6e6e6;
+}
+
+#update-room, #register-room {
+    padding-top:60px;
+    width:100%;
+    margin:0 auto;
+    height:auto;
+    overflow:hidden;
+    background:white;
+    padding:0 20px;
+}
+
+#preview {
+    width:100%;
+    height:auto;
+    overflow:auto;
+    margin-bottom: 30px;
+}
+
+#preview-image {
+    position:relative;
+    width:170px;
+    height:120px;
+    margin-right:5px;
+    margin-bottom:5px;
+    float:left;
+}
+
+#input-group-3 {
+    margin-bottom:10px !important;
+}
+
+#preview-image img {
+    width:100%;
+    height:100%;
+}
+
+
+.form-group {
+    margin-bottom:2.5rem !important;
+}
+
+.custom-control-inline {
+    margin-right:2rem !important;
+}
+
+.form-inline {
+    margin-top:10px;
+    margin-bottom:30px;
+}
+
+.col {
+    padding-right:0 !important;
+}
+
+.col-sm-4 {
+    padding-left: 0 !important;
+}
+.row {
+    margin-right: 0 !important;
+}
+
+.title {
+    width:100%;
+    height:65px;
+    font-size:1.5em;
+    font-weight:600;
+    line-height: 80px;
+    background:white;
+    margin-bottom:40px;
+}
+
+#input-group-9 .input-group-text {
+    border:none;
+    border-left:1px solid #ced4da;
+    border-top:1px solid #ced4da;
+    border-bottom:1px solid #ced4da;
+    background: white !important;
+    font-size:1.2em !important;
+    padding:0 5px !important;
+}
+
+#input-group-9 .form-control {
+    border:none;
+    border-right:1px solid #ced4da;
+    border-top:1px solid #ced4da;
+    border-bottom:1px solid #ced4da;
+}
+
+#input-group-9 .col-2 {
+    padding:0 !important;
+}
+
+#input-group-9 .btn-secondary {
+    margin:0 !important;
+    float:left !important;
+    width:65px;
+}
+
+.hash-tag {
+    width:100%;
+    height:auto;
+    overflow: hidden;
+    margin-bottom:10px;
+}
+
+.tags {
+    float:left;
+    border-radius: 3px;
+    width:auto;
+    height:auto;
+    overflow: hidden;
+    margin-right:5px;
+    padding: 0 7px;
+    background: #ffaf79;
+}
+
+.tags img {
+    margin-bottom: 2px;
+}
+
+@media (min-width:1040px) {
+    #update-room, #register-room {
+        width:940px;
+    }
+}
+
+@media (max-width:575px) {
+    .btn-secondary {
+        margin-top:5px;
+        float:right;
+    }
+    .col-sm-2 {
+        padding:0;
+    }
+}
+

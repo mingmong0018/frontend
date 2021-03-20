@@ -1,5 +1,77 @@
+
 #wish-list-wrap {
-    padding-top:60px;
+  position:relative;
+  padding-top:60px;
+  width:100%;
+  background:#e6e6e6;
+}
+
+#wish-list {
+    background: white;
     margin:0 auto;
     width:100%;
+    height:calc(100vh - 80px);
 }
+
+#wish-list2 {
+  background: white;
+  margin:0 auto;
+  width:100%;
+  height:auto;
+}
+
+#roomList-title {
+  margin:0 !important;
+}
+
+#wish-list-wrap {
+    overflow:hidden;
+  }
+
+  #roomList {
+    position: relative;
+    height:100%;
+    width:100%;
+    display:block;
+    margin:0 auto;
+    float:none !important
+  }
+
+  #title {
+    position:absolute;
+    top:60px;
+    z-index: 1;
+    width:100%;
+    height:65px;
+    padding:0 20px;
+    font-size:1.5em;
+    font-weight:600;
+    line-height: 80px;
+    background:white;
+  }
+
+  #title img {
+     margin-bottom:7px; 
+     margin-right:10px;
+  }
+  
+  #non-wish-list {
+    width:auto;
+    height:auto;
+    overflow:hidden;
+    margin:0 auto;
+    padding-top:365px;
+    text-align: center;
+    line-height: 2em;
+    font-size:0.8em;
+    color:gray;
+  }
+
+  @media (min-width: 1040px) {
+      #wish-list, #wish-list2, #roomList, #title, #non-wish-list {
+          width:940px;
+      }
+      #list-room-content {
+        width: 100% !important;
+      }
+  }

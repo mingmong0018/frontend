@@ -1,7 +1,7 @@
 <template>
-    <div id="register-room-wrap">
-        <div id="register-room">
-            <div class="title">방 등록하기</div>
+    <div id="update-room-wrap">
+        <div id="update-room">
+            <div class="title">방 정보 수정</div>
             <b-form>
                 
                 <b-form-group id="input-group-1" label="제목" label-for="title">
@@ -47,7 +47,6 @@
                         id="room-images"
                         accept="image/jpeg, image/jpg, image/png, image/gif"
                         v-model="form.images"
-                        :state="Boolean(form.images.length>0)"
                         placeholder="파일을 선택하세요."
                         no-drop
                         multiple
@@ -160,8 +159,8 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            roomId:this.$route.query.roomId,
             form: {
-                id:'',
                 title:'',
                 address:'',
                 images:[],
@@ -218,7 +217,7 @@ export default {
         },
         onSubmit() {
             const formData=new FormData();
-            formData.append('id',this.form.id);
+            formData.append('roomId',this.roomId);
             formData.append('title',this.form.title);
             formData.append('address',this.form.address);
             formData.append('deposit',this.form.deposit);
@@ -231,25 +230,24 @@ export default {
             });
             // 마지막 쉼표 제거
             roomTags=roomTags.slice(0, -1);
-            formData.append('roomTag',roomTags);
+             formData.append('roomTag',roomTags);
             const option = this.form.roomOption.concat(this.form.etcOption);
             formData.append('option',option);
             for(let i = 0; i < this.form.images.length; i++){
                 formData.append("images"+i, this.form.images[i]);
             }
-            axios.post('api/room',formData,
+            axios.put('api/room',formData,
             {
                 headers:{
                     Authorization : "Bearer "+this.$store.state.Login.accessToken,
                     'Content-Type': 'multipart/form-data',
                 }
             }).then(res=>{
-                alert(res.data);
                 if(res.data=="error") {
-                    alert("일시적인 문제로 방을 등록하지 못했습니다. 관리자에게 문의해주세요.");
+                    alert("일시적인 문제로 방 정보를 수정하지 못했습니다. 관리자에게 문의해주세요.");
                 }else {
-                    alert("등록되었습니다. 내 방으로 이동합니다 :-)");
-                    this.$router.push({name: 'RoomDetail', query: {roomId: res.data}});
+                    alert("방 정보 수정이 완료되었습니다. 내 방으로 이동합니다 :-)")
+                    this.$router.push({name: 'RoomDetail', query: {roomId: String(this.roomId)}});
                 }
             })
         }
@@ -266,9 +264,7 @@ export default {
                 Authorization : "Bearer "+this.$store.state.Login.accessToken
             }
         }).then((res) => {
-            if(res.data!='') {
-                this.form.id=res.data.mem_id;
-            }else{
+            if(res.data=='') {
                 this.$store.dispatch("Login/LOGOUTCLICK")
             } 
         }).catch(( err ) => {
@@ -290,6 +286,58 @@ export default {
                 }
             });
         });
+        const roomNumber=this.roomId;
+
+        function getMyRoom() {
+            return axios.get('/api/roomDetail', {
+                params: {
+                    roomId: roomNumber
+                }
+            });
+        }
+        
+        function getMyOption() {
+            return axios.get('/api/roomOption', {
+                params: {
+                    roomId: roomNumber
+                }
+            });
+        }
+
+        function getMyTag() {
+            return axios.get('/api/roomTag', {
+                params: {
+                    roomId: roomNumber
+                }
+            })
+        }
+
+        axios.all([getMyRoom(), getMyOption(), getMyTag()])
+        .then(axios.spread( (room, myOption, tag) => {
+            if(room.data!=undefined&&myOption.data!=undefined) {
+                this.form.id=room.data.room_id;
+                this.form.title=room.data.room_title;
+                this.form.address=room.data.room_address;
+                this.imageName=room.data.room_images.split(',');
+                this.form.deposit=room.data.room_deposit;
+                this.form.rent=room.data.room_rent;
+                this.form.report=room.data.room_report;
+
+                const myOptions=myOption.data;
+                myOptions.forEach( item => {
+                    if(item.option_group=='room') {
+                        this.form.roomOption.push(item.option_id);
+                    }else if(item.option_group=='etc') {
+                        this.form.etcOption.push(item.option_id);
+                }
+                });
+
+                const myTags=tag.data;
+                myTags.forEach( item => {
+                    this.form.roomTag.push(item.tag_content);
+                });
+            }
+        }));
     }
 }
 </script>

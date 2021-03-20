@@ -30,7 +30,7 @@ export default {
                         const userId=tmp[2];
                         this.$store
                             .dispatch("Login/LOGIN", { accessToken, userName, userId })
-                        // this.$router.go(this.$router.currentRoute);
+                        this.$router.go(this.$router.currentRoute);
                         
                     
                     })

@@ -1,9 +1,18 @@
 <template>
   <div id="wish-list-wrap">
-    <div id="title">
-      <img src="wish_on.png" width="20">찜한 방
+    <div id="wish-list">
+      <div id="title">
+        <img src="wish_on.png" width="20">찜한 방
+      </div>
+      <div v-if="this.wishList.length>0">
+        <roomList :roomList="wishList" @deleteWish="changeWishList"/>
+      </div>
+      <div id="non-wish-list" v-else>
+        찜한 방이 없습니다.<br>
+        지도에서 방을 찾아보세요 :-)<br><br>
+        <b-button size="sm" variant="outline-secondary" @click="goSearch">찾아보기</b-button>
+      </div>
     </div>
-    <roomList :roomList="wishList"/>
   </div>
 </template>
 
@@ -20,77 +29,66 @@ export default {
       wishList:[]
     }
   },
-  created() {
-    const params=new URLSearchParams({
+  methods: {
+    getWishList() {
+      const params=new URLSearchParams({
       id:this.userId,
-    });
-    axios({
-      url: '/api/wishList', 
-      method: "GET",
-      params: params,
-      headers:{
-      Authorization : "Bearer "+this.$store.state.Login.accessToken
+      });
+      axios({
+        url: '/api/wishList', 
+        method: "GET",
+        params: params,
+        headers:{
+        Authorization : "Bearer "+this.$store.state.Login.accessToken
+        }
+      }).then((res) => {
+        if(res.data!=null) {
+          this.wishList=res.data;
+        }else{
+          this.$store.dispatch("Login/LOGOUTCLICK")
+        } 
+      }).catch(( err ) => {
+        console.log( err );
+        throw err;
+      })             
+    },
+    changeWishList() {
+      this.$router.go(this.$router.currentRoute);
+    },
+    goSearch() {
+      this.$router.push('/searchRoom');
+    }
+  },
+  created() {
+    this.getWishList();
+  },
+  watch: {
+    wishList: (oldList, newList) =>{
+      if(oldList.length>3 && newList.length<=3) {
+        document.getElementById( 'wish-list' ).setAttribute( 'id', 'wish-list2' )
+      }else if(oldList.length<=3 && newList.length>3) {
+        document.getElementById( 'wish-list2' ).setAttribute( 'id', 'wish-list' )
       }
-    }).then((res) => {
-      if(res.data!='') {
-        this.wishList=res.data;
-      }else{
-        this.$store.dispatch("Login/LOGOUTCLICK")
-      } 
-    }).catch(( err ) => {
-      console.log( err );
-      throw err;
-    })             
+    }
   }
 }
 </script>
 <style scoped src="@/static/css/wishList.css">
 </style>
-<style scoped>
- #wish-list-wrap {
-    overflow:hidden;
-  }
-
-  #roomList {
-    position: relative;
-    height:100%;
-    width:100%;
-    display:block;
-    margin:0 auto;
-    float:none !important
-  }
-
-  #title {
-    position:absolute;
-    z-index: 1;
-    width:100%;
-    height:65px;
-    padding:0 20px;
-    font-size:1.5em;
-    font-weight:600;
-    line-height: 80px;
-    background:white;
-  }
-
-  #title img {
-     margin-bottom:7px; 
-     margin-right:10px;
-  }
-  
-  @media (min-width: 1040px) {
-      #wish-list-wrap, #roomList, #title {
-          width:940px;
-      }
-      #list-room-content {
-        width: 100% !important;
-      }
-  }
-</style>
 <style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    overflow: visible;
+  }
 
   #list-room-div {
     height: auto !important;
     overflow: hidden !important;
+  }
+
+  .col-sm-10 {
+    padding-right: 0 !important;
   }
 
   @media (min-width: 640px) {

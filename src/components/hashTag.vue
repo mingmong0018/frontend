@@ -20,7 +20,7 @@ export default {
     data() {
         return {
             roomNumber:this.roomId,
-            tags:this.getTags,
+            tags:[],
         }
     },
     mounted() {

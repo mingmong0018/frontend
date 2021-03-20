@@ -99,6 +99,12 @@
     height:200px;
 }
 
+#wish-button {
+    position:absolute;
+    right:0;
+    top:20px;
+}
+
 @media (min-width: 1560px) {
     #roomList {
         display: block;

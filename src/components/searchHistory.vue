@@ -89,7 +89,7 @@ export default {
                 axios({
                     url:'https://dapi.kakao.com/v2/local/search/keyword.json?analyze_type=similar&page=1&size=5&query='+encodeURIComponent(newVal),
                 type:'GET',
-                headers: {'Authorization' : 'KakaoAK 1e5da3b26e96bf076dd3b50d1aea9b8e'},
+                headers: {'Authorization' : 'KakaoAK 25ebf09a04371b24fa5a3882cade45f2'},
 
                 }).then((res)=>{
                     if(res.data.documents.length>0){

@@ -16,7 +16,16 @@
             <template v-else>
               <b-nav-item-dropdown :text="userName+'님'" right>
               <b-dropdown-item><router-link to="/UpdateMember">내 정보수정</router-link></b-dropdown-item>
-              <b-dropdown-item><router-link to="/MyRoom">내 방 목록</router-link></b-dropdown-item>
+              <b-dropdown-item>
+                <div v-if="this.myRoomId!=''" @click="goMyRoom">
+                  내가 등록한 방
+                </div>
+                <div v-else>
+                  <router-link to="/RegisterRoom">
+                    방 등록하기
+                  </router-link>
+                </div>
+              </b-dropdown-item>
               <b-dropdown-item id="logout" @click="logout">로그아웃</b-dropdown-item>
             </b-nav-item-dropdown>
             </template>
@@ -29,7 +38,7 @@
   </div>
 </template>
 <script>
-
+  import axios from 'axios'
   import loginModal from '@/components/ModalLogin.vue'
   export default {
     components: {
@@ -38,7 +47,8 @@
     data(){
       return{
         loginBoolean:false,
-        token: this.$store.state.Login.accessToken
+        token: this.$store.state.Login.accessToken,
+        myRoomId:'',
       }
     },
     computed:{
@@ -47,10 +57,12 @@
       }
       
     },
+    mounted() {
+      this.getMyRoom();
+    },
     methods:{
       showModal(){
         this.$bvModal.show('loginModal')
-
       },
       logout(){
         this.$gAuth.signOut()
@@ -66,8 +78,31 @@
           this.$router.push('/')
         }
         
+      },
+      getMyRoom() {
+        const params=new URLSearchParams({
+          id:this.$store.state.Login.userId
+        });
+        axios({
+          url: '/api/myRoom', 
+          method: "GET",
+          params: params,
+          headers:{
+            Authorization : "Bearer "+this.$store.state.Login.accessToken
+          }
+        }).then((res) => {
+            this.myRoomId=res.data;
+            console.log(typeof this.myRoomId, this.myRoomId);
+        })
+      },
+      goMyRoom() {
+        if(this.$router.currentRoute.name!='RoomDetail') {
+          this.$router.push({name:'RoomDetail', query:{roomId: String(this.myRoomId)}});
+        }else {
+          this.$router.replace({name:'RoomDetail', query:{roomId: String(this.myRoomId)}});
+          this.$router.go(this.$router.currentRoute);
+        }
       }
-      
     }
   }
 </script>
@@ -79,7 +114,7 @@
   color:#7C7C7D;
 }
 #nav{
-  z-index: 1 !important;
+  z-index: 100 !important;
   top:0px;
   width:100vw;
   position:fixed;
@@ -92,4 +127,9 @@
 .container {
   padding-top:60px;
 }
+</style>
+<style>
+  #app {
+    height:100%;
+  }
 </style>

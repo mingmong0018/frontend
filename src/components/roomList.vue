@@ -17,16 +17,20 @@
                     >
                     <div v-for="image in room.room_images.split(',')" :key="image.index">
                         <b-carousel-slide
-                        :img-src="imageUrl+image">
+                        :img-src="image">
                         </b-carousel-slide>
                     </div>
                     </b-carousel>
                 </div>
             </div>
             <div id="list-room-content">
-                <span class="room-region">
-                    {{room.room_address.split(' ')[0]+' '+room.room_address.split(' ')[1]+' '+room.room_address.split(' ')[2]}}
-                </span><br>
+                <span class="room-region" v-if="room.room_address.split(' ')[0]=='서울'">
+                    {{ room.room_address.split(' ')[0]+' '+room.room_address.split(' ')[1]+' '+room.room_address.split(' ')[2]}}
+                </span>
+                <span class="room-region" v-else>
+                    {{ room.room_address.split(' ')[0]+' '+room.room_address.split(' ')[1]+' '+room.room_address.split(' ')[2]+' '+room.room_address.split(' ')[3] }}
+                </span>
+                <br>
                 <span class="room-title" @click="goRoomDetail(room.room_id)" title="방 상세정보 보기">{{room.room_title}}</span><br>
                 보증금 {{room.room_deposit}} / 월세 {{room.room_rent}}
                 <hashTag :roomId="room.room_id"/>
@@ -46,15 +50,18 @@
                 <span class="mem-gender f" v-if="room.mem_gender=='f'"><span v-html="space"></span>여성 호스트<span v-html="space"></span></span>
                 <span class="mem-gender m" v-else-if="room.mem_gender=='m'"><span v-html="space"></span>남성 호스트<span v-html="space"></span></span>
             </div>
+            <wishbutton :roomId="room.room_id.toString()" @deleteWish="deleteWish"/>
           </div>
         </div>
       </div>
 </template>
 
 <script>
+import wishbutton from "@/components/wishButton"
 import hashTag from "@/components/hashTag"
 export default {
     components: {
+        wishbutton,
         hashTag
     },
     props: {
@@ -62,7 +69,6 @@ export default {
     },
     data() {
         return {
-            imageUrl: "room/",
             wish:false,
             space:'&nbsp;',
             check:'&#10003;',
@@ -72,6 +78,9 @@ export default {
         goRoomDetail(roomId) {
             this.$router.push({name: 'RoomDetail', query: {roomId: String(roomId)}});
         },
+        deleteWish() {
+            this.$emit('deleteWish');
+        }
     }
 }
 </script>
@@ -94,5 +103,4 @@ export default {
     #list-room-div :last-child {
         border-bottom: none;
     }
-
 </style>

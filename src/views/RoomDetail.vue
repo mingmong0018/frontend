@@ -18,7 +18,7 @@
                     >
                     <div v-for="image in this.roomImg" :key="image.index">
                         <b-carousel-slide
-                        :img-src="imageUrl+image">
+                        :img-src="image">
                         </b-carousel-slide>
                     </div>
                     </b-carousel>
@@ -55,7 +55,7 @@
                                 <td>
                                     <div class="option-group" v-for="option in options" :key="option.index">
                                         <div class="option-name" v-if="option.option_group=='room'">
-                                            {{ option.option_name }}
+                                            <span>{{ option.option_name }}</span>
                                             <span v-html="space"></span>
                                         </div>
                                     </div>
@@ -66,7 +66,7 @@
                                 <td>
                                     <div class="option-group" v-for="option in options" :key="option.index">
                                         <div class="option-name" v-if="option.option_group=='etc'">
-                                            {{ option.option_name }}
+                                            <span>{{ option.option_name }}</span>
                                             <span v-html="space"></span>
                                         </div>
                                     </div>
@@ -101,40 +101,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="inner-wrap">
-                    <div class="inner-title">댓글</div>
-                    <div class="inner-content">
-                        <div class="rep">
-                            <div class="no-rep">
-                                등록된 댓글이 없습니다.<br>
-                                첫번째 댓글을 작성해 보세요!
-                            </div>
-                            <div class="rep-register" style="font-size:0.7em;">
-                                <b-form-textarea
-                                    id="room-rep"
-                                    v-model="text"
-                                    placeholder="댓글을 입력하세요"
-                                    rows="3"
-                                    max-rows="6"
-                                    style="font-size:12px;"
-                                ></b-form-textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
+        <updateRoomBtn :id="this.room.mem_id" :roomNumber="this.roomNumber"/>
     </div>
 </template>
 
 <script>
+import updateRoomBtn from "@/components/updateRoomBtn.vue"
 import axios from 'axios'
 import hashTag from "@/components/hashTag"
 import wishbutton from '@/components/wishButton.vue'
 export default {
     components: {
         hashTag,
-        wishbutton
+        wishbutton,
+        updateRoomBtn
     },
     name: 'RoomDetail',
     data() {
@@ -143,7 +125,6 @@ export default {
             room:[],
             roomReport:'',
             options:[],
-            imageUrl: "room/",
             roomImg:[],
             interval:0,
             roomRegion:'',
@@ -155,6 +136,7 @@ export default {
         }
     },
     mounted() {
+        console.log(typeof this.roomNumber, this.roomNumber);
         const roomNumber=this.roomNumber;
         function getRoomDetail() {
             return axios.get('/api/roomDetail', {
@@ -177,7 +159,17 @@ export default {
                 this.room=room.data;
                 this.options=option.data;
                 this.roomImg=this.room.room_images.split(',');
-                this.roomRegion=this.room.room_address.split(' ')[0]+' '+this.room.room_address.split(' ')[1]+' '+this.room.room_address.split(' ')[2];
+                if(this.room.room_address.split(' ')[0]=="서울") {
+                    this.roomRegion=this.room.room_address.split(' ')[0]
+                    +' '+this.room.room_address.split(' ')[1]
+                    +' '+this.room.room_address.split(' ')[2];
+                }else {
+                    this.roomRegion=this.room.room_address.split(' ')[0]
+                    +' '+this.room.room_address.split(' ')[1]
+                    +' '+this.room.room_address.split(' ')[2]
+                    +' '+this.room.room_address.split(' ')[3];
+                }
+                
                 this.roomReport=this.room.room_report.replace(/(\n|\r\n)/g, '<br>');
             })
         );
@@ -191,7 +183,7 @@ export default {
             }).then(res=>{
                 this.writer=res.data;
             });
-        }
+        },
     }
 }
 </script>

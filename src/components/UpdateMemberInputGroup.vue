@@ -145,7 +145,7 @@ export default {
         onChangeImage(e){
           this.files=e.target.files[0];
           this.imgUrl=URL.createObjectURL(this.files);
-          console.log(this.files);
+          console.log(this.imgUrl);
         },
         onSubmit(){
            const formData=new FormData(); 
@@ -165,8 +165,6 @@ export default {
               //  this.$router.go();
               this.getMember();
               alert("수정이 완료되었습니다!");
-             }else{
-               this.$store.dispatch("Login/LOGOUTCLICK")
              }
            })
         },

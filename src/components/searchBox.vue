@@ -8,7 +8,7 @@
             <input @input="typing" ref="search" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" :value="searchText" @click="toggleDiv" @keyup.enter="goSearch(searchText)" @keydown="trueDiv">
           </div>
           <div class="main_location_icon right-float">
-            <b-button size="sm" variant="white" @click="goSearch">
+            <b-button size="sm" variant="white" @click="goSearch()">
               <img src="@/static/images/location_icon.png" class="main_icon_size">
               <!-- <router-link to="/SearchRoom"><img src="@/static/images/location_icon.png" class="main_icon_size"></router-link> -->
             </b-button>

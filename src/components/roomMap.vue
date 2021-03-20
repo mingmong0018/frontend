@@ -10,6 +10,9 @@
               <div class="main_search_text left-float">
                   <input v-model="searchText" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" @keyup.enter="initMap">
               </div>
+              <div class="filter-button" title="검색 조건 설정하기" @click="openFilter">
+                  <img src="filter1.png" width="24">
+              </div>
           </div>
           <!-- <div class="search_div" v-show="divStatus">
             <div class="search_div_title">최근 검색 기록</div>
@@ -18,7 +21,6 @@
 </template>
 
 <script>
-
 export default {
     props: {
         rooms: Array,
@@ -41,6 +43,9 @@ export default {
         : this.addKakaoMapScript();
     },
     methods: {
+        openFilter() {
+            this.$bvModal.show('room-filter');
+        },
         initMap() {
             this.forLoops=0;
             const listData=this.rooms;
@@ -119,7 +124,7 @@ export default {
                                     customOverlay.id=item.room_id;
                                     const overlayImg=document.createElement('div');
                                     overlayImg.id='overlay-image';
-                                    const imageTag='<img src="room/'+item.room_images.split(',')[0]+'">'
+                                    const imageTag='<img src="'+item.room_images.split(',')[0]+'">'
                                     overlayImg.innerHTML=imageTag;
                                     const overlayCnt=document.createElement('div');
                                     overlayCnt.id='overlay-content';
@@ -141,7 +146,7 @@ export default {
                                     customOverlay.appendChild(overlayImg);
                                     customOverlay.appendChild(overlayCnt);
                                     customOverlay.addEventListener('click', () => {
-                                        this.$router.push({name: 'RoomDetail', query: {roomId: item.room_id}});
+                                        this.$router.push({name: 'RoomDetail', query: {roomId: String(item.room_id)}});
                                     });
 
                                     const markerPosition=marker.getPosition();
@@ -343,5 +348,10 @@ export default {
     .f {
         background:rgb(255, 232, 236);
         color:black;
+    }
+
+    .filter-button {
+        padding:16px 22px 16px 16px;
+        cursor:pointer;
     }
 </style>

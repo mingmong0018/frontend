@@ -10,27 +10,74 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
     data() {
         return {
-            text:'\r\n'
+            myRoomId:''
         }
     },
     methods: {
         goRegisterRoom() {
-            this.$router.push("/RegisterRoom");
-        }
+            if(this.$store.state.Login.userId!=null) {
+                const params=new URLSearchParams({
+                    id:this.$store.state.Login.userId
+                });
+                axios({
+                    url:'/api/getMember',
+                    method:'POST',
+                    params: params,
+                    headers:{
+                        Authorization : "Bearer "+this.$store.state.Login.accessToken
+                    }
+                }).then(res=>{
+                    if(res.data!=''){
+                        this.getMyRoom();
+                    }else{
+                    this.$store.dispatch("Login/LOGOUTCLICK")
+                    } 
+
+                }).catch(( err ) => {
+                    console.log( err );
+                    throw err;
+                })
+            }else {
+                this.$bvModal.show('loginModal');
+            }
+        },
+        getMyRoom() {
+            const params=new URLSearchParams({
+                id:this.$store.state.Login.userId
+            });
+            axios({
+                url: '/api/myRoom', 
+                method: "GET",
+                params: params,
+                headers:{
+                    Authorization : "Bearer "+this.$store.state.Login.accessToken
+                }
+            }).then((res) => {
+                console.log(res.data);
+                if(res.data!='') {
+                    this.myRoomId=String(res.data.room_id);
+                    alert('이미 등록한 방이 있어요. 내 방으로 이동합니다:-)');
+                    this.$router.push({name: 'RoomDetail', query: {roomId: this.myRoomId}});
+                }else {
+                    this.$router.push("/RegisterRoom");
+                }
+            })
+        },
     },
     computed: {
-      popoverConfig() {
-        return {
-          html: true,
-          content: () => {
-            return '룸메이트를 찾고 계신가요?<br/>내 방을 등록해보세요 :-)'
-          }
+        popoverConfig() {
+                return {
+                    html: true,
+                    content: () => {
+                        return '룸메이트를 찾고 계신가요?<br/>내 방을 등록해보세요 :-)'
+                    }
+                }
         }
-      }
-    }
+    },
 }
 </script>
 
@@ -47,6 +94,7 @@ export default {
         line-height:45px;
         top:92vh;
         left:calc(100vw - 1130px);
+        cursor:pointer;
     }
 
     @media (max-width:1559px) {
