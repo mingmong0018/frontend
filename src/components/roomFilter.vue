@@ -83,7 +83,7 @@ export default {
             }
             console.log(params);
             axios({
-                url: '/api/filterList', 
+                url: axios.defaults.baseURL+'/filterList', 
                 params: params,
             }).then((res) => {
                 console.log(res.data);
@@ -92,7 +92,7 @@ export default {
     },
     created() {
         axios({
-            url: '/api/options', 
+            url: axios.defaults.baseURL+'/options', 
             method: "GET"
         }).then((res) => {
             const options=res.data;

@@ -6,6 +6,12 @@ import GAuth from 'vue-google-oauth2'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import axios from 'axios'
+
+// axios.defaults.baseURL = 'http://localhost:8070';
+// axios.defaults.headers['Access-Control-Allow-Origin'] = '*';
+// axios.defaults.headers['Access-Control-Allow-Credentials']=true;
+
 
 
 Vue.use(GAuth, {clientId: '166602658975-60bi0mdf8r5h05g8mttklpqtrh5hc6g7.apps.googleusercontent.com', 
@@ -15,7 +21,6 @@ prompt: 'consent'
 Vue.use(BootstrapVueIcons)
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
-
 new Vue({
   router,
   store,

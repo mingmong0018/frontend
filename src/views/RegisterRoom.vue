@@ -237,7 +237,7 @@ export default {
             for(let i = 0; i < this.form.images.length; i++){
                 formData.append("images"+i, this.form.images[i]);
             }
-            axios.post('api/room',formData,
+            axios.post('/api/room',formData,
             {
                 headers:{
                     Authorization : "Bearer "+this.$store.state.Login.accessToken,

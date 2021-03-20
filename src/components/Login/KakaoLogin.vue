@@ -1,6 +1,6 @@
 <template>
   <KakaoLogin
-    api-key="c2c3fe847dbf2477aafe8862f750dc05"
+    api-key="fc890c92bd8c34b1dcd0f681caf11208"
     image="kakao_account_login_btn_medium_narrow_ov"
     style="margin-bottom:20px;"
     :on-success=onSuccess
@@ -28,7 +28,7 @@ const onSuccess = (data) => {
                         const userId=tmp[2];
                         
                         store.dispatch("Login/LOGIN", { accessToken, userName, userId })
-                        this.$router.go(this.$router.currentRoute);
+                        router.go(router.currentRoute);
                         
                     
                     })

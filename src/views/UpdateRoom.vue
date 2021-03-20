@@ -258,7 +258,7 @@ export default {
         });
         axios({
             url: '/api/getMember', 
-            method: "POST",
+            method: "GET",
             params: params,
             headers:{
                 Authorization : "Bearer "+this.$store.state.Login.accessToken

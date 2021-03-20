@@ -5,9 +5,7 @@ interface Login{
   userName: null;
   userId: null;
   index: 0;
-  recentKeyword: [{
-    
-  }];
+  recentKeyword: [{}];
 }
 const module: Module<Login,RootState>={
   namespaced : true,
@@ -16,9 +14,7 @@ const module: Module<Login,RootState>={
         userName : null,
         userId : null,
         index : 0,
-        recentKeyword : [{
-         
-        }],
+        recentKeyword : [{}],
     },
     mutations:{
         LOGIN(state,{accessToken,userName,userId}){
@@ -41,6 +37,9 @@ const module: Module<Login,RootState>={
             
           },
           ADDKEYWORD(state,{keyword}){
+            if(state.recentKeyword[0]==null) {
+              state.recentKeyword.splice(0,1)
+            }
             state.recentKeyword.push({keywordId:++state.index,keywordContent:keyword})
             console.log(state.recentKeyword)
             
