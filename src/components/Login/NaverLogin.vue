@@ -6,8 +6,8 @@
 export default {
     mounted(){
         const naverLogin = new window.naver.LoginWithNaverId({
-        clientId: 'nO1V6uzdtXeEzzTuiFNM',
-        callbackUrl: `http://localhost:8081/callback`,
+        clientId: 'tgA9Q5himrOFPgSlTvMB',
+        callbackUrl: `http://shareroom-frontend.s3-website.ap-northeast-2.amazonaws.com/callback`,
         isPopup: false ,
         loginButton: {
             color: 'green',

@@ -14,9 +14,23 @@
               <input type="file" @change="onChangeImage" refs="changeImage" id="input-file" style="display:none">
           </div>
           <b-form-group
-          id="input-group-1"
+            id="input-group-1"
+            label="이메일"
+            label-for="input-1"
+            description="귀하의 이메일을 다른 사람과 공유하지 않습니다."
+          >
+            <b-form-input
+              id="input-1"
+              v-model="user.mem_email"
+              type="email"
+              placeholder="이메일을 입력해주세요."
+              required
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group
+          id="input-group-2"
           label="간편 로그인"
-          label-for="input-1"
+          label-for="input-2"
           class="inputTitle"
           >
           
@@ -150,6 +164,7 @@ export default {
         onSubmit(){
            const formData=new FormData(); 
            formData.append('image',this.files)
+           formData.append('email',this.user.mem_email)
            formData.append('id',this.user.mem_id)
            formData.append('gender',this.user.mem_gender)
            formData.append('nickname',this.user.mem_nickname)

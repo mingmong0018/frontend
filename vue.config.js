@@ -1,10 +1,10 @@
 module.exports = {
-   
+   outputDir:'../dist',
     
     devServer: {
         proxy: {
             '/api': {
-                target: 'http://localhost:8070',
+                target: 'http://3.34.185.173:8070',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/api': ''

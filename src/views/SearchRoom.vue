@@ -1,5 +1,6 @@
 <template>
   <div class="list-room-wrap">
+    
     <roomMap v-if="this.rooms.length>0" :rooms="rooms" :searchTxt="searchTxt" @changeList="newRoom"/>
     <roomList :roomList="roomList"/>
     <div id="changeList"></div>
@@ -10,7 +11,7 @@
 import axios from'axios'
 import roomList from "@/components/roomList.vue"
 import roomMap from "@/components/roomMap.vue"
-export default {
+export default {y
   name: 'SearchRoom',
   props: {
     mainSearchText: {
@@ -29,7 +30,7 @@ export default {
     }
   },
   created() {
-    axios.get('/api/listRoom'
+    axios.get(axios.defaults.baseURL+'/listRoom'
     ).then((response)=>{
       this.rooms=response.data;
     });

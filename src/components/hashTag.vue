@@ -35,7 +35,7 @@ export default {
     },
     methods: {
         getTags(roomId) {
-            axios.get('/api/roomTag', {
+            axios.get(axios.defaults.baseURL+'/roomTag', {
                 params: {
                     roomId: roomId
                 }

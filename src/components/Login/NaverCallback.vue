@@ -11,8 +11,8 @@ import axios from'axios'
 export default {
     mounted(){
         const naverLogin = new window.naver.LoginWithNaverId({
-        clientId: 'nO1V6uzdtXeEzzTuiFNM',
-        callbackUrl: `http://localhost:8081/callback`,
+        clientId: 'tgA9Q5himrOFPgSlTvMB',
+        callbackUrl: `http://shareroom-frontend.s3-website.ap-northeast-2.amazonaws.com/callback`,
         isPopup: false ,
         loginButton: {
             color: 'green',
@@ -28,7 +28,7 @@ export default {
                         accessToken : naverLogin.accessToken.accessToken,
                         state : 'naver'
                     });
-                    axios.post('/api/login',params).then(res=>{
+                    axios.post(axios.defaults.baseURL+'/login',params).then(res=>{
                         const tmp=String(res.data).split(",");
                         console.log(tmp);
                         const accessToken=tmp[0];

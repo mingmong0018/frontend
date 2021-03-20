@@ -157,7 +157,7 @@ export default {
     mounted() {
         const roomNumber=this.roomNumber;
         function getRoomDetail() {
-            return axios.get('/api/roomDetail', {
+            return axios.get(axios.defaults.baseURL+'/roomDetail', {
                 params: {
                     roomId: roomNumber
                 }
@@ -165,7 +165,7 @@ export default {
         }
         
         function getRoomOption() {
-            return axios.get('/api/roomOption', {
+            return axios.get(axios.defaults.baseURL+'/roomOption', {
                 params: {
                     roomId: roomNumber
                 }
@@ -184,7 +184,7 @@ export default {
     },
     watch: {
         room: function (roomData) {
-            axios.get('/api/writer', {
+            axios.get(axios.defaults.baseURL+'/writer', {
                 params: {
                     id: roomData.mem_id
                 }

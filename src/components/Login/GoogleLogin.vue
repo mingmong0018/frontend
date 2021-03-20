@@ -21,7 +21,7 @@ export default {
                         accessToken : GoogleUser.getAuthResponse().access_token,
                         state : 'google'
                     });
-                axios.post('/api/login',params).then(res=>{
+                axios.post(axios.defaults.baseURL+'/login',params).then(res=>{
                         const tmp=String(res.data).split(",");
                         console.log(tmp);
                         const accessToken=tmp[0];
@@ -30,7 +30,7 @@ export default {
                         const userId=tmp[2];
                         this.$store
                             .dispatch("Login/LOGIN", { accessToken, userName, userId })
-                        // this.$router.go(this.$router.currentRoute);
+                        this.$router.go(this.$router.currentRoute);
                         
                     
                     })
