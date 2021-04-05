@@ -10,9 +10,9 @@
               <div class="main_search_text left-float">
                   <input v-model="searchText" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" @keyup.enter="initMap">
               </div>
-              <div class="filter-button" title="검색 조건 설정하기" @click="openFilter">
+              <!-- <div class="filter-button" title="검색 조건 설정하기" @click="openFilter">
                   <img src="filter1.png" width="24">
-              </div>
+              </div> -->
           </div>
           <!-- <div class="search_div" v-show="divStatus">
             <div class="search_div_title">최근 검색 기록</div>
@@ -74,7 +74,7 @@ export default {
                         map.setBounds(bounds);
                     }
                 }
-                console.log("검색어", this.searchText);
+                console.log("검색어", typeof this.searchText);
                 ps.keywordSearch(this.searchText, placesSearchCB);
             }
 
@@ -262,7 +262,7 @@ export default {
             })();
         });
         
-        if(typeof this.searchText=="undefined") {
+        if(this.searchText=='' || (typeof this.searchText=='undefined')) {
             (async () => {
                 try {
                     const markers = await getAddr();
@@ -281,7 +281,7 @@ export default {
         /* global kakao */
         script.onload = () => kakao.maps.load(this.initMap);
         script.src =
-            "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=d7a8d55394ad417e2d34f6d1c7b9d0f8";
+            "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=cc44e897173478d81e22eb6205e99007";
         document.head.appendChild(script);
     },
    

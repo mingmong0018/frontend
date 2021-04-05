@@ -25,7 +25,7 @@ export default {
                 });
                 axios({
                     url:'/api/getMember',
-                    method:'POST',
+                    method:'GET',
                     params: params,
                     headers:{
                         Authorization : "Bearer "+this.$store.state.Login.accessToken
@@ -46,6 +46,7 @@ export default {
             }
         },
         getMyRoom() {
+            console.log("myRoom")
             const params=new URLSearchParams({
                 id:this.$store.state.Login.userId
             });
@@ -59,7 +60,7 @@ export default {
             }).then((res) => {
                 console.log(res.data);
                 if(res.data!='') {
-                    this.myRoomId=String(res.data.room_id);
+                    this.myRoomId=String(res.data);
                     alert('이미 등록한 방이 있어요. 내 방으로 이동합니다:-)');
                     this.$router.push({name: 'RoomDetail', query: {roomId: this.myRoomId}});
                 }else {

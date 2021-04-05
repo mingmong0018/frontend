@@ -3,7 +3,7 @@
     
     <roomMap v-if="this.rooms.length>0" :rooms="rooms" :searchTxt="searchTxt" @changeList="newRoom"/>
     <roomList :roomList="roomList"/>
-    <roomFilter/>
+    <!-- <roomFilter/> -->
     <registerRoomBtn/>
   </div>
 </template>
@@ -13,7 +13,7 @@ import axios from'axios'
 import roomList from "@/components/roomList.vue"
 import roomMap from "@/components/roomMap.vue"
 import registerRoomBtn from "@/components/registerRoomBtn.vue"
-import roomFilter from "@/components/roomFilter.vue"
+// import roomFilter from "@/components/roomFilter.vue"
 export default {
   name: 'SearchRoom',
   props: {
@@ -22,7 +22,7 @@ export default {
     }
   },
   components:{
-    roomFilter,
+    // roomFilter,
     roomList,
     roomMap,
     registerRoomBtn
@@ -38,6 +38,7 @@ export default {
     axios.get('/api/listRoom'
     ).then((response)=>{
       this.rooms=response.data;
+      console.log(response.data);
     });
   },
   methods: {

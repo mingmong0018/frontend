@@ -249,7 +249,7 @@ export default {
                     alert("일시적인 문제로 방을 등록하지 못했습니다. 관리자에게 문의해주세요.");
                 }else {
                     alert("등록되었습니다. 내 방으로 이동합니다 :-)");
-                    this.$router.push({name: 'RoomDetail', query: {roomId: res.data}});
+                    this.$router.push({name: 'RoomDetail', query: {roomId: String(res.data)}});
                 }
             })
         }
@@ -260,7 +260,7 @@ export default {
         });
         axios({
             url: '/api/getMember', 
-            method: "POST",
+            method: "GET",
             params: params,
             headers:{
                 Authorization : "Bearer "+this.$store.state.Login.accessToken

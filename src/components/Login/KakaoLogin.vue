@@ -23,7 +23,6 @@ const onSuccess = (data) => {
                         const tmp=String(res.data).split(",");
                         console.log(tmp);
                         const accessToken=tmp[0];
-
                         const userName=tmp[1];
                         const userId=tmp[2];
                         
