@@ -24,7 +24,7 @@
 
 <script>
 import axios from 'axios'
-import searchHistory from '@/components/searchHistory.vue'
+import searchHistory from '@/components/Search/searchHistory.vue'
 export default {
   components:{
     searchHistory

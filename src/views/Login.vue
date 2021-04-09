@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import loginModal from '@/components/ModalLogin.vue'
+import loginModal from '@/components/Login/ModalLogin.vue'
 export default {
   components: {
     loginModal

@@ -2,8 +2,7 @@
     <div id="update-room-wrap">
         <div id="update-room">
             <div class="title">방 정보 수정</div>
-            <b-form>
-                
+            <b-form id="update-form">
                 <b-form-group id="input-group-1" label="제목" label-for="title">
                     <b-form-input
                     id="title"
@@ -141,14 +140,19 @@
                         </b-col>
                     </b-row>
                 </b-form-group>
-
-                <b-button 
-                    @click="onSubmit" 
-                    variant="primary" 
-                    style="width: 150px; height: 50px; margin-left: calc(50% - 85px); margin-top:30px; margin-bottom:50px;"
-                >
-                    등록하기
-                </b-button>
+                <div id="buttons">
+                    <b-button
+                        @click="deleteRoom"
+                    >
+                        삭제하기
+                    </b-button>
+                    <b-button 
+                        @click="onSubmit" 
+                        variant="primary" 
+                    >
+                        등록하기
+                    </b-button>
+                </div>
             </b-form>
         </div>
     </div>
@@ -247,7 +251,27 @@ export default {
                     alert("일시적인 문제로 방 정보를 수정하지 못했습니다. 관리자에게 문의해주세요.");
                 }else {
                     alert("방 정보 수정이 완료되었습니다. 내 방으로 이동합니다 :-)")
-                    this.$router.push({name: 'RoomDetail', query: {roomId: String(this.roomId)}});
+                    this.$router.push({name: 'RoomDetail', query: {roomId: this.roomId}});
+                }
+            })
+        },
+        deleteRoom() {
+            const params=new URLSearchParams({
+                roomId:this.roomId,
+            });
+            axios({
+                url: '/api/room', 
+                method: "DELETE",
+                params: params,
+                headers:{
+                    Authorization : "Bearer "+this.$store.state.Login.accessToken
+                }
+            }).then(res=>{
+                if(res.data==1) {
+                    alert("방 삭제가 완료되었습니다. 메인으로 이동합니다 :-)")
+                    this.$router.push({name: 'Home', props: {changed: true}});
+                }else {
+                    alert("일시적인 문제로 방 삭제에 실패했습니다. 관리자에게 문의해주세요.");
                 }
             })
         }

@@ -57,8 +57,8 @@
 </template>
 
 <script>
-import wishbutton from "@/components/wishButton"
-import hashTag from "@/components/hashTag"
+import wishbutton from "@/components/Buttons/wishButton"
+import hashTag from "@/components/Room/hashTag"
 export default {
     components: {
         wishbutton,

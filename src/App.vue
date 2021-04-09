@@ -39,7 +39,7 @@
 </template>
 <script>
   import axios from 'axios'
-  import loginModal from '@/components/ModalLogin.vue'
+  import loginModal from '@/components/Login/ModalLogin.vue'
   export default {
     components: {
     loginModal

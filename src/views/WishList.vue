@@ -18,7 +18,7 @@
 
 <script>
 import axios from 'axios'
-import roomList from "@/components/roomList.vue"
+import roomList from "@/components/Room/roomList.vue"
 export default {
   components: {
     roomList

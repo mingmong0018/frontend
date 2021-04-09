@@ -10,9 +10,9 @@
               <div class="main_search_text left-float">
                   <input v-model="searchText" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" @keyup.enter="initMap">
               </div>
-              <div class="filter-button" title="검색 조건 설정하기" @click="openFilter">
+              <!-- <div class="filter-button" title="검색 조건 설정하기" @click="openFilter">
                   <img src="filter1.png" width="24">
-              </div>
+              </div> -->
           </div>
           <!-- <div class="search_div" v-show="divStatus">
             <div class="search_div_title">최근 검색 기록</div>
@@ -74,7 +74,6 @@ export default {
                         map.setBounds(bounds);
                     }
                 }
-                console.log("검색어", this.searchText);
                 ps.keywordSearch(this.searchText, placesSearchCB);
             }
 

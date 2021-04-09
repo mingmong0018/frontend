@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import inputGroup from '@/components/UpdateMemberInputGroup.vue'
+import inputGroup from '@/components/Member/UpdateMemberInputGroup.vue'
 export default {
     components: {
         inputGroup

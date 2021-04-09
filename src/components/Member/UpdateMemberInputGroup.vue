@@ -132,7 +132,7 @@
 
 <script>
 import axios from 'axios'
-import emailModal from '@/components/emailAuthentication.vue'
+import emailModal from '@/components/Member/emailAuthentication.vue'
 export default {
     components:{
       emailModal

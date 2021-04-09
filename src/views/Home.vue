@@ -11,10 +11,19 @@
 </template>
 
 <script>
-import searchBox from "@/components/searchBox"
+import searchBox from "@/components/Search/searchBox"
 export default{
   components:{
     searchBox
+  },
+  props: {
+    changed:Boolean
+  },
+  mounted() {
+    console.log('바뀌었나요', this.changed);
+    if(this.changed==true) {
+      this.$router.go(this.$router.currentRoute);
+    }
   }
 }
 </script>

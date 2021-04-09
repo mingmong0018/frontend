@@ -5,7 +5,7 @@
                 <div id="room-title">
                     {{ room.room_title }}
                 </div>
-                <wishbutton :roomId="roomNumber"/>
+                <wishbutton :roomId="String(roomNumber)"/>
             </div>
             <div id="room-images">
                 <div id="carouselDiv">
@@ -103,15 +103,15 @@
                 </div>
             </div>
         </div>
-        <updateRoomBtn :id="this.room.mem_id" :roomNumber="this.roomNumber"/>
+        <updateRoomBtn :id="this.room.mem_id" :roomNumber="String(roomNumber)"/>
     </div>
 </template>
 
 <script>
-import updateRoomBtn from "@/components/updateRoomBtn.vue"
+import updateRoomBtn from "@/components/Buttons/updateRoomBtn.vue"
 import axios from 'axios'
-import hashTag from "@/components/hashTag"
-import wishbutton from '@/components/wishButton.vue'
+import hashTag from "@/components/Room/hashTag"
+import wishbutton from '@/components/Buttons/wishButton.vue'
 export default {
     components: {
         hashTag,
@@ -133,10 +133,13 @@ export default {
             space:'&nbsp;&nbsp;',
             check:'&#10003;',
             text:'',
+            changed:this.$route.query.changed
         }
     },
     mounted() {
-        console.log(typeof this.roomNumber, this.roomNumber);
+        if(this.changed==true) {
+            this.$router.go(this.$router.currentRoute);
+        }
         const roomNumber=this.roomNumber;
         function getRoomDetail() {
             return axios.get('/api/roomDetail', {
@@ -183,7 +186,7 @@ export default {
             }).then(res=>{
                 this.writer=res.data;
             });
-        },
+        }
     }
 }
 </script>
