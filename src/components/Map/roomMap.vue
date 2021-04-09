@@ -261,7 +261,7 @@ export default {
             })();
         });
         
-        if(typeof this.searchText=="undefined") {
+        if(this.searchText=='' || (typeof this.searchText=='undefined')) {
             (async () => {
                 try {
                     const markers = await getAddr();
@@ -280,7 +280,7 @@ export default {
         /* global kakao */
         script.onload = () => kakao.maps.load(this.initMap);
         script.src =
-            "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=d7a8d55394ad417e2d34f6d1c7b9d0f8";
+            "http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=cc44e897173478d81e22eb6205e99007";
         document.head.appendChild(script);
     },
    

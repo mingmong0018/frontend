@@ -8,7 +8,7 @@
             <input @input="typing" ref="search" class="main_search_form" placeholder="지역, 지하철, 대학교 검색" :value="searchText" @click="toggleDiv" @keyup.enter="goSearch(searchText)" @keydown="trueDiv">
           </div>
           <div class="main_location_icon right-float">
-            <b-button size="sm" variant="white" @click="goSearch()">
+            <b-button size="sm" variant="white" @click="goSearch(searchText)">
               <img src="@/static/images/location_icon.png" class="main_icon_size">
               <!-- <router-link to="/SearchRoom"><img src="@/static/images/location_icon.png" class="main_icon_size"></router-link> -->
             </b-button>
@@ -49,7 +49,10 @@ export default {
 
     goSearch(text) {
       this.searchText=text
+      if(text!=''){
       this.savingSearchText()
+      }
+      // console.log("typeof searchText : "+typeof text)
       this.$router.push({name: 'SearchRoom', params: {mainSearchText: text}})
 
     },
@@ -68,7 +71,6 @@ export default {
                 }
         }).then()
        }else{
-         
          const keyword=this.searchText;
          this.$store.dispatch("Login/ADDKEYWORD",{keyword})
        }

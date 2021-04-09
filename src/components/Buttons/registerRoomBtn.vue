@@ -46,6 +46,7 @@ export default {
             }
         },
         getMyRoom() {
+            console.log("myRoom")
             const params=new URLSearchParams({
                 id:this.$store.state.Login.userId
             });

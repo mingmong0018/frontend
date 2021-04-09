@@ -5,7 +5,7 @@
                   <li class="wordList" style="color:grey">{{tab}}<a href="#" v-show="recentSearchWordsList()!=null && tab=='최근검색어' && recentSearchWordsList().length!=0" @click="deleteAllKeyword()" style="float:right">전체 삭제</a></li>
                   <template v-if="secondKeyword==''">
                       <template v-if="recentSearchWordsList()!=null&&recentSearchWordsList().length!=0">
-                        <li v-for="(recentSearchWord,index) in recentSearchWordsList()" :key="recentSearchWord.keywordId" class="wordList"> 
+                        <li v-for="(recentSearchWord,index) in recentSearchWordsList()" :key="recentSearchWord.keywordId" class="wordList">
                                 <div @click="wordToSearchbox(recentSearchWord.keywordContent)" style="width:90%;float:left;">{{recentSearchWord.keywordContent}}</div>
                                 <a  href="#"  @click="deleteKeyword(recentSearchWord.keywordId,index)" style="float:right">삭제</a><br>
                         </li>
@@ -39,6 +39,7 @@
 import axios from 'axios'
 export default {
     created(){
+
         console.log(this.recentSearchWordsList())
         this.tab=this.selectedTab[0];
         this.getAllSearchText();
@@ -123,7 +124,7 @@ export default {
                 })
             }else{
                 
-                this.recentSearchWords=this.$store.state.Login.recentKeyword;
+                this.recentSearchWords=this.$store.getters['Login/GETALLKEYWORD'];
             }
             
         },

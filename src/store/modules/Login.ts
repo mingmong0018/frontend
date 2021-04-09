@@ -5,7 +5,7 @@ interface Login{
   userName: null;
   userId: null;
   index: 0;
-  recentKeyword: [{}];
+  recentKeyword: [{keywordId: number ;keywordContent: null }];
 }
 const module: Module<Login,RootState>={
   namespaced : true,
@@ -14,7 +14,7 @@ const module: Module<Login,RootState>={
         userName : null,
         userId : null,
         index : 0,
-        recentKeyword : [{}],
+        recentKeyword : [{keywordId:0,keywordContent:null}],
     },
     mutations:{
         LOGIN(state,{accessToken,userName,userId}){
@@ -33,12 +33,14 @@ const module: Module<Login,RootState>={
             if(confirm("토큰이 정상적이지 않습니다. 만료된 토큰이거나 이미 사용된 토큰입니다.")){
               document.getElementById("logout")?.click()
             }
-            
-            
           },
           ADDKEYWORD(state,{keyword}){
-            if(state.recentKeyword[0]==null) {
-              state.recentKeyword.splice(0,1)
+            for(let i=0;i<state.recentKeyword.length;i++){
+              if(state.recentKeyword[i].keywordContent===keyword){
+                state.recentKeyword.splice(i,1);
+              }
+                
+              
             }
             state.recentKeyword.push({keywordId:++state.index,keywordContent:keyword})
             console.log(state.recentKeyword)
@@ -73,5 +75,13 @@ const module: Module<Login,RootState>={
           commit('DELETEALLKEYWORD')
         },
     },
+    getters:{
+      GETALLKEYWORD: state=>{
+        if(state.recentKeyword[0].keywordContent==null){
+           state.recentKeyword.splice(0,1);
+        }
+        return state.recentKeyword;
+      }
+    }
 }
 export default module;

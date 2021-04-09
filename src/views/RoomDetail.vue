@@ -101,7 +101,10 @@
                         </div>
                     </div>
                 </div>
+                <updateRoomBtn :id="this.room.mem_id" :roomNumber="this.roomNumber"/>
+                <btnEmail :roomMemId="this.room.mem_id"/>
             </div>
+
         </div>
         <updateRoomBtn :id="this.room.mem_id" :roomNumber="String(roomNumber)"/>
     </div>
@@ -109,6 +112,7 @@
 
 <script>
 import updateRoomBtn from "@/components/Buttons/updateRoomBtn.vue"
+import btnEmail from "@/components/Buttons/btnEmail.vue"
 import axios from 'axios'
 import hashTag from "@/components/Room/hashTag"
 import wishbutton from '@/components/Buttons/wishButton.vue'
@@ -116,7 +120,8 @@ export default {
     components: {
         hashTag,
         wishbutton,
-        updateRoomBtn
+        updateRoomBtn,
+        btnEmail
     },
     name: 'RoomDetail',
     data() {

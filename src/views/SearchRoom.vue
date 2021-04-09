@@ -35,6 +35,7 @@ export default {
     axios.get('/api/listRoom'
     ).then((response)=>{
       this.rooms=response.data;
+      console.log(response.data);
     });
   },
   methods: {

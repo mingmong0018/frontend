@@ -78,8 +78,8 @@ export default {
                     Authorization : "Bearer "+this.$store.state.Login.accessToken,
                 }
             }).then(
-                alert("인증번호가 전송되었습니다."),
-                res=>{
+            (res)=>{
+                alert("인증번호가 전송되었습니다.");
                 this.$store.state.EmailAuth.email=res.data[0];
                 this.$store.state.EmailAuth.emailCode=res.data[1];
                 
@@ -88,6 +88,8 @@ export default {
         emailCertification(){
             console.log(this.email)
                     console.log(this.authValue)
+                    console.log("this.$store.state.EmailAuth.email : "+this.$store.state.EmailAuth.email)
+                    console.log("this.$store.state.EmailAuth.emailCode : "+this.$store.state.EmailAuth.emailCode)
             if((this.email===this.$store.state.EmailAuth.email)&&(this.authValue===this.$store.state.EmailAuth.emailCode)){
                     
                     const param=new URLSearchParams({
