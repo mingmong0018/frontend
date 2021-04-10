@@ -16,8 +16,11 @@ export default{
   components:{
     searchBox
   },
-  props: {
-    changed:Boolean
+  data() {
+    return {
+      changed:this.$route.query.changed
+    }
+    
   },
   mounted() {
     console.log('바뀌었나요', this.changed);

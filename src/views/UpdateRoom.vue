@@ -269,7 +269,7 @@ export default {
             }).then(res=>{
                 if(res.data==1) {
                     alert("방 삭제가 완료되었습니다. 메인으로 이동합니다 :-)")
-                    this.$router.push({name: 'Home', props: {changed: true}});
+                    this.$router.push({name: 'Home', query: {changed: true}});
                 }else {
                     alert("일시적인 문제로 방 삭제에 실패했습니다. 관리자에게 문의해주세요.");
                 }

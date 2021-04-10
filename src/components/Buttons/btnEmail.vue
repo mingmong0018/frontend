@@ -68,7 +68,8 @@ export default {
                         Authorization : "Bearer "+this.$store.state.Login.accessToken
                     }
                 }).then(res=>{
-                    if(res.data!=null){
+                    if(res.data!=''){
+                        console.log("이메일: ", typeof res.data)
                         this.roomMemEmail=res.data;
                         console.log(res.data)
                     }else{
