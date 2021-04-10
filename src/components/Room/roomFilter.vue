@@ -83,7 +83,7 @@ export default {
             }
             console.log(params);
             axios({
-                url: '/api/filterList', 
+                url: process.env.VUE_APP_AXIOS_URL+'/filterList', 
                 params: params,
             }).then((res) => {
                 console.log(res.data);
@@ -92,7 +92,7 @@ export default {
     },
     created() {
         axios({
-            url: '/api/options', 
+            url: process.env.VUE_APP_AXIOS_URL+'/options', 
             method: "GET"
         }).then((res) => {
             const options=res.data;

@@ -147,7 +147,7 @@ export default {
         }
         const roomNumber=this.roomNumber;
         function getRoomDetail() {
-            return axios.get('/api/roomDetail', {
+            return axios.get(process.env.VUE_APP_AXIOS_URL+'/roomDetail', {
                 params: {
                     roomId: roomNumber
                 }
@@ -155,7 +155,7 @@ export default {
         }
         
         function getRoomOption() {
-            return axios.get('/api/roomOption', {
+            return axios.get(process.env.VUE_APP_AXIOS_URL+'/roomOption', {
                 params: {
                     roomId: roomNumber
                 }
@@ -184,7 +184,7 @@ export default {
     },
     watch: {
         room: function (roomData) {
-            axios.get('/api/writer', {
+            axios.get(process.env.VUE_APP_AXIOS_URL+'/writer', {
                 params: {
                     id: roomData.mem_id
                 }

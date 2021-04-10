@@ -34,7 +34,7 @@ export default {
                 roomId:this.roomId
             });
             axios({
-                url: '/api/wish', 
+                url: process.env.VUE_APP_AXIOS_URL+'/wish', 
                 method: "GET",
                 params: params,
                 headers:{
@@ -54,7 +54,7 @@ export default {
                 });
                 if(this.wish==false) {
                     axios({
-                        url: '/api/wish', 
+                        url: process.env.VUE_APP_AXIOS_URL+'/wish', 
                         method: "POST",
                         params: params,
                         headers:{
@@ -75,7 +75,7 @@ export default {
                     });
                 }else {
                     axios({
-                        url: '/api/wish', 
+                        url: process.env.VUE_APP_AXIOS_URL+'/wish', 
                         method: "DELETE",
                         params: params,
                         headers:{

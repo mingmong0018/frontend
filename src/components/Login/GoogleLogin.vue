@@ -21,7 +21,7 @@ export default {
                         accessToken : GoogleUser.getAuthResponse().access_token,
                         state : 'google'
                     });
-                axios.post('/api/login',params).then(res=>{
+                axios.post(process.env.VUE_APP_AXIOS_URL+'/login',params).then(res=>{
                         const tmp=String(res.data).split(",");
                         console.log(tmp);
                         const accessToken=tmp[0];
