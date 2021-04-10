@@ -61,7 +61,7 @@ export default {
                     id:this.roomMemId,
                 });
                 axios({
-                    url: '/api/memberEmail', 
+                    url: process.env.VUE_APP_AXIOS_URL+'/memberEmail', 
                     method: "POST",
                     params: params,
                     headers:{
@@ -83,7 +83,7 @@ export default {
                     id:this.userId,
                 });
                 axios({
-                    url: '/api/memberConfirm', 
+                    url: process.env.VUE_APP_AXIOS_URL+'/memberConfirm', 
                     method: "POST",
                     params: params,
                     headers:{

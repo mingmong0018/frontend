@@ -35,7 +35,7 @@ export default {
       id:this.userId,
       });
       axios({
-        url: '/api/wishList', 
+        url: process.env.VUE_APP_AXIOS_URL+'/wishList', 
         method: "GET",
         params: params,
         headers:{
