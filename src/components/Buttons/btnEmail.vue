@@ -69,7 +69,6 @@ export default {
                     }
                 }).then(res=>{
                     if(res.data!=''){
-                        console.log("이메일: ", typeof res.data)
                         this.roomMemEmail=res.data;
                         console.log(res.data)
                     }else{
