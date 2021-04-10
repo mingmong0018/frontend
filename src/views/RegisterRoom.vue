@@ -237,7 +237,7 @@ export default {
             for(let i = 0; i < this.form.images.length; i++){
                 formData.append("images"+i, this.form.images[i]);
             }
-            axios.post('/api/room',formData,
+            axios.post(process.env.VUE_APP_AXIOS_URL+'/room',formData,
             {
                 headers:{
                     Authorization : "Bearer "+this.$store.state.Login.accessToken,
@@ -259,7 +259,7 @@ export default {
             id:this.$store.state.Login.userId
         });
         axios({
-            url: '/api/getMember', 
+            url: process.env.VUE_APP_AXIOS_URL+'/getMember', 
             method: "GET",
             params: params,
             headers:{
@@ -278,7 +278,7 @@ export default {
     },
     mounted() {
         axios({
-        url: '/api/options', 
+        url: process.env.VUE_APP_AXIOS_URL+'/options', 
         method: "GET"
         }).then((res) => {
             const options=res.data;

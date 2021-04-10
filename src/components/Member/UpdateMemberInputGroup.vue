@@ -187,13 +187,13 @@ export default {
             const params=new URLSearchParams({
                 id:this.$store.state.Login.userId
             });
-            // axios.post('/api/getMember',params,{
+            // axios.post(process.env.VUE_APP_AXIOS_URL+'/getMember',params,{
             // headers:{
             //     Authorization : "Bearer "+this.$store.state.Login.accessToken
             //     }
             // })
             axios({
-               url:'/api/getMember',
+               url:process.env.VUE_APP_AXIOS_URL+'/getMember',
                method:'GET',
                params:{
                  id:this.$store.state.Login.userId

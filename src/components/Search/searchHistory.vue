@@ -109,7 +109,7 @@ export default {
                     const param=new URLSearchParams({
                     id:this.$store.state.Login.userId
                 })
-                axios.post('/api/getAllSearchText',param,{
+                axios.post(process.env.VUE_APP_AXIOS_URL+'/getAllSearchText',param,{
                 headers:{
                     Authorization : "Bearer "+this.$store.state.Login.accessToken
                     }
@@ -134,7 +134,7 @@ export default {
                     id:this.$store.state.Login.userId,
                     keywordSq:keywordId
                 })
-                axios.post('/api/deleteKeyword',param,{
+                axios.post(process.env.VUE_APP_AXIOS_URL+'/deleteKeyword',param,{
                 headers:{
                     Authorization : "Bearer "+this.$store.state.Login.accessToken
                     }
@@ -156,7 +156,7 @@ export default {
                  const param=new URLSearchParams({
                  id:this.$store.state.Login.userId
                 })
-                axios.post('/api/deleteAllKeyword',param,{
+                axios.post(process.env.VUE_APP_AXIOS_URL+'/deleteAllKeyword',param,{
                 headers:{
                     Authorization : "Bearer "+this.$store.state.Login.accessToken
                     }

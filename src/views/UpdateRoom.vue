@@ -260,7 +260,7 @@ export default {
                 roomId:this.roomId,
             });
             axios({
-                url: '/api/room', 
+                url: process.env.VUE_APP_AXIOS_URL+'/room', 
                 method: "DELETE",
                 params: params,
                 headers:{
@@ -281,7 +281,7 @@ export default {
             id:this.$store.state.Login.userId
         });
         axios({
-            url: '/api/getMember', 
+            url: process.env.VUE_APP_AXIOS_URL+'/getMember', 
             method: "GET",
             params: params,
             headers:{
@@ -298,7 +298,7 @@ export default {
     },
     mounted() {
         axios({
-        url: '/api/options', 
+        url: process.env.VUE_APP_AXIOS_URL+'/options', 
         method: "GET"
         }).then((res) => {
             const options=res.data;
@@ -313,7 +313,7 @@ export default {
         const roomNumber=this.roomId;
 
         function getMyRoom() {
-            return axios.get('/api/roomDetail', {
+            return axios.get(process.env.VUE_APP_AXIOS_URL+'/roomDetail', {
                 params: {
                     roomId: roomNumber
                 }
@@ -321,7 +321,7 @@ export default {
         }
         
         function getMyOption() {
-            return axios.get('/api/roomOption', {
+            return axios.get(process.env.VUE_APP_AXIOS_URL+'/roomOption', {
                 params: {
                     roomId: roomNumber
                 }
@@ -329,7 +329,7 @@ export default {
         }
 
         function getMyTag() {
-            return axios.get('/api/roomTag', {
+            return axios.get(process.env.VUE_APP_AXIOS_URL+'/roomTag', {
                 params: {
                     roomId: roomNumber
                 }

@@ -24,7 +24,7 @@ export default {
                     id:this.$store.state.Login.userId
                 });
                 axios({
-                    url:'/api/getMember',
+                    url:process.env.VUE_APP_AXIOS_URL+'/getMember',
                     method:'GET',
                     params: params,
                     headers:{
@@ -51,7 +51,7 @@ export default {
                 id:this.$store.state.Login.userId
             });
             axios({
-                url: '/api/myRoom', 
+                url: process.env.VUE_APP_AXIOS_URL+'/myRoom', 
                 method: "GET",
                 params: params,
                 headers:{

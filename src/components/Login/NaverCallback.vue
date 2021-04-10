@@ -28,7 +28,7 @@ export default {
                         accessToken : naverLogin.accessToken.accessToken,
                         state : 'naver'
                     });
-                    axios.post('/api/login',params).then(res=>{
+                    axios.post(process.env.VUE_APP_AXIOS_URL+'/login',params).then(res=>{
                         const tmp=String(res.data).split(",");
                         console.log(tmp);
                         const accessToken=tmp[0];

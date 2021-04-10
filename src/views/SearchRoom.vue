@@ -32,10 +32,10 @@ export default {
     }
   },
   created() {
-    axios.get('/api/listRoom'
+    axios.get(process.env.VUE_APP_AXIOS_URL+'/listRoom'
     ).then((response)=>{
       this.rooms=response.data;
-      console.log(response.data);
+      console.log("axios성공:",response.data);
     });
   },
   methods: {
