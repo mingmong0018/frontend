@@ -2,14 +2,14 @@ module.exports = {
     
     devServer: {
         proxy: {
-            '/api': {
-                target: 'http://localhost:8070',
-                changeOrigin: true,
-                pathRewrite: {
-                    '^/api': ''
-                },
+            // '/api': {
+            //     target: 'http://localhost:8070',
+            //     changeOrigin: true,
+            //     pathRewrite: {
+            //         '^/api': ''
+            //     },
         
-            }
+            // }
         }
     },
     chainWebpack: config => {

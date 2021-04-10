@@ -24,7 +24,6 @@
               v-model="user.mem_email"
               type="email"
               placeholder="이메일을 입력해주세요."
-              required
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -70,6 +69,7 @@
           class="inputTitle"
           >
           <b-form-input
+            required
             id="age"
             name="age"
             type=number
