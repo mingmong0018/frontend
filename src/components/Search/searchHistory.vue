@@ -90,7 +90,7 @@ export default {
                 axios({
                     url:'https://dapi.kakao.com/v2/local/search/keyword.json?analyze_type=similar&page=1&size=5&query='+encodeURIComponent(newVal),
                 type:'GET',
-                headers: {'Authorization' : 'KakaoAK 25ebf09a04371b24fa5a3882cade45f2'}
+                headers: {'Authorization' : 'KakaoAK '+process.env.VUE_APP_KAKAO_SEARCH_APP_KEY}
                 }).then((res)=>{
                     if(res.data.documents.length>0){
                         this.words=res.data.documents

@@ -1,6 +1,6 @@
 <template>
   <KakaoLogin
-    api-key="fc890c92bd8c34b1dcd0f681caf11208"
+    :api-key=kakaoLoginKey
     image="kakao_account_login_btn_medium_narrow_ov"
     style="margin-bottom:20px;"
     :on-success=onSuccess
@@ -38,6 +38,11 @@ const onFailure = (data) => {
   console.log("failure")
 }
 export default {
+    data() {
+      return {
+        kakaoLoginKey: process.env.VUE_APP_KAKAO_LOGIN_KEY
+      }
+    },
     components:{
         KakaoLogin
     },

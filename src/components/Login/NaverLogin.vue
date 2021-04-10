@@ -6,7 +6,7 @@
 export default {
     mounted(){
         const naverLogin = new window.naver.LoginWithNaverId({
-        clientId: 'tgA9Q5himrOFPgSlTvMB',
+        clientId: process.env.VUE_APP_NAVER_CLIENT_ID,
         callbackUrl: `http://shareroom-frontend.s3-website.ap-northeast-2.amazonaws.com/callback`,
         isPopup: false ,
         loginButton: {
