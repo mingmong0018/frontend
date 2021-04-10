@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="this.roomMemId!=this.$store.state.Login.userId">
         <b-button class="btnEmail" @click="checkUser">이메일 문의</b-button>
         <b-modal id="modalEmail"
             centered
