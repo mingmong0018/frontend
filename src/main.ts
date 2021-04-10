@@ -13,7 +13,7 @@ import axios from 'axios'
 // axios.defaults.headers['Access-Control-Allow-Credentials']=true;
 
 
-Vue.use(GAuth, {clientId: '166602658975-60bi0mdf8r5h05g8mttklpqtrh5hc6g7.apps.googleusercontent.com', 
+Vue.use(GAuth, {clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID, 
 scope: 'profile email https://www.googleapis.com/auth/user.birthday.read https://www.googleapis.com/auth/user.gender.read https://www.googleapis.com/auth/plus.login',
 prompt: 'consent'
 })
