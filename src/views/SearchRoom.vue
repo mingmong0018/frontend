@@ -1,6 +1,5 @@
 <template>
   <div class="list-room-wrap">
-    
     <roomMap v-if="this.rooms.length>0" :rooms="rooms" :searchTxt="searchTxt" @changeList="newRoom"/>
     <roomList :roomList="roomList"/>
     <registerRoomBtn/>

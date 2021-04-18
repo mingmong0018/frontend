@@ -1,18 +1,23 @@
 <template>
-      
-  <div v-if="user!=null">
+  <div v-if="user!=null" style="width:100%">
       
       <b-form  @submit="onSubmit">
         <input type="hidden" name="id" :value="user.mem_id">
-        <div>
+        
           <div class="profile_background">
             <div class="profile_image">
               <img :src="imgUrl" refs="fixImage" style="width:100%;height:100%;"/>
             </div>
             <!-- <label><img src="@/static/images/profileSelect.png" /></label> -->
             <label class="profile_edit" for="input-file"><div style="width:30px;height:30px;text-align:center"><img src="@/static/images/profileSelect.png" width="20px" ></div> </label>
-              <input type="file" @change="onChangeImage" refs="changeImage" id="input-file" style="display:none">
+              <input type="file" 
+              accept="image/jpeg, image/jpg, image/png, image/gif" 
+              @change="onChangeImage" 
+              refs="changeImage" 
+              id="input-file" 
+              style="display:none">
           </div>
+          <br>
           <b-form-group
             id="input-group-1"
             label="이메일"
@@ -26,6 +31,7 @@
               placeholder="이메일을 입력해주세요."
             ></b-form-input>
           </b-form-group>
+          <br>
           <b-form-group
           id="input-group-2"
           label="간편 로그인"
@@ -40,6 +46,7 @@
             disabled
           ></b-form-input>
         </b-form-group>
+        <br>
         <b-form-group
           id="input-group-3"
           label="닉네임*"
@@ -61,7 +68,7 @@
           괜찮습니다.
           </b-form-valid-feedback>
           </b-form-group>
-
+          <br>
           <b-form-group
           id="input-group-4"
           label="나이*"
@@ -78,10 +85,10 @@
             max=100
           ></b-form-input>
         </b-form-group>
-
+        <br>
         <b-form-group
           id="input-group-5"
-          label="성별*"
+          label="성별"
           label-for="input-5"
           class="inputTitle"
           >
@@ -104,7 +111,7 @@
           
           
         </b-form-group>
-
+        <br>
         <b-form-group
           id="input-group-6"
           label="본인인증여부*"
@@ -123,9 +130,8 @@
           </template>
            
         </b-form-group>
-        <br>
         <b-button type="submit" variant="primary" id="sumitBtn">수정</b-button>
-      </div>
+      
      </b-form>
   </div>
 </template>
@@ -170,7 +176,7 @@ export default {
            formData.append('nickname',this.user.mem_nickname)
            formData.append('age',this.user.mem_age)
            
-           axios.post('api/updateMember',formData,{
+           axios.post(process.env.VUE_APP_AXIOS_URL+'/updateMember',formData,{
              headers:{
                Authorization : "Bearer "+this.$store.state.Login.accessToken,
                'Content-Type': 'multipart/form-data',
@@ -199,13 +205,12 @@ export default {
                  id:this.$store.state.Login.userId
                },
                headers:{
-                Authorization : "Bearer "+this.$store.state.Login.accessToken
+                Authorization : "Bearer "+this.$store.state.Login.accessToken,
                 }
             }).then(res=>{
             
                 if(res.data!=''){
                   console.log(res.data);
-                  // this.gender=res.data.mem_gender;
                   this.user=res.data;
                   this.imgUrl=res.data.mem_image;
                   const tmp=String(res.data.mem_id).split("_").reverse();
@@ -243,13 +248,15 @@ export default {
 
 <style scope>
 .inputTitle{
-  font-size:14px;
+  font-size:17px;
 }
 .lineSpacing{
   float:left;
   margin-right:5vw;
 }
 #sumitBtn{
+  margin-top: 30px;
+  margin-bottom: 30px;
   width:100%;
 
 }
@@ -275,7 +282,6 @@ export default {
   width:30px;
   height:30px;
   border-radius:50%;
-  overflow: hidden;
 }
 .mailSubmitBtn{
   float:right;font-size:14px;margin-bottom:10px

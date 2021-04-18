@@ -240,7 +240,7 @@ export default {
             for(let i = 0; i < this.form.images.length; i++){
                 formData.append("images"+i, this.form.images[i]);
             }
-            axios.put('api/room',formData,
+            axios.put(process.env.VUE_APP_AXIOS_URL+'/room',formData,
             {
                 headers:{
                     Authorization : "Bearer "+this.$store.state.Login.accessToken,

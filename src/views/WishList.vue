@@ -109,6 +109,10 @@ export default {
     #list-room-images, #carouselDiv, .carousel-item {
       width:100% !important;
       height:250px !important;
+    
+    }
+    #wish-button {
+      top:280px !important;
     }
   }
 </style>
