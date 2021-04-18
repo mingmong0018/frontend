@@ -101,7 +101,6 @@
                         </div>
                     </div>
                 </div>
-                <updateRoomBtn :id="this.room.mem_id" :roomNumber="this.roomNumber"/>
                 <btnEmail :roomMemId="this.room.mem_id"/>
             </div>
 

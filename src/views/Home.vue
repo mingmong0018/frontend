@@ -19,13 +19,12 @@ export default{
   components:{
     searchBox, bestTag
   },
-  data() {
-    return {
-      changed:this.$route.query.changed
-    }
-    
+  props: {
+    changed:Boolean
   },
   mounted() {
+    console.log('바뀌었나요', this.changed);
+    console.log(process.env);
     if(this.changed==true) {
       this.$router.go(this.$router.currentRoute);
     }

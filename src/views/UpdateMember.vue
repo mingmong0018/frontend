@@ -1,11 +1,9 @@
 <template>
-  <div class="wrapper">
-      <div class="wrap">
-        <div class="mainForm">
+  <div id="register-room-wrap">
+      <div id="register-room">
             <div class="title">쉐어룸계정 정보를 입력해주세요</div>
             <inputGroup />
             
-        </div>
       </div>
 
   </div>
@@ -24,8 +22,5 @@ export default {
     }
 }
 </script>
-
-<style scope src="@/static/css/outline.css">
-
-
+<style scoped src="@/static/css/registerUpdateRoom.css">
 </style>
