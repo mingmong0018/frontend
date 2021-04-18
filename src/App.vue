@@ -84,8 +84,7 @@
           id:this.$store.state.Login.userId
         });
         axios({
-          url: process.env.VUE_APP_AXIOS_URL+'/myRoom', 
-          method: "GET",
+          url:process.env.VUE_APP_AXIOS_URL+'/myRoom', 
           params: params,
           headers:{
             Authorization : "Bearer "+this.$store.state.Login.accessToken

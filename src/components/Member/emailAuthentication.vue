@@ -73,7 +73,7 @@ export default {
             const param=new URLSearchParams({
                 userEmail:this.email
             })
-            axios.post('api/email',param,{
+            axios.post(process.env.VUE_APP_AXIOS_URL+'/email',param,{
                 headers:{
                     Authorization : "Bearer "+this.$store.state.Login.accessToken,
                 }
@@ -95,7 +95,7 @@ export default {
                     const param=new URLSearchParams({
                         id:this.$store.state.Login.userId
                     })       
-                    axios.post('api/emailAuthSuccess',param,{
+                    axios.post(process.env.VUE_APP_AXIOS_URL+'/emailAuthSuccess',param,{
                         headers:{
                             Authorization : "Bearer "+this.$store.state.Login.accessToken,
                         }

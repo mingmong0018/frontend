@@ -7,6 +7,7 @@
         <div>
           <div class="profile_background">
             <div class="profile_image">
+              <!-- <img :src="imgUrl" refs="fixImage" style="width:100%;height:100%;"/> -->
               <img :src="imgUrl" refs="fixImage" style="width:100%;height:100%;"/>
             </div>
             <!-- <label><img src="@/static/images/profileSelect.png" /></label> -->
@@ -24,7 +25,6 @@
               v-model="user.mem_email"
               type="email"
               placeholder="이메일을 입력해주세요."
-              required
             ></b-form-input>
           </b-form-group>
           <b-form-group
@@ -113,10 +113,17 @@
           >
           <b-form-checkbox
             id="confirm"
+            v-if="user.mem_confirm=='y'"
             :checked="user.mem_confirm=='y'"
             disabled
             class="lineSpacing"
           >인증됨</b-form-checkbox>
+          <b-form-checkbox
+            id="confirm"
+            v-if="user.mem_confirm=='n'"
+            disabled
+            class="lineSpacing"
+          >미인증</b-form-checkbox>
 
           <template v-if="user.mem_confirm=='n'">
             <emailModal/>
@@ -170,7 +177,7 @@ export default {
            formData.append('nickname',this.user.mem_nickname)
            formData.append('age',this.user.mem_age)
            
-           axios.post('api/updateMember',formData,{
+           axios.post(process.env.VUE_APP_AXIOS_URL+'/updateMember',formData,{
              headers:{
                Authorization : "Bearer "+this.$store.state.Login.accessToken,
                'Content-Type': 'multipart/form-data',
@@ -200,7 +207,7 @@ export default {
                },
                headers:{
                 Authorization : "Bearer "+this.$store.state.Login.accessToken
-                }
+              }
             }).then(res=>{
             
                 if(res.data!=''){

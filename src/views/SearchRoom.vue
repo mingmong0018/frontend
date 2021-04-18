@@ -17,6 +17,9 @@ export default {
   props: {
     mainSearchText: {
       type: String
+    },
+    tag: {
+      type: String
     }
   },
   components:{
@@ -32,11 +35,21 @@ export default {
     }
   },
   created() {
-    axios.get(process.env.VUE_APP_AXIOS_URL+'/listRoom'
-    ).then((response)=>{
-      this.rooms=response.data;
-      console.log("axios성공:",response.data);
-    });
+    if(this.tag!=null) {
+      axios.get(process.env.VUE_APP_AXIOS_URL+'/tagListRoom',
+      {
+        params:{tag:this.tag}
+      }
+      ).then((response)=>{
+        this.rooms=response.data;
+        alert("해시태그 '"+this.tag+"' (으)로 검색한 결과입니다. 새로고침하면 전체 목록으로 변경됩니다 :)");
+      });
+    }else {
+      axios.get(process.env.VUE_APP_AXIOS_URL+'/listRoom'
+      ).then((response)=>{
+        this.rooms=response.data;
+      });
+    }
   },
   methods: {
     newRoom(roomList) {

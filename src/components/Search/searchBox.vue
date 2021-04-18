@@ -65,7 +65,7 @@ export default {
             id:this.$store.state.Login.userId,
             searchText:this.searchText
         })
-        axios.post('api/savingSearchText',param,{
+        axios.post(process.env.VUE_APP_AXIOS_URL+'/savingSearchText',param,{
             headers:{
                 Authorization : "Bearer "+this.$store.state.Login.accessToken
                 }

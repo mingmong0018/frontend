@@ -182,10 +182,15 @@ export default {
         deleteTag(i) {
             this.form.roomTag.splice(i, 1);
         },
-        addTag(e) {
-            this.form.roomTag.push(document.getElementById('room-tag').value);
-            document.getElementById('room-tag').value='';
-            console.log(this.form.roomTag);
+        addTag() {
+            const roomTags=document.getElementById('room-tag').value;
+            if(roomTags.length>0) {
+                this.form.roomTag.push(roomTags);
+                document.getElementById('room-tag').value='';
+            }else {
+                alert('태그를 입력하세요');
+                document.getElementById('room-tag').focus();
+            }
         },
         onChangeImage(e){
             this.imageName=[];
@@ -244,7 +249,6 @@ export default {
                     'Content-Type': 'multipart/form-data',
                 }
             }).then(res=>{
-                alert(res.data);
                 if(res.data=="error") {
                     alert("일시적인 문제로 방을 등록하지 못했습니다. 관리자에게 문의해주세요.");
                 }else {

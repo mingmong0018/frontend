@@ -34,14 +34,14 @@ export default {
       const params=new URLSearchParams({
       id:this.userId,
       });
-      axios({
-        url: process.env.VUE_APP_AXIOS_URL+'/wishList', 
-        method: "GET",
-        params: params,
-        headers:{
-        Authorization : "Bearer "+this.$store.state.Login.accessToken
-        }
-      }).then((res) => {
+      const config= {
+        headers: {
+          Authorization : "Bearer "+this.$store.state.Login.accessToken
+        },
+        params: params
+      };
+      axios.get(process.env.VUE_APP_AXIOS_URL+'/wishList', config
+      ).then((res) => {
         if(res.data!=null) {
           this.wishList=res.data;
         }else{
@@ -109,6 +109,9 @@ export default {
     #list-room-images, #carouselDiv, .carousel-item {
       width:100% !important;
       height:250px !important;
+    }
+    #wish-button {
+      top:280px !important;
     }
   }
 </style>

@@ -5,16 +5,19 @@
       <div class="main_title mb-3">당신의<br>룸메이트는<br>어디에?</div>
       
         <searchBox/>
+
+        <bestTag/>
       
     </div>
   </div>
 </template>
 
 <script>
+import bestTag from "@/components/Search/bestTag"
 import searchBox from "@/components/Search/searchBox"
 export default{
   components:{
-    searchBox
+    searchBox, bestTag
   },
   data() {
     return {
