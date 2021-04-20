@@ -291,7 +291,19 @@ export default {
         }).catch(( err ) => {
         console.log( err );
         throw err;
-        })
+        });
+        axios({
+          url:process.env.VUE_APP_AXIOS_URL+'/myRoom', 
+          params: params,
+          headers:{
+            Authorization : "Bearer "+this.$store.state.Login.accessToken
+          }
+        }).then((res) => {
+            if(res.data!=null||res.data!='') {
+                alert('이미 등록한 방이 있습니다.');
+                this.$router.go(-1);
+            }
+        });
     },
     mounted() {
         axios({
