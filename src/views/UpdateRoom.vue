@@ -147,7 +147,7 @@
                         삭제하기
                     </b-button>
                     <b-button 
-                        @click="onSubmit" 
+                        @click="formCheck" 
                         variant="primary" 
                     >
                         등록하기
@@ -185,10 +185,15 @@ export default {
         deleteTag(i) {
             this.form.roomTag.splice(i, 1);
         },
-        addTag(e) {
-            this.form.roomTag.push(e.target.value);
-            e.target.value='';
-            console.log(this.form.roomTag);
+        addTag() {
+            const roomTags=document.getElementById('room-tag').value;
+            if(roomTags.length>0) {
+                this.form.roomTag.push(roomTags);
+                document.getElementById('room-tag').value='';
+            }else {
+                alert('태그를 입력하세요');
+                document.getElementById('room-tag').focus();
+            }
         },
         onChangeImage(e){
             this.imageName=[];
@@ -218,6 +223,16 @@ export default {
                     }
                 }
             }).open();
+        },formCheck() {
+            if(this.form.title=='') {
+                document.getElementById('title').focus();
+            }else if(this.form.address=='') {
+                document.getElementById('address').focus();
+            }else if(this.form.report==''||this.form.report.length<10) {
+                document.getElementById('room-report').focus();
+            }else {
+                this.onSubmit();
+            }
         },
         onSubmit() {
             const formData=new FormData();
@@ -269,7 +284,7 @@ export default {
             }).then(res=>{
                 if(res.data==1) {
                     alert("방 삭제가 완료되었습니다. 메인으로 이동합니다 :-)")
-                    this.$router.push({name: 'Home', query: {changed: true}});
+                    this.$router.push({name: 'Home', params: {changed: true}});
                 }else {
                     alert("일시적인 문제로 방 삭제에 실패했습니다. 관리자에게 문의해주세요.");
                 }

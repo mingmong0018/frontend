@@ -144,7 +144,7 @@
                 </b-form-group>
 
                 <b-button 
-                    @click="onSubmit" 
+                    @click="formCheck" 
                     variant="primary" 
                     style="width: 150px; height: 50px; margin-left: calc(50% - 85px); margin-top:30px; margin-bottom:50px;"
                 >
@@ -220,6 +220,19 @@ export default {
                     }
                 }
             }).open();
+        },
+        formCheck() {
+            if(this.form.title=='') {
+                document.getElementById('title').focus();
+            }else if(this.form.address=='') {
+                document.getElementById('address').focus();
+            }else if(this.form.images.length==0) {
+                document.getElementById('room-images').focus();
+            }else if(this.form.report==''||this.form.report.length<10) {
+                document.getElementById('room-report').focus();
+            }else {
+                this.onSubmit();
+            }
         },
         onSubmit() {
             const formData=new FormData();
