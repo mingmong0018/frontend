@@ -185,10 +185,15 @@ export default {
         deleteTag(i) {
             this.form.roomTag.splice(i, 1);
         },
-        addTag(e) {
-            this.form.roomTag.push(e.target.value);
-            e.target.value='';
-            console.log(this.form.roomTag);
+        addTag() {
+            const roomTags=document.getElementById('room-tag').value;
+            if(roomTags.length>0) {
+                this.form.roomTag.push(roomTags);
+                document.getElementById('room-tag').value='';
+            }else {
+                alert('태그를 입력하세요');
+                document.getElementById('room-tag').focus();
+            }
         },
         onChangeImage(e){
             this.imageName=[];
@@ -269,7 +274,7 @@ export default {
             }).then(res=>{
                 if(res.data==1) {
                     alert("방 삭제가 완료되었습니다. 메인으로 이동합니다 :-)")
-                    this.$router.push({name: 'Home', query: {changed: true}});
+                    this.$router.push({name: 'Home', params: {changed: true}});
                 }else {
                     alert("일시적인 문제로 방 삭제에 실패했습니다. 관리자에게 문의해주세요.");
                 }
