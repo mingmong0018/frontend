@@ -299,8 +299,9 @@ export default {
             Authorization : "Bearer "+this.$store.state.Login.accessToken
           }
         }).then((res) => {
-            if(res.data!=null||res.data!='') {
+            if(res.data!='') {
                 alert('이미 등록한 방이 있습니다.');
+                console.log(typeof res.data, res.data);
                 this.$router.go(-1);
             }
         });
