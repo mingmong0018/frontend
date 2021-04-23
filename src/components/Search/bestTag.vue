@@ -25,6 +25,7 @@ export default {
         axios.get(process.env.VUE_APP_AXIOS_URL+'/bestTag')
         .then(res => {
             this.bestTags=res.data;
+            console.log(res.data)
         })
     }
 }
