@@ -1,24 +1,5 @@
-# frontend0119
+## ShareRoom
 
-## Project setup
-```
-npm install
-```
+프로젝트에 대한 설명은 Back-end Github에서 확인할 수 있습니다 :-)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Link : [ShareRoom](https://github.com/mingmong0018/backendShareRoom)   
